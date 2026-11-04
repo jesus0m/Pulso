@@ -67,7 +67,7 @@ private struct ProviderWidgetView: View {
         return window.used.formatted(.number.precision(.fractionLength(0...2)))
     }
     private var detail: String {
-        guard let window else { return "Abre Pulso para conectar" }
+        guard let window else { return "Abre Pulso para consultar" }
         if renewalPending { return "Renovación pendiente" }
         return window.displayedUsedPercent.map { "disponible · \($0)% usado" } ?? "consumidos · \(window.title)"
     }

@@ -42,13 +42,14 @@ struct UsageSnapshot: Codable, Equatable, Sendable {
 }
 
 enum UsageError: Error, Equatable, LocalizedError {
-    case unsupportedSchema, invalidCredentials, invalidAllowance, invalidResponse, http(Int)
+    case unsupportedSchema, invalidCredentials, invalidAllowance, invalidResponse, noUsageData, http(Int)
 
     var errorDescription: String? {
         switch self {
         case .unsupportedSchema: return "El proveedor devolvió datos de uso no compatibles."
         case .invalidCredentials: return "Introduce un usuario y un token válidos."
         case .invalidAllowance: return "El límite manual debe ser un número mayor que cero."
+        case .noUsageData: return "GitHub no ha devuelto datos de consumo para esta cuenta. No equivale a consumo cero. Comprueba el tipo de cuenta en Conexiones."
         case .invalidResponse: return "No se pudo verificar la respuesta del proveedor."
         case .http(401): return "La sesión ha caducado o el token no es válido."
         case .http(403): return "Acceso denegado. Comprueba el permiso Plan de lectura y los límites de GitHub."

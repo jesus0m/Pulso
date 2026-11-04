@@ -234,6 +234,56 @@ final class UsageStoreTests: XCTestCase {
         XCTAssertFalse(store.claudeConfigured)
     }
 
+    func testOrganizationAccountUsesQuotaInsteadOfPersonalBilling() async {
+        let fixture = StoreFixture()
+        fixture.defaults.set(true, forKey: "githubOrganizationPlan")
+        let store = fixture.makeStore()
+        await store.refresh()
+        XCTAssertEqual(fixture.quotaCalls, 1)
+        XCTAssertEqual(fixture.quotaToken, "original-token")
+        XCTAssertTrue(fixture.requests.isEmpty)
+        XCTAssertEqual(store.snapshot(for: .copilot)?.windows.first?.used, 42)
+    }
+
+    func testNewOrganizationModeDropsMisleadingPersonalBillingCacheOnly() {
+        let fixture = StoreFixture()
+        fixture.defaults.removeObject(forKey: "githubOrganizationPlan")
+        var personal = fixture.snapshot(used: 0)
+        personal.source = "GitHub API · uso bruto · límite desconocido"
+        fixture.initialSnapshots = [personal, fixture.snapshot(used: 27, provider: .codex)]
+        let store = fixture.makeStore()
+        XCTAssertTrue(store.organizationPlan)
+        XCTAssertNil(store.snapshot(for: .copilot))
+        XCTAssertNotNil(store.snapshot(for: .codex))
+        XCTAssertEqual(fixture.saved.last?.map(\.provider), [.codex])
+    }
+
+    func testQuotaPermissionFailureDoesNotOverwriteLastValidReading() async {
+        let fixture = StoreFixture()
+        fixture.defaults.set(true, forKey: "githubOrganizationPlan")
+        fixture.quotaError = UsageError.http(403)
+        let original = fixture.snapshot(used: 12)
+        fixture.initialSnapshots = [original]
+        let store = fixture.makeStore()
+        await store.refresh()
+        XCTAssertEqual(store.snapshot(for: .copilot), original)
+        XCTAssertNotNil(store.errors[.copilot])
+        XCTAssertTrue(fixture.saved.isEmpty)
+    }
+
+    func testSwitchToOrganizationDiscardsLatePersonalBillingResponse() async {
+        let fixture = StoreFixture()
+        let store = fixture.makeStore()
+        let old = Task { await store.refresh() }
+        await waitForRequests(1, fixture: fixture)
+        await store.saveGitHub(username: "original", allowanceText: "", legacy: false, token: "", organizationPlan: true)
+        XCTAssertEqual(store.snapshot(for: .copilot)?.windows.first?.used, 42)
+        fixture.complete(0, used: 90)
+        await old.value
+        XCTAssertEqual(store.snapshot(for: .copilot)?.windows.first?.used, 42)
+        XCTAssertTrue(fixture.makeStore().organizationPlan)
+    }
+
     private func waitForClaudeRequest(_ fixture: StoreFixture) async {
         for _ in 0..<1000 {
             if !fixture.claudeRequests.isEmpty { return }
@@ -271,9 +321,13 @@ private final class StoreFixture {
     var deleteTokenCalls = 0
     var claudeRequests: [CheckedContinuation<UsageSnapshot, Error>] = []
     var initialSnapshots: [UsageSnapshot]?
+    var quotaCalls = 0
+    var quotaToken: String?
+    var quotaError: Error?
 
     init() {
         defaults = UserDefaults(suiteName: suite)!
+        defaults.set(false, forKey: "githubOrganizationPlan")
         defaults.set("original", forKey: "githubUsername")
         defaults.set("100", forKey: "githubAllowance")
     }
@@ -295,7 +349,13 @@ private final class StoreFixture {
             reloadWidgets: {}, clearCodex: { [self] in clearCodexCalls += 1 },
             fetchClaude: { [self] in
                 try await withCheckedThrowingContinuation { claudeRequests.append($0) }
-            }, clearClaude: { [self] in clearClaudeCalls += 1 }
+            }, clearClaude: { [self] in clearClaudeCalls += 1 },
+            fetchCopilotQuota: { [self] token in
+                quotaCalls += 1
+                quotaToken = token
+                if let quotaError { throw quotaError }
+                return snapshot(used: 42)
+            }
         )
         return UsageStore(dependencies: dependencies, defaults: defaults, demo: demo)
     }

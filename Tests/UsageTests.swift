@@ -78,10 +78,15 @@ final class UsageTests: XCTestCase {
         XCTAssertThrowsError(try GitHubUsageClient.parse(Data(#"{"usageItems":[]}"#.utf8), allowance: 0, legacy: false, now: now))
     }
 
-    func testGitHubEmptyReportRetainsUnknownQuota() throws {
-        let snapshot = try GitHubUsageClient.parse(Data(#"{"usageItems":[]}"#.utf8), allowance: nil, legacy: false, now: now)
-        XCTAssertEqual(snapshot.windows[0].used, 0)
-        XCTAssertNil(snapshot.windows[0].remainingPercent)
+    func testGitHubEmptyReportDoesNotClaimZeroConsumption() {
+        XCTAssertThrowsError(try GitHubUsageClient.parse(Data(#"{"usageItems":[]}"#.utf8), allowance: nil, legacy: false, now: now)) {
+            XCTAssertEqual($0 as? UsageError, .noUsageData)
+        }
+    }
+
+    func testGitHubExplicitZeroConsumptionIsStillValid() throws {
+        let data = Data(#"{"usageItems":[{"product":"Copilot","unitType":"credits","grossQuantity":0}]}"#.utf8)
+        XCTAssertEqual(try GitHubUsageClient.parse(data, allowance: 100, legacy: false).windows.first?.used, 0)
     }
 
     func testTokenVaultRejectsEmptyTokenWithoutWritingCredentials() {

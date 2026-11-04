@@ -137,7 +137,8 @@ struct DashboardView: View {
             }
             if let window {
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text(window.displayedRemainingPercent.map(String.init) ?? "—")
+                    Text(window.displayedRemainingPercent.map(String.init)
+                         ?? (provider == .copilot ? window.used.formatted(.number.precision(.fractionLength(0...1))) : "—"))
                         .font(.system(size: compact ? 62 : 88, weight: .light, design: .rounded))
                         .monospacedDigit().tracking(-3).minimumScaleFactor(0.5).lineLimit(1)
                         .accessibilityIdentifier("quota_\(provider.rawValue)")
@@ -147,10 +148,10 @@ struct DashboardView: View {
                     Spacer(minLength: 0)
                 }
                 .accessibilityElement(children: .ignore)
-                .accessibilityLabel(window.displayedRemainingPercent.map { "\($0) por ciento disponible; \(window.displayedUsedPercent ?? 0) por ciento usado" } ?? "Cuota restante desconocida")
+                .accessibilityLabel(window.displayedRemainingPercent.map { "\($0) por ciento disponible; \(window.displayedUsedPercent ?? 0) por ciento usado" } ?? "\(window.used.formatted()) consumidos; cuota restante desconocida")
                 VStack(alignment: .leading, spacing: 10) {
                     informationRow(stacked: compact) {
-                        Text(window.remainingPercent == nil ? "CUOTA SIN DEFINIR" : "DISPONIBLE")
+                        Text(window.remainingPercent == nil ? "CONSUMIDO · CUOTA DESCONOCIDA" : "DISPONIBLE")
                             .font(.caption2.weight(.semibold)).tracking(2)
                     } trailing: {
                         Text(window.title).font(.caption).foregroundStyle(.secondary)
@@ -165,7 +166,7 @@ struct DashboardView: View {
                     }
                     informationRow(stacked: compact) {
                         Text(provider == .copilot
-                             ? "\(window.used.formatted(.number.precision(.fractionLength(0...1)))) consumidos" + (window.displayedUsedPercent.map { " · \($0)% de la cuota" } ?? "")
+                             ? (store.organizationPlan && window.limit != nil ? "≈ " : "") + "\(window.used.formatted(.number.precision(.fractionLength(0...1)))) consumidos" + (window.displayedUsedPercent.map { " · \($0)% de la cuota" } ?? "")
                              : window.displayedUsedPercent.map { "\($0)% usado" } ?? "Consumo desconocido")
                             .accessibilityIdentifier("used_\(provider.rawValue)")
                     } trailing: {
@@ -193,15 +194,16 @@ struct DashboardView: View {
                     Text(stale ? "Sin actualizar · última lectura \(snapshot!.updatedAt.formatted(date: .omitted, time: .shortened))" : "Lectura \(snapshot!.updatedAt.formatted(date: .omitted, time: .shortened))")
                         .foregroundStyle(stale ? .orange : .secondary)
                     Text(snapshot!.source).foregroundStyle(.secondary)
-                    if provider == .copilot {
+                    if provider == .copilot && !store.organizationPlan {
                         Text("Informe de facturación; puede llevar retraso.").foregroundStyle(.secondary)
                     }
                 }.font(.caption2)
             } else {
                 Text("—").font(.system(size: compact ? 62 : 88, weight: .ultraLight, design: .rounded)).foregroundStyle(accent.opacity(0.6))
-                Text("Tu cuota, a un vistazo.").font(.subheadline).foregroundStyle(.secondary)
+                Text(provider == .copilot && store.githubConfigured ? "Cuenta guardada · sin lectura de cuota" : "Tu cuota, a un vistazo.")
+                    .font(.subheadline).foregroundStyle(.secondary)
                 Button { showingConnections = true } label: {
-                    Label("Conectar \(provider.title)", systemImage: "plus")
+                    Label(provider == .copilot && store.githubConfigured ? "Revisar Copilot" : "Conectar \(provider.title)", systemImage: "plus")
                         .font(.subheadline.weight(.medium)).foregroundStyle(accent)
                         .padding(.vertical, 12)
                 }

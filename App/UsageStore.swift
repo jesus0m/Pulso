@@ -8,6 +8,7 @@ final class UsageStore {
         var username = ""
         var allowanceText = ""
         var legacy = false
+        var organizationPlan = true
     }
 
     struct Dependencies {
@@ -22,6 +23,7 @@ final class UsageStore {
         var clearCodex: (() async -> Void)? = nil
         var fetchClaude: (() async throws -> UsageSnapshot)? = nil
         var clearClaude: (() async -> Void)? = nil
+        var fetchCopilotQuota: ((String) async throws -> UsageSnapshot)? = nil
 
         static var live: Self {
             Self(loadSnapshots: SnapshotCache.load, saveSnapshots: SnapshotCache.save,
@@ -42,6 +44,7 @@ final class UsageStore {
     private(set) var username: String
     private(set) var allowanceText: String
     private(set) var legacy: Bool
+    private(set) var organizationPlan: Bool
     let codex = CodexWebSession()
     let claude = ClaudeWebSession()
     private var revision = 0
@@ -56,14 +59,21 @@ final class UsageStore {
         username = defaults.string(forKey: "githubUsername") ?? ""
         allowanceText = defaults.string(forKey: "githubAllowance") ?? ""
         legacy = defaults.bool(forKey: "githubLegacy")
+        organizationPlan = defaults.object(forKey: "githubOrganizationPlan") as? Bool ?? true
         hiddenProviders = Set((defaults.stringArray(forKey: "hiddenProviders") ?? []).compactMap(Provider.init(rawValue:)))
         self.demo = demo ?? ProcessInfo.processInfo.arguments.contains("--demo")
+        // Remove the old personal billing report when this account is organization-paid.
+        if organizationPlan, snapshots.contains(where: { $0.provider == .copilot && $0.source.hasPrefix("GitHub API") }) {
+            snapshots.removeAll { $0.provider == .copilot }
+            dependencies.saveSnapshots(snapshots)
+            dependencies.reloadWidgets()
+        }
     }
 
     var githubConfigured: Bool { !username.isEmpty && dependencies.readToken() != nil }
     var codexConfigured: Bool { defaults.bool(forKey: "codexEnabled") }
     var claudeConfigured: Bool { defaults.bool(forKey: "claudeEnabled") }
-    var githubDraft: GitHubDraft { GitHubDraft(username: username, allowanceText: allowanceText, legacy: legacy) }
+    var githubDraft: GitHubDraft { GitHubDraft(username: username, allowanceText: allowanceText, legacy: legacy, organizationPlan: organizationPlan) }
     var allowance: Double? { Self.parseAllowance(allowanceText) }
     var visibleProviders: [Provider] { Provider.allCases.filter { isProviderVisible($0) } }
 
@@ -85,13 +95,14 @@ final class UsageStore {
         return snapshots.first { $0.provider == provider }
     }
 
-    func saveGitHub(username: String, allowanceText: String, legacy: Bool, token: String) async {
+    func saveGitHub(username: String, allowanceText: String, legacy: Bool, token: String, organizationPlan: Bool? = nil) async {
         do {
+            let organizationPlan = organizationPlan ?? self.organizationPlan
             let name = username.trimmingCharacters(in: .whitespacesAndNewlines)
             let allowanceText = allowanceText.trimmingCharacters(in: .whitespacesAndNewlines)
             let token = token.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !name.isEmpty else { throw ConfigurationError.missingUsername }
-            if !allowanceText.isEmpty && Self.parseAllowance(allowanceText) == nil { throw ConfigurationError.invalidAllowance }
+            if !organizationPlan && !allowanceText.isEmpty && Self.parseAllowance(allowanceText) == nil { throw ConfigurationError.invalidAllowance }
             if !token.isEmpty { try dependencies.saveToken(token) }
             guard dependencies.readToken() != nil else { throw ConfigurationError.missingToken }
             invalidateRefresh()
@@ -99,6 +110,8 @@ final class UsageStore {
             self.username = name
             self.allowanceText = allowanceText
             self.legacy = legacy
+            self.organizationPlan = organizationPlan
+            defaults.set(organizationPlan, forKey: "githubOrganizationPlan")
             defaults.set(name, forKey: "githubUsername")
             defaults.set(allowanceText, forKey: "githubAllowance")
             defaults.set(legacy, forKey: "githubLegacy")
@@ -158,10 +171,17 @@ final class UsageStore {
         let name = username
         let allowance = allowance
         let legacy = legacy
+        let organizationPlan = organizationPlan
         let token = dependencies.readToken()
         if !name.isEmpty, let token {
             do {
-                let value = try await dependencies.fetchGitHub(name, token, allowance, legacy)
+                let value: UsageSnapshot
+                if organizationPlan {
+                    if let fetch = dependencies.fetchCopilotQuota { value = try await fetch(token) }
+                    else { value = try await CopilotQuotaClient().fetch(token: token) }
+                } else {
+                    value = try await dependencies.fetchGitHub(name, token, allowance, legacy)
+                }
                 guard !Task.isCancelled, revision == currentRevision else { return }
                 accept(value)
             } catch {
@@ -226,7 +246,8 @@ final class UsageStore {
             username = ""
             allowanceText = ""
             legacy = false
-            for key in ["githubUsername", "githubAllowance", "githubLegacy"] { defaults.removeObject(forKey: key) }
+            organizationPlan = true
+            for key in ["githubUsername", "githubAllowance", "githubLegacy", "githubOrganizationPlan"] { defaults.removeObject(forKey: key) }
             do { try dependencies.deleteToken() }
             catch { errors[provider] = error.localizedDescription }
         } else if provider == .claude {

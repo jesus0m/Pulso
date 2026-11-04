@@ -82,22 +82,33 @@ struct ConnectionsView: View {
                         .accessibilityIdentifier("githubUsername")
                     SecureField(store.githubConfigured ? "Nuevo token (opcional)" : "Token personal de GitHub", text: $token)
                         .textInputAutocapitalization(.never).autocorrectionDisabled()
-                    Toggle("Plan con peticiones premium antiguas", isOn: $githubDraft.legacy)
-                    TextField(githubDraft.legacy ? "Cuota mensual de peticiones (opcional)" : "Créditos incluidos al mes (opcional)", text: $githubDraft.allowanceText)
-                        .keyboardType(.decimalPad)
+                    Picker("Tipo de cuenta", selection: $githubDraft.organizationPlan) {
+                        Text("Empresa u organización").tag(true)
+                        Text("Personal, pagada por mí").tag(false)
+                    }
+                    .accessibilityIdentifier("githubAccountType")
+                    if githubDraft.organizationPlan {
+                        Text("La cuota se consulta en tu cuenta de Copilot, no en tu facturación personal. Tu token puede necesitar Copilot Requests → lectura y autorización de tu organización.")
+                            .font(.caption).foregroundStyle(.secondary)
+                    } else {
+                        Toggle("Plan con peticiones premium antiguas", isOn: $githubDraft.legacy)
+                        TextField(githubDraft.legacy ? "Cuota mensual de peticiones (opcional)" : "Créditos incluidos al mes (opcional)", text: $githubDraft.allowanceText)
+                            .keyboardType(.decimalPad)
+                    }
                     Button(saving ? "Consultando…" : "Guardar y consultar Copilot") {
                         saving = true
                         Task {
-                            await store.saveGitHub(username: githubDraft.username, allowanceText: githubDraft.allowanceText, legacy: githubDraft.legacy, token: token)
+                            await store.saveGitHub(username: githubDraft.username, allowanceText: githubDraft.allowanceText, legacy: githubDraft.legacy, token: token, organizationPlan: githubDraft.organizationPlan)
                             token = ""
                             saving = false
                         }
                     }.disabled(saving || disconnecting)
+                    Link("Ver mi uso en GitHub", destination: URL(string: "https://github.com/settings/copilot/features")!)
                     Link("Crear token en GitHub", destination: URL(string: "https://github.com/settings/personal-access-tokens/new")!)
                     Button("Borrar conexión de Copilot", role: .destructive) { confirmDisconnect = .copilot }
                     if let error = store.errors[.copilot] { Text(error).font(.caption).foregroundStyle(.orange) }
                 } header: { Text("GitHub Copilot") } footer: {
-                    Text("Cuenta personal: token con permiso Plan → lectura. El token se recuerda en el llavero: no necesitas pegarlo otra vez. El campo vacío sirve para reemplazarlo. La cuota incluida se introduce manualmente; si la dejas vacía, solo mostramos consumo. Las licencias de empresa requieren otra integración. Los datos de facturación pueden llegar con retraso.")
+                    Text("Empresa: consulta experimental de tu cuota, sin acceso a la facturación de la organización. GitHub puede no publicar una cuota numérica para algunos planes o bloquear el token por política. Personal: token con permiso Plan → lectura. El token se recuerda en el llavero: no necesitas pegarlo otra vez. El campo vacío sirve para reemplazarlo. La cuota incluida se introduce manualmente; si la dejas vacía, solo mostramos consumo. Las licencias de empresa requieren otra integración. Los datos de facturación pueden llegar con retraso.")
                 }
                 Section("En tu escritorio") {
                     Toggle("Mantener pantalla encendida", isOn: $store.deskMode)

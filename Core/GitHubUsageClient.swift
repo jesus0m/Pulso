@@ -36,6 +36,7 @@ struct GitHubUsageClient {
         try validateAllowance(allowance)
         guard let payload = try? JSONDecoder().decode(Report.self, from: data) else { throw UsageError.unsupportedSchema }
         var used: Double = 0
+        var matchingRows = 0
         for row in payload.usageItems {
             let product = row.product.lowercased()
             guard product == "copilot" || product == "copilot ai credits" else { continue }
@@ -44,8 +45,10 @@ struct GitHubUsageClient {
             guard validUnit, row.grossQuantity.isFinite, row.grossQuantity >= 0 else {
                 throw UsageError.unsupportedSchema
             }
+            matchingRows += 1
             used += row.grossQuantity
         }
+        guard matchingRows > 0 else { throw UsageError.noUsageData }
         guard used.isFinite else { throw UsageError.unsupportedSchema }
         let calendar = utcCalendar
         let start = calendar.date(from: calendar.dateComponents([.year, .month], from: now))!

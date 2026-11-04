@@ -91,6 +91,22 @@ final class DashboardTests: XCTestCase {
         saveScreenshot("claude-connection")
     }
 
+    func testCorporateCopilotSettingAndUsageLink() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--demo"]
+        app.launch()
+        app.buttons["settingsButton"].tap()
+        let accountType = app.buttons["githubAccountType"]
+        let usageLink = app.buttons["Ver mi uso en GitHub"]
+        for _ in 0..<8 {
+            if accountType.exists || usageLink.exists { break }
+            app.collectionViews.firstMatch.swipeUp()
+        }
+        XCTAssertTrue(accountType.exists || app.staticTexts["Tipo de cuenta"].exists)
+        XCTAssertTrue(app.staticTexts["Empresa u organización"].exists)
+        saveScreenshot("copilot-corporate-settings")
+    }
+
     func testUsedLabelsAndRememberedPanelVisibility() {
         let app = XCUIApplication()
         app.launchArguments = ["--demo"]

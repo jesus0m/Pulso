@@ -99,7 +99,7 @@ def configs(label, extra):
 
 project_configs = configs('project',base)
 all_core = [p for p in files if p.startswith('Core/') and p.endswith('.swift')]
-shared_core = [p for p in all_core if Path(p).stem not in ['GitHubUsageClient','TokenVault','CodexUsageParser','ClaudeUsageParser']]
+shared_core = [p for p in all_core if Path(p).stem not in ['GitHubUsageClient','TokenVault','CodexUsageParser','ClaudeUsageParser','CopilotQuotaClient']]
 target_ids = {name:ident('target:'+name) for name in products}
 
 def dependency(source, dest):

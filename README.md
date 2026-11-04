@@ -27,12 +27,14 @@ El acceso por código de dispositivo es técnicamente posible con una **GitHub A
 
 Esta primera versión usa un **token personal**, no OAuth. Es una decisión de entrega: un login OAuth pulido requiere registrar una aplicación propia de GitHub; no se incluyen identificadores ajenos ni secretos de cliente.
 
-- Cuenta personal de Copilot facturada a tu usuario de GitHub.
-- Token personal con permiso **Plan → Read**. El enlace de creación está en Conexiones.
-- Introduce tu usuario, token y, opcionalmente, los créditos incluidos en tu cuota mensual. Ese límite se etiqueta **manual**. Sin él solo se muestra consumo, no se inventa un porcentaje restante.
+- Selecciona **Empresa u organización** si te proporcionan la licencia, o **Personal** si pagas tu propio plan. Esta instalación usa Empresa por defecto.
+- Empresa: token personal detallado, propiedad de tu usuario, que puede necesitar **Copilot Requests → Read** y autorización por política de la organización. Personal: permiso **Plan → Read**. No se solicitan permisos de administración de facturación.
+- En modo personal, introduce tu usuario, token y, opcionalmente, los créditos incluidos en tu cuota mensual. Ese límite se etiqueta **manual**. Sin él solo se muestra consumo, no se inventa un porcentaje restante.
 - Si tu plan conserva peticiones premium, activa la opción correspondiente e introduce un límite en peticiones, no en créditos.
-- Se consulta el uso **bruto** mensual de Copilot; no es una predicción de factura ni representa límites horarios/semanales adicionales. Los informes pueden llevar retraso.
-- Las licencias facturadas a una empresa/organización requieren una integración distinta y no quedan cubiertas por el endpoint personal.
+- En modo personal se consulta el uso **bruto** mensual de Copilot; no es una predicción de factura ni representa límites horarios/semanales adicionales. Los informes pueden llevar retraso.
+- Las licencias de empresa no se consultan mediante el informe personal. Se intenta leer la cuota de la cuenta con `/copilot_internal/user`, una API privada experimental que puede cambiar o rechazar el token. Algunos planes con créditos, consumo por tokens o cuota ilimitada no publican ventanas numéricas: PULSO muestra uso no disponible, sin inventar cero ni disponibilidad completa.
+
+En modo empresa, el consumo derivado del porcentaje se marca aproximado (≈). Si falta permiso o la política bloquea la consulta, el panel muestra el error y el enlace **Ver mi uso en GitHub** permite abrir la página oficial. Un informe personal sin filas de Copilot se interpreta como ausencia de datos, nunca como consumo cero.
 
 El token se guarda en el llavero con `WhenUnlockedThisDeviceOnly`. No se comparte con widgets. Desconectar borra el token y la lectura compartida.
 
@@ -104,4 +106,4 @@ Las capturas se adjuntan a los resultados de XCTest. Las pruebas usan datos sint
 
 [Vertical](docs/screenshots/portrait.png) · [Horizontal](docs/screenshots/landscape.png) · [Claude](docs/screenshots/claude.png) · [Texto grande](docs/screenshots/large-text.png). Todas muestran datos de ejemplo.
 
-Verificado: compilación de app y extensión, 31 pruebas unitarias y 5 flujos de interfaz sin fallos tras aclarar cuotas y añadir preferencias de paneles. Revisión independiente sin problemas importantes pendientes. Los resultados locales están bajo `build/*.xcresult` y quedan fuera del control de versiones.
+Verificado: compilación de app y extensión, 50 pruebas unitarias y 6 flujos de interfaz sin fallos tras añadir la consulta de cuota de Copilot corporativo y el soporte de facturación por créditos. Revisión independiente sin problemas importantes pendientes. Los resultados locales están bajo `build/*.xcresult` y quedan fuera del control de versiones.
