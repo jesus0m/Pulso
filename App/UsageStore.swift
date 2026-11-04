@@ -73,6 +73,14 @@ final class UsageStore {
     var githubConfigured: Bool { !username.isEmpty && dependencies.readToken() != nil }
     var codexConfigured: Bool { defaults.bool(forKey: "codexEnabled") }
     var claudeConfigured: Bool { defaults.bool(forKey: "claudeEnabled") }
+
+    func isConfigured(_ provider: Provider) -> Bool {
+        switch provider {
+        case .codex: return codexConfigured
+        case .copilot: return githubConfigured
+        case .claude: return claudeConfigured
+        }
+    }
     var githubDraft: GitHubDraft { GitHubDraft(username: username, allowanceText: allowanceText, legacy: legacy, organizationPlan: organizationPlan) }
     var allowance: Double? { Self.parseAllowance(allowanceText) }
     var visibleProviders: [Provider] { Provider.allCases.filter { isProviderVisible($0) } }

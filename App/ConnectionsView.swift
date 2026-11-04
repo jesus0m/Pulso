@@ -117,6 +117,20 @@ struct ConnectionsView: View {
                         .font(.caption).foregroundStyle(.secondary)
                 }
                 Section {
+                    let report = BackgroundRefresh.report
+                    if let lastRun = report.lastRun {
+                        Text("Último intento: \(lastRun.formatted(date: .abbreviated, time: .shortened))")
+                        Text(report.outcome ?? "—").foregroundStyle(.secondary)
+                        Text("\(report.count) despertares desde la instalación")
+                            .font(.caption).foregroundStyle(.secondary)
+                    } else {
+                        Text("iOS todavía no ha despertado a PULSO").foregroundStyle(.secondary)
+                    }
+                } header: { Text("Actualización en segundo plano") } footer: {
+                    Text("Experimental: iOS decide si despierta a PULSO y con qué frecuencia, según cómo uses la app, la batería y la red. Codex y Claude necesitan su sesión web, que puede no sobrevivir en segundo plano; si fallan, aquí aparecerán con ✗ y los widgets seguirán mostrando la última lectura buena.")
+                }
+                .accessibilityIdentifier("backgroundSection")
+                Section {
                     Toggle("Mostrar datos de ejemplo", isOn: $store.demo)
                         .accessibilityIdentifier("demoToggle")
                     Text("La demostración no reemplaza las lecturas reales ni se comparte con los widgets.")

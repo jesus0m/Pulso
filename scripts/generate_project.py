@@ -53,7 +53,8 @@ common_info = {'CFBundleDevelopmentRegion':'es', 'CFBundleExecutable':'$(EXECUTA
 plist('App/Info.plist', dict(common_info, CFBundleDisplayName='Pulso', CFBundlePackageType='APPL',
     LSRequiresIPhoneOS=True, UIApplicationSceneManifest={'UIApplicationSupportsMultipleScenes':False},
     UILaunchScreen={}, UISupportedInterfaceOrientations=['UIInterfaceOrientationPortrait','UIInterfaceOrientationLandscapeLeft','UIInterfaceOrientationLandscapeRight'],
-    CFBundleURLTypes=[{'CFBundleURLName':'com.jesusom.pulso','CFBundleURLSchemes':['pulso']}]))
+    CFBundleURLTypes=[{'CFBundleURLName':'com.jesusom.pulso','CFBundleURLSchemes':['pulso']}],
+    UIBackgroundModes=['fetch'], BGTaskSchedulerPermittedIdentifiers=['com.jesusom.pulso.refresh']))
 plist('Widgets/Info.plist', dict(common_info, CFBundleDisplayName='Pulso', CFBundlePackageType='XPC!',
     NSExtension={'NSExtensionPointIdentifier':'com.apple.widgetkit-extension'}))
 for target in ['App/Pulso.entitlements','Widgets/PulsoWidgets.entitlements']:
