@@ -24,6 +24,10 @@ final class UsageStore {
         var fetchClaude: (() async throws -> UsageSnapshot)? = nil
         var clearClaude: (() async -> Void)? = nil
         var fetchCopilotQuota: ((String) async throws -> UsageSnapshot)? = nil
+        var scheduleResetAlerts: ([UsageSnapshot], Bool) -> Void = { snapshots, enabled in
+            ResetNotifier.reschedule(for: snapshots, enabled: enabled)
+        }
+        var requestNotifications: () async -> Bool = ResetNotifier.requestAuthorization
 
         static var live: Self {
             Self(loadSnapshots: SnapshotCache.load, saveSnapshots: SnapshotCache.save,
@@ -45,6 +49,15 @@ final class UsageStore {
     private(set) var allowanceText: String
     private(set) var legacy: Bool
     private(set) var organizationPlan: Bool
+    private(set) var resetAlerts: Bool
+    private(set) var notificationsDenied = false
+    var quotaDisplay: QuotaDisplay = SnapshotCache.quotaDisplay {
+        didSet {
+            guard quotaDisplay != oldValue else { return }
+            SnapshotCache.quotaDisplay = quotaDisplay
+            dependencies.reloadWidgets()
+        }
+    }
     let codex = CodexWebSession()
     let claude = ClaudeWebSession()
     private var revision = 0
@@ -60,8 +73,17 @@ final class UsageStore {
         allowanceText = defaults.string(forKey: "githubAllowance") ?? ""
         legacy = defaults.bool(forKey: "githubLegacy")
         organizationPlan = defaults.object(forKey: "githubOrganizationPlan") as? Bool ?? true
+        resetAlerts = defaults.bool(forKey: "resetAlerts")
         hiddenProviders = Set((defaults.stringArray(forKey: "hiddenProviders") ?? []).compactMap(Provider.init(rawValue:)))
         self.demo = demo ?? ProcessInfo.processInfo.arguments.contains("--demo")
+        // UI tests share one simulator: without this, a failed run leaves hidden
+        // panels or a flipped preference behind and poisons every later test.
+        if ProcessInfo.processInfo.arguments.contains("--reset-preferences") {
+            hiddenProviders = []
+            defaults.removeObject(forKey: "hiddenProviders")
+            quotaDisplay = .remaining
+            SnapshotCache.quotaDisplay = .remaining
+        }
         // Remove the old personal billing report when this account is organization-paid.
         if organizationPlan, snapshots.contains(where: { $0.provider == .copilot && $0.source.hasPrefix("GitHub API") }) {
             snapshots.removeAll { $0.provider == .copilot }
@@ -73,6 +95,26 @@ final class UsageStore {
     var githubConfigured: Bool { !username.isEmpty && dependencies.readToken() != nil }
     var codexConfigured: Bool { defaults.bool(forKey: "codexEnabled") }
     var claudeConfigured: Bool { defaults.bool(forKey: "claudeEnabled") }
+
+    /// Denied permission leaves the switch off: it must not promise an alert iOS will never show.
+    func setResetAlerts(_ enabled: Bool) async {
+        guard enabled else {
+            resetAlerts = false
+            defaults.set(false, forKey: "resetAlerts")
+            dependencies.scheduleResetAlerts(snapshots, false)
+            return
+        }
+        guard await dependencies.requestNotifications() else {
+            resetAlerts = false
+            defaults.set(false, forKey: "resetAlerts")
+            notificationsDenied = true
+            return
+        }
+        notificationsDenied = false
+        resetAlerts = true
+        defaults.set(true, forKey: "resetAlerts")
+        dependencies.scheduleResetAlerts(snapshots, true)
+    }
 
     func isConfigured(_ provider: Provider) -> Bool {
         switch provider {
@@ -238,6 +280,7 @@ final class UsageStore {
         errors[snapshot.provider] = nil
         dependencies.saveSnapshots(snapshots)
         dependencies.reloadWidgets()
+        dependencies.scheduleResetAlerts(snapshots, resetAlerts)
     }
 
     private func removeSnapshot(_ provider: Provider) {

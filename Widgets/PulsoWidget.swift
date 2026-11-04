@@ -60,16 +60,18 @@ private struct ProviderWidgetView: View {
         guard let updatedAt = entry.snapshot?.updatedAt else { return true }
         return renewalPending || entry.date.timeIntervalSince(updatedAt) > 300
     }
+    private var display: QuotaDisplay { SnapshotCache.quotaDisplay }
     private var amount: String {
         guard let window, !renewalPending else { return "—" }
-        if let percent = window.displayedRemainingPercent { return "\(percent)%" }
+        if let percent = window.displayedPercent(display) { return "\(percent)%" }
         guard window.used.isFinite, window.used >= 0 else { return "—" }
         return window.used.formatted(.number.precision(.fractionLength(0...2)))
     }
     private var detail: String {
         guard let window else { return "Abre Pulso para consultar" }
         if renewalPending { return "Renovación pendiente" }
-        return window.displayedUsedPercent.map { "disponible · \($0)% usado" } ?? "consumidos · \(window.title)"
+        guard let complement = window.complementPercent(display) else { return "consumidos · \(window.title)" }
+        return "\(display.headlineNoun) · \(complement)% \(display.complementNoun)"
     }
 
     var body: some View {

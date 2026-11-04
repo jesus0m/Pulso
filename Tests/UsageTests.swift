@@ -25,6 +25,25 @@ final class UsageTests: XCTestCase {
         XCTAssertNil(UsageWindow(id: "unknown", title: "Mes", used: 1, limit: nil, resetsAt: nil).displayedUsedPercent)
     }
 
+    func testQuotaDisplayPreferenceSwapsHeadlineAndComplementWithoutLosingEitherFigure() {
+        let window = UsageWindow(id: "s", title: "Sesión", used: 72, limit: 100, resetsAt: nil)
+        XCTAssertEqual(window.displayedPercent(.remaining), 28)
+        XCTAssertEqual(window.complementPercent(.remaining), 72)
+        XCTAssertEqual(window.displayedPercent(.used), 72)
+        XCTAssertEqual(window.complementPercent(.used), 28)
+        for display in QuotaDisplay.allCases {
+            XCTAssertEqual(window.displayedPercent(display)! + window.complementPercent(display)!, 100)
+        }
+    }
+
+    func testQuotaDisplayLeavesUnknownQuotaUnrepresented() {
+        let window = UsageWindow(id: "c", title: "Créditos", used: 3251, limit: nil, resetsAt: nil)
+        for display in QuotaDisplay.allCases {
+            XCTAssertNil(window.displayedPercent(display))
+            XCTAssertNil(window.complementPercent(display))
+        }
+    }
+
     func testCodexParsesActualIndependentWindows() throws {
         let data = Data(#"{"plan_type":"plus","rate_limit":{"allowed":true,"limit_reached":false,"primary_window":{"used_percent":27,"reset_at":1793768400,"limit_window_seconds":18000},"secondary_window":{"used_percent":100,"reset_at":1794000000,"limit_window_seconds":604800}}}"#.utf8)
         let snapshot = try CodexUsageParser.parse(data, now: now)

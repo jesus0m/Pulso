@@ -32,6 +32,24 @@ struct UsageWindow: Codable, Identifiable, Equatable, Sendable {
         guard let limit, limit.isFinite, limit > 0, used.isFinite, used >= 0 else { return nil }
         return min(100, max(0, (1 - used / limit) * 100))
     }
+
+    /// The headline figure and the complement shown beside it, so both readings
+    /// stay visible however the user prefers to read a quota.
+    func displayedPercent(_ display: QuotaDisplay) -> Int? {
+        display == .used ? displayedUsedPercent : displayedRemainingPercent
+    }
+
+    func complementPercent(_ display: QuotaDisplay) -> Int? {
+        display == .used ? displayedRemainingPercent : displayedUsedPercent
+    }
+}
+
+enum QuotaDisplay: String, CaseIterable, Sendable {
+    case remaining, used
+
+    var headline: String { self == .used ? "USADO" : "DISPONIBLE" }
+    var headlineNoun: String { self == .used ? "usado" : "disponible" }
+    var complementNoun: String { self == .used ? "disponible" : "usado" }
 }
 
 struct UsageSnapshot: Codable, Equatable, Sendable {
@@ -60,8 +78,18 @@ enum UsageError: Error, Equatable, LocalizedError {
 }
 
 enum SnapshotCache {
-    private static let suite = "group.com.jesusom.pulso"
+    static let suite = "group.com.jesusom.pulso"
     private static let key = "usageSnapshots"
+    private static let displayKey = "quotaDisplay"
+
+    /// Lives in the shared group so the widgets read the same preference as the app.
+    static var quotaDisplay: QuotaDisplay {
+        get {
+            let raw = UserDefaults(suiteName: suite)?.string(forKey: displayKey) ?? ""
+            return QuotaDisplay(rawValue: raw) ?? .remaining
+        }
+        set { UserDefaults(suiteName: suite)?.set(newValue.rawValue, forKey: displayKey) }
+    }
 
     static func load() -> [UsageSnapshot] {
         guard let data = UserDefaults(suiteName: suite)?.data(forKey: key),

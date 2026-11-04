@@ -137,7 +137,7 @@ struct DashboardView: View {
             }
             if let window {
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text(window.displayedRemainingPercent.map(String.init)
+                    Text(window.displayedPercent(store.quotaDisplay).map(String.init)
                          ?? (provider == .copilot ? window.used.formatted(.number.precision(.fractionLength(0...1))) : "—"))
                         .font(.system(size: compact ? 62 : 88, weight: .light, design: .rounded))
                         .monospacedDigit().tracking(-3).minimumScaleFactor(0.5).lineLimit(1)
@@ -148,26 +148,26 @@ struct DashboardView: View {
                     Spacer(minLength: 0)
                 }
                 .accessibilityElement(children: .ignore)
-                .accessibilityLabel(window.displayedRemainingPercent.map { "\($0) por ciento disponible; \(window.displayedUsedPercent ?? 0) por ciento usado" } ?? "\(window.used.formatted()) consumidos; cuota restante desconocida")
+                .accessibilityLabel(window.displayedPercent(store.quotaDisplay).map { "\($0) por ciento \(store.quotaDisplay.headlineNoun); \(window.complementPercent(store.quotaDisplay) ?? 0) por ciento \(store.quotaDisplay.complementNoun)" } ?? "\(window.used.formatted()) consumidos; cuota restante desconocida")
                 VStack(alignment: .leading, spacing: 10) {
                     informationRow(stacked: compact) {
-                        Text(window.remainingPercent == nil ? "CONSUMIDO · CUOTA DESCONOCIDA" : "DISPONIBLE")
+                        Text(window.remainingPercent == nil ? "CONSUMIDO · CUOTA DESCONOCIDA" : store.quotaDisplay.headline)
                             .font(.caption2.weight(.semibold)).tracking(2)
                     } trailing: {
                         Text(window.title).font(.caption).foregroundStyle(.secondary)
                     }
-                    if let remaining = window.remainingPercent {
+                    if let filled = window.displayedPercent(store.quotaDisplay) {
                         GeometryReader { proxy in
                             ZStack(alignment: .leading) {
                                 Capsule().fill(accent.opacity(0.12))
-                                Capsule().fill(accent).frame(width: max(0, proxy.size.width * remaining / 100))
+                                Capsule().fill(accent).frame(width: max(0, proxy.size.width * Double(filled) / 100))
                             }
                         }.frame(height: 4).accessibilityHidden(true)
                     }
                     informationRow(stacked: compact) {
                         Text(provider == .copilot
                              ? (store.organizationPlan && window.limit != nil ? "≈ " : "") + "\(window.used.formatted(.number.precision(.fractionLength(0...1)))) consumidos" + (window.displayedUsedPercent.map { " · \($0)% de la cuota" } ?? "")
-                             : window.displayedUsedPercent.map { "\($0)% usado" } ?? "Consumo desconocido")
+                             : window.complementPercent(store.quotaDisplay).map { "\($0)% \(store.quotaDisplay.complementNoun)" } ?? "Consumo desconocido")
                             .accessibilityIdentifier("used_\(provider.rawValue)")
                     } trailing: {
                         if let reset = window.resetsAt {

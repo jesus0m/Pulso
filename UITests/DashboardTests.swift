@@ -12,7 +12,7 @@ final class DashboardTests: XCTestCase {
 
     func testDemoPortraitLandscapeAndSettings() {
         let app = XCUIApplication()
-        app.launchArguments = ["--demo"]
+        app.launchArguments = ["--demo", "--reset-preferences"]
         XCUIDevice.shared.orientation = .portrait
         app.launch()
         XCTAssertTrue(app.staticTexts["demoBanner"].waitForExistence(timeout: 10))
@@ -51,7 +51,7 @@ final class DashboardTests: XCTestCase {
 
     func testDemoExitRestoresDisconnectedState() {
         let app = XCUIApplication()
-        app.launchArguments = ["--demo"]
+        app.launchArguments = ["--demo", "--reset-preferences"]
         app.launch()
         let exit = app.buttons["exitDemoButton"]
         for _ in 0..<5 {
@@ -69,7 +69,7 @@ final class DashboardTests: XCTestCase {
 
     func testClaudeDemoAndConnectionControls() {
         let app = XCUIApplication()
-        app.launchArguments = ["--demo"]
+        app.launchArguments = ["--demo", "--reset-preferences"]
         app.launch()
         let claude = app.staticTexts["Claude"]
         for _ in 0..<5 {
@@ -93,7 +93,7 @@ final class DashboardTests: XCTestCase {
 
     func testCorporateCopilotSettingAndUsageLink() {
         let app = XCUIApplication()
-        app.launchArguments = ["--demo"]
+        app.launchArguments = ["--demo", "--reset-preferences"]
         app.launch()
         app.buttons["settingsButton"].tap()
         let accountType = app.buttons["githubAccountType"]
@@ -109,8 +109,9 @@ final class DashboardTests: XCTestCase {
 
     func testUsedLabelsAndRememberedPanelVisibility() {
         let app = XCUIApplication()
-        app.launchArguments = ["--demo"]
+        app.launchArguments = ["--demo", "--reset-preferences"]
         app.launch()
+        setQuotaDisplay("Restante", app: app)
         XCTAssertTrue(app.staticTexts["used_codex"].waitForExistence(timeout: 5))
         XCTAssertEqual(app.staticTexts["used_codex"].label, "28% usado")
         app.buttons["settingsButton"].tap()
@@ -122,6 +123,8 @@ final class DashboardTests: XCTestCase {
         app.buttons["Listo"].tap()
         XCTAssertFalse(app.otherElements["panel_copilot"].waitForExistence(timeout: 1))
         app.terminate()
+        // Relaunch without the reset: this is what verifies the choice is remembered.
+        app.launchArguments = ["--demo"]
         app.launch()
         XCTAssertFalse(app.staticTexts["GitHub Copilot"].exists)
         saveScreenshot("remembered-panels")
@@ -137,15 +140,51 @@ final class DashboardTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["GitHub Copilot"].exists)
     }
 
+    func testQuotaDisplayPreferenceSwapsTheHeadlineFigure() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--demo", "--reset-preferences"]
+        app.launch()
+        setQuotaDisplay("Restante", app: app)
+        let headline = app.staticTexts["quota_codex"]
+        XCTAssertTrue(headline.waitForExistence(timeout: 10))
+        XCTAssertEqual(headline.label, "72")
+        XCTAssertEqual(app.staticTexts["used_codex"].label, "28% usado")
+
+        setQuotaDisplay("Usado", app: app)
+        XCTAssertEqual(headline.label, "28", "La cifra grande pasa a ser la usada")
+        XCTAssertEqual(app.staticTexts["used_codex"].label, "72% disponible")
+
+        app.terminate()
+        // Relaunch without the reset: this is what verifies the choice is remembered.
+        app.launchArguments = ["--demo"]
+        app.launch()
+        XCTAssertEqual(app.staticTexts["quota_codex"].label, "28", "La preferencia se recuerda")
+        saveScreenshot("quota-display-used")
+    }
+
     func testLargeTextLayout() {
         let app = XCUIApplication()
-        app.launchArguments = ["--demo", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launchArguments = ["--demo", "--reset-preferences", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
         app.launch()
         XCTAssertTrue(app.buttons["settingsButton"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.staticTexts["Codex"].exists)
         app.swipeUp()
         XCTAssertTrue(app.staticTexts["GitHub Copilot"].exists)
         saveScreenshot("large-text")
+    }
+
+    /// The preference lives in the shared app group, so it survives launches and
+    /// leaks between tests unless each one states what it expects.
+    private func setQuotaDisplay(_ option: String, app: XCUIApplication) {
+        app.buttons["settingsButton"].tap()
+        let picker = app.segmentedControls["quotaDisplayPicker"]
+        for _ in 0..<8 {
+            if picker.exists { break }
+            app.collectionViews.firstMatch.swipeUp()
+        }
+        XCTAssertTrue(picker.exists)
+        picker.buttons[option].tap()
+        app.buttons["Listo"].tap()
     }
 
     private func setPanel(_ provider: String, visible: Bool, app: XCUIApplication) {

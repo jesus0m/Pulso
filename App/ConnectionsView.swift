@@ -110,6 +110,28 @@ struct ConnectionsView: View {
                 } header: { Text("GitHub Copilot") } footer: {
                     Text("Empresa: consulta experimental de tu cuota, sin acceso a la facturación de la organización. GitHub puede no publicar una cuota numérica para algunos planes o bloquear el token por política. Personal: token con permiso Plan → lectura. El token se recuerda en el llavero: no necesitas pegarlo otra vez. El campo vacío sirve para reemplazarlo. La cuota incluida se introduce manualmente; si la dejas vacía, solo mostramos consumo. Las licencias de empresa requieren otra integración. Los datos de facturación pueden llegar con retraso.")
                 }
+                Section {
+                    Picker("Mostrar cuotas como", selection: $store.quotaDisplay) {
+                        Text("Restante").tag(QuotaDisplay.remaining)
+                        Text("Usado").tag(QuotaDisplay.used)
+                    }
+                    .pickerStyle(.segmented)
+                    .accessibilityIdentifier("quotaDisplayPicker")
+                    Text("Se aplica al panel y a los widgets. La otra cifra sigue visible al lado, así que «72 % disponible» y «28 % usado» son la misma lectura.")
+                        .font(.caption).foregroundStyle(.secondary)
+                } header: { Text("Pantalla") }
+                Section {
+                    Toggle("Avisarme cuando se restablezca una cuota",
+                           isOn: Binding(get: { store.resetAlerts },
+                                         set: { value in Task { await store.setResetAlerts(value) } }))
+                        .accessibilityIdentifier("resetAlertsToggle")
+                    if store.notificationsDenied {
+                        Text("iOS tiene las notificaciones desactivadas para PULSO. Actívalas en Ajustes para recibir el aviso.")
+                            .font(.caption).foregroundStyle(.orange)
+                    }
+                    Text("El aviso se programa para la hora exacta de renovación que informa el proveedor, así que llega puntual aunque no abras PULSO. Si esa hora cambia, se recoloca en la siguiente lectura.")
+                        .font(.caption).foregroundStyle(.secondary)
+                } header: { Text("Notificaciones") }
                 Section("En tu escritorio") {
                     Toggle("Mantener pantalla encendida", isOn: $store.deskMode)
                     Toggle("Tono nocturno", isOn: $store.nightMode)
