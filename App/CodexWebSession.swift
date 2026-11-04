@@ -6,6 +6,7 @@ import Observation
 final class CodexWebSession: NSObject, WKNavigationDelegate, WKUIDelegate {
     private(set) var address = "chatgpt.com"
     private(set) var loading = false
+    private(set) var accountLabel: String?
     @ObservationIgnored private var waitingForLoad: CheckedContinuation<Void, Error>?
     @ObservationIgnored private var timeoutTask: Task<Void, Never>?
     @ObservationIgnored private var generation = 0
@@ -45,7 +46,8 @@ final class CodexWebSession: NSObject, WKNavigationDelegate, WKUIDelegate {
             headers:{Authorization:'Bearer ' + session.accessToken}
           });
           if (!response.ok) return JSON.stringify({status:response.status});
-          return JSON.stringify({status:200, data:await response.json()});
+          return JSON.stringify({status:200, data:await response.json(),
+            account: typeof session.user?.email === 'string' ? session.user.email : null});
         } finally { clearTimeout(timer); }
         """
         let result = try await webView.callAsyncJavaScript(script, arguments: [:], in: nil, contentWorld: .page)
@@ -55,8 +57,11 @@ final class CodexWebSession: NSObject, WKNavigationDelegate, WKUIDelegate {
               let status = object["status"] as? Int else { throw SessionError.unsupported }
         if status == 401 || status == 403 { throw SessionError.signIn }
         guard status == 200, let payload = object["data"] else { throw SessionError.unavailable }
-        do { return try CodexUsageParser.parse(JSONSerialization.data(withJSONObject: payload)) }
-        catch { throw SessionError.unsupported }
+        do {
+            let snapshot = try CodexUsageParser.parse(JSONSerialization.data(withJSONObject: payload))
+            accountLabel = object["account"] as? String
+            return snapshot
+        } catch { throw SessionError.unsupported }
     }
 
     private func loadUsagePage() async throws {
@@ -81,6 +86,7 @@ final class CodexWebSession: NSObject, WKNavigationDelegate, WKUIDelegate {
 
     func clearSession() async {
         generation += 1
+        accountLabel = nil
         finishLoad(.failure(CancellationError()))
         webView.stopLoading()
         webView.loadHTMLString("", baseURL: nil)

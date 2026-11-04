@@ -91,6 +91,36 @@ final class DashboardTests: XCTestCase {
         saveScreenshot("claude-connection")
     }
 
+    func testUsedLabelsAndRememberedPanelVisibility() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--demo"]
+        app.launch()
+        XCTAssertTrue(app.staticTexts["used_codex"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts["used_codex"].label, "28% usado")
+        app.buttons["settingsButton"].tap()
+        let copilot = app.switches["visible_copilot"]
+        XCTAssertTrue(copilot.waitForExistence(timeout: 5))
+        for provider in ["codex", "copilot", "claude"] { setPanel(provider, visible: true, app: app) }
+        setPanel("copilot", visible: false, app: app)
+        saveScreenshot("panel-switches")
+        app.buttons["Listo"].tap()
+        XCTAssertFalse(app.otherElements["panel_copilot"].waitForExistence(timeout: 1))
+        app.terminate()
+        app.launch()
+        XCTAssertFalse(app.staticTexts["GitHub Copilot"].exists)
+        saveScreenshot("remembered-panels")
+        app.buttons["settingsButton"].tap()
+        setPanel("codex", visible: false, app: app)
+        setPanel("claude", visible: false, app: app)
+        app.buttons["Listo"].tap()
+        XCTAssertTrue(app.staticTexts["Sin paneles visibles"].exists)
+        app.buttons["Elegir paneles"].tap()
+        for provider in ["codex", "copilot", "claude"] { setPanel(provider, visible: true, app: app) }
+        app.buttons["Listo"].tap()
+        XCTAssertTrue(app.staticTexts["Codex"].exists)
+        XCTAssertTrue(app.staticTexts["GitHub Copilot"].exists)
+    }
+
     func testLargeTextLayout() {
         let app = XCUIApplication()
         app.launchArguments = ["--demo", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
@@ -100,6 +130,15 @@ final class DashboardTests: XCTestCase {
         app.swipeUp()
         XCTAssertTrue(app.staticTexts["GitHub Copilot"].exists)
         saveScreenshot("large-text")
+    }
+
+    private func setPanel(_ provider: String, visible: Bool, app: XCUIApplication) {
+        let toggle = app.switches["visible_\(provider)"]
+        let expected = visible ? "1" : "0"
+        if toggle.value as? String != expected {
+            toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap()
+        }
+        XCTAssertEqual(toggle.value as? String, expected)
     }
 
     private func saveScreenshot(_ name: String) {

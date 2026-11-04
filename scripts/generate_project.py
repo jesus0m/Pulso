@@ -8,10 +8,22 @@ from pathlib import Path
 import hashlib
 import json
 import plistlib
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT / 'Pulso.xcodeproj'
 objects = {}
+existing_teams = {}
+existing_project = PROJECT / 'project.pbxproj'
+if existing_project.exists():
+    converted = subprocess.run(['plutil', '-convert', 'json', '-o', '-', str(existing_project)], capture_output=True, text=True)
+    if converted.returncode == 0:
+        for obj in json.loads(converted.stdout).get('objects', {}).values():
+            if obj.get('isa') == 'XCBuildConfiguration':
+                settings = obj.get('buildSettings', {})
+                if settings.get('DEVELOPMENT_TEAM') and settings.get('PRODUCT_BUNDLE_IDENTIFIER'):
+                    existing_teams[settings['PRODUCT_BUNDLE_IDENTIFIER']] = settings['DEVELOPMENT_TEAM']
+
 
 def ident(label):
     return hashlib.sha256(label.encode()).hexdigest()[:24].upper()
@@ -96,6 +108,8 @@ def dependency(source, dest):
 
 for name in products:
     settings = dict(PRODUCT_NAME='$(TARGET_NAME)', PRODUCT_BUNDLE_IDENTIFIER='com.jesusom.pulso'+{'Pulso':'','PulsoWidgets':'.widgets','PulsoTests':'.tests','PulsoUITests':'.uitests'}[name], SWIFT_EMIT_LOC_STRINGS='YES')
+    if settings['PRODUCT_BUNDLE_IDENTIFIER'] in existing_teams:
+        settings['DEVELOPMENT_TEAM'] = existing_teams[settings['PRODUCT_BUNDLE_IDENTIFIER']]
     dependencies = []
     if name == 'Pulso':
         sources = [p for p in files if p.startswith('App/') and p.endswith('.swift')] + all_core
@@ -127,7 +141,7 @@ for name in products:
     product_type = {'Pulso':'application','PulsoWidgets':'app-extension','PulsoTests':'bundle.unit-test','PulsoUITests':'bundle.ui-testing'}[name]
     add('target:'+name,'PBXNativeTarget',buildConfigurationList=configs(name,settings),buildPhases=phases,buildRules=[],dependencies=dependencies,name=name,productName=name,productReference=products[name],productType='com.apple.product-type.'+product_type)
 
-add('project','PBXProject',attributes={'BuildIndependentTargetsInParallel':'YES','LastUpgradeCheck':'1600','TargetAttributes':{target_ids[n]:{'CreatedOnToolsVersion':'16.0'} for n in products}}, buildConfigurationList=project_configs,compatibilityVersion='Xcode 14.0',developmentRegion='es',hasScannedForEncodings='0',knownRegions=['es','en','Base'],mainGroup=main_group,productRefGroup=products_group,projectDirPath='',projectRoot='',targets=list(target_ids.values()))
+add('project','PBXProject',attributes={'BuildIndependentTargetsInParallel':'YES','LastUpgradeCheck':'1600','TargetAttributes':{target_ids[n]:dict(CreatedOnToolsVersion='16.0', **({'SystemCapabilities':{'com.apple.ApplicationGroups.iOS':{'enabled':'1'}}} if n in ['Pulso','PulsoWidgets'] else {})) for n in products}}, buildConfigurationList=project_configs,compatibilityVersion='Xcode 14.0',developmentRegion='es',hasScannedForEncodings='0',knownRegions=['es','en','Base'],mainGroup=main_group,productRefGroup=products_group,projectDirPath='',projectRoot='',targets=list(target_ids.values()))
 PROJECT.mkdir(exist_ok=True)
 (PROJECT/'project.pbxproj').write_text('// !$*UTF8*$!\n'+render({'archiveVersion':'1','classes':{},'objectVersion':'56','objects':objects,'rootObject':ident('project')})+'\n')
 

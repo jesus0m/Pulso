@@ -19,6 +19,15 @@ struct UsageWindow: Codable, Identifiable, Equatable, Sendable {
     var limit: Double?
     var resetsAt: Date?
 
+    var usedPercent: Double? {
+        guard let limit, limit.isFinite, limit > 0, used.isFinite, used >= 0 else { return nil }
+        return min(100, max(0, used / limit * 100))
+    }
+
+    /// Keep the two displayed integers complementary, avoiding 44% + 55% from floating point error.
+    var displayedUsedPercent: Int? { usedPercent.map { Int($0.rounded()) } }
+    var displayedRemainingPercent: Int? { displayedUsedPercent.map { 100 - $0 } }
+
     var remainingPercent: Double? {
         guard let limit, limit.isFinite, limit > 0, used.isFinite, used >= 0 else { return nil }
         return min(100, max(0, (1 - used / limit) * 100))

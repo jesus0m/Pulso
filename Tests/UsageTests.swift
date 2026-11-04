@@ -10,6 +10,21 @@ final class UsageTests: XCTestCase {
         XCTAssertNil(UsageWindow(id: "a", title: "A", used: 0, limit: 0, resetsAt: nil).remainingPercent)
     }
 
+    func testUsedAndAvailablePercentagesMatchIDEInterpretation() {
+        let session = UsageWindow(id: "session", title: "Sesión", used: 55, limit: 100, resetsAt: nil)
+        XCTAssertEqual(session.displayedUsedPercent, 55)
+        XCTAssertEqual(session.displayedRemainingPercent, 45)
+        let later = UsageWindow(id: "session", title: "Sesión", used: 57, limit: 100, resetsAt: nil)
+        XCTAssertEqual(later.displayedUsedPercent, 57)
+        XCTAssertEqual(later.displayedRemainingPercent, 43)
+        let weekly = UsageWindow(id: "week", title: "Semana", used: 47, limit: 100, resetsAt: nil)
+        XCTAssertEqual(weekly.displayedUsedPercent, 47)
+        XCTAssertEqual(weekly.displayedRemainingPercent, 53)
+        let fractional = UsageWindow(id: "month", title: "Mes", used: 18.4, limit: 100, resetsAt: nil)
+        XCTAssertEqual(fractional.displayedUsedPercent! + fractional.displayedRemainingPercent!, 100)
+        XCTAssertNil(UsageWindow(id: "unknown", title: "Mes", used: 1, limit: nil, resetsAt: nil).displayedUsedPercent)
+    }
+
     func testCodexParsesActualIndependentWindows() throws {
         let data = Data(#"{"plan_type":"plus","rate_limit":{"allowed":true,"limit_reached":false,"primary_window":{"used_percent":27,"reset_at":1793768400,"limit_window_seconds":18000},"secondary_window":{"used_percent":100,"reset_at":1794000000,"limit_window_seconds":604800}}}"#.utf8)
         let snapshot = try CodexUsageParser.parse(data, now: now)

@@ -62,14 +62,14 @@ private struct ProviderWidgetView: View {
     }
     private var amount: String {
         guard let window, !renewalPending else { return "—" }
-        if let percent = window.remainingPercent { return "\(Int(percent.rounded(.down)))%" }
+        if let percent = window.displayedRemainingPercent { return "\(percent)%" }
         guard window.used.isFinite, window.used >= 0 else { return "—" }
         return window.used.formatted(.number.precision(.fractionLength(0...2)))
     }
     private var detail: String {
         guard let window else { return "Abre Pulso para conectar" }
         if renewalPending { return "Renovación pendiente" }
-        return window.remainingPercent == nil ? "consumidos · \(window.title)" : "disponible · \(window.title)"
+        return window.displayedUsedPercent.map { "disponible · \($0)% usado" } ?? "consumidos · \(window.title)"
     }
 
     var body: some View {

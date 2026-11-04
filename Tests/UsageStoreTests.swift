@@ -3,6 +3,105 @@ import XCTest
 
 @MainActor
 final class UsageStoreTests: XCTestCase {
+    func testProviderVisibilityRestoresAndIgnoresUnknownProviders() {
+        let fixture = StoreFixture()
+        fixture.defaults.set(["copilot", "unknown-provider"], forKey: "hiddenProviders")
+        let store = fixture.makeStore()
+        XCTAssertEqual(store.hiddenProviders, [.copilot])
+        XCTAssertEqual(store.visibleProviders, [.codex, .claude])
+        XCTAssertFalse(store.isProviderVisible(.copilot))
+
+        store.setProviderVisible(.claude, false)
+        let restored = fixture.makeStore()
+        XCTAssertEqual(restored.hiddenProviders, [.copilot, .claude])
+        XCTAssertEqual(restored.visibleProviders, [.codex])
+
+        restored.setProviderVisible(.copilot, true)
+        XCTAssertEqual(fixture.makeStore().visibleProviders, [.codex, .copilot])
+    }
+
+    func testAllProvidersCanBeHiddenAndRestoredInStableOrder() {
+        let fixture = StoreFixture()
+        let store = fixture.makeStore()
+        XCTAssertEqual(store.visibleProviders, [.codex, .copilot, .claude])
+        for provider in Provider.allCases { store.setProviderVisible(provider, false) }
+        let restored = fixture.makeStore()
+        XCTAssertTrue(restored.visibleProviders.isEmpty)
+        restored.setProviderVisible(.claude, true)
+        restored.setProviderVisible(.codex, true)
+        restored.setProviderVisible(.copilot, true)
+        XCTAssertEqual(fixture.makeStore().visibleProviders, [.codex, .copilot, .claude])
+    }
+
+    func testHidingProvidersPreservesConnectionsCredentialsAndSnapshots() {
+        let fixture = StoreFixture()
+        fixture.defaults.set(true, forKey: "codexEnabled")
+        fixture.defaults.set(true, forKey: "claudeEnabled")
+        fixture.initialSnapshots = [fixture.snapshot(used: 12), fixture.snapshot(used: 25, provider: .codex),
+                                    fixture.snapshot(used: 37, provider: .claude)]
+        let store = fixture.makeStore()
+        let original = store.snapshots
+
+        for provider in Provider.allCases { store.setProviderVisible(provider, false) }
+
+        XCTAssertTrue(store.githubConfigured)
+        XCTAssertTrue(store.codexConfigured)
+        XCTAssertTrue(store.claudeConfigured)
+        XCTAssertEqual(fixture.token, "original-token")
+        XCTAssertEqual(store.snapshots, original)
+        XCTAssertTrue(fixture.saved.isEmpty)
+        XCTAssertEqual(fixture.clearCodexCalls, 0)
+        XCTAssertEqual(fixture.clearClaudeCalls, 0)
+        XCTAssertEqual(fixture.deleteTokenCalls, 0)
+    }
+
+    func testHiddenProviderContinuesRefreshing() async {
+        let fixture = StoreFixture()
+        let store = fixture.makeStore()
+        store.setProviderVisible(.copilot, false)
+        let refresh = Task { await store.refresh() }
+        await waitForRequests(1, fixture: fixture)
+        fixture.complete(0, used: 42)
+        await refresh.value
+        XCTAssertEqual(store.snapshot(for: .copilot)?.windows.first?.used, 42)
+        XCTAssertFalse(store.isProviderVisible(.copilot))
+    }
+
+    func testGitHubConfigurationAndCredentialRestoreInAnotherStore() async {
+        let fixture = StoreFixture()
+        let store = fixture.makeStore()
+        let save = Task {
+            await store.saveGitHub(username: "saved-account", allowanceText: "250", legacy: true, token: "saved-token")
+        }
+        await waitForRequests(1, fixture: fixture)
+        fixture.complete(0, used: 15)
+        await save.value
+
+        let restored = fixture.makeStore()
+        XCTAssertEqual(restored.username, "saved-account")
+        XCTAssertEqual(restored.allowanceText, "250")
+        XCTAssertEqual(restored.allowance, 250)
+        XCTAssertTrue(restored.legacy)
+        XCTAssertTrue(restored.githubConfigured)
+        XCTAssertEqual(fixture.token, "saved-token")
+    }
+
+    func testBlankReplacementTokenRetainsSavedCredentialWithoutWritingAgain() async {
+        let fixture = StoreFixture()
+        let store = fixture.makeStore()
+        let save = Task {
+            await store.saveGitHub(username: "original", allowanceText: "200", legacy: true, token: "  \n")
+        }
+        await waitForRequests(1, fixture: fixture)
+        XCTAssertEqual(fixture.requests[0].token, "original-token")
+        fixture.complete(0, used: 15)
+        await save.value
+
+        XCTAssertEqual(fixture.token, "original-token")
+        XCTAssertEqual(fixture.saveTokenCalls, 0)
+        XCTAssertTrue(fixture.makeStore().githubConfigured)
+    }
+
     func testUnsavedDraftDoesNotChangeConfiguredAccountOrUnits() async {
         let fixture = StoreFixture()
         let store = fixture.makeStore()
@@ -168,6 +267,8 @@ private final class StoreFixture {
     var saved: [[UsageSnapshot]] = []
     var clearCodexCalls = 0
     var clearClaudeCalls = 0
+    var saveTokenCalls = 0
+    var deleteTokenCalls = 0
     var claudeRequests: [CheckedContinuation<UsageSnapshot, Error>] = []
     var initialSnapshots: [UsageSnapshot]?
 
@@ -184,8 +285,8 @@ private final class StoreFixture {
             loadSnapshots: { [self] in initialSnapshots ?? [snapshot(used: 12)] },
             saveSnapshots: { [self] in saved.append($0) },
             readToken: { [self] in token },
-            saveToken: { [self] in token = $0 },
-            deleteToken: { [self] in token = nil },
+            saveToken: { [self] in saveTokenCalls += 1; token = $0 },
+            deleteToken: { [self] in deleteTokenCalls += 1; token = nil },
             fetchGitHub: { [self] username, token, allowance, legacy in
                 try await withCheckedThrowingContinuation { continuation in
                     requests.append(Request(username: username, token: token, allowance: allowance, legacy: legacy, continuation: continuation))

@@ -19,8 +19,24 @@ struct ConnectionsView: View {
                     Text("Las credenciales permanecen en el dispositivo. PULSO no necesita un servidor ni un Mac.")
                         .font(.subheadline).foregroundStyle(.secondary)
                 }
+                Section("Paneles visibles") {
+                    ForEach(Provider.allCases) { provider in
+                        Toggle(provider.title, isOn: Binding(
+                            get: { store.isProviderVisible(provider) },
+                            set: { store.setProviderVisible(provider, $0) }
+                        ))
+                        .accessibilityIdentifier("visible_\(provider.rawValue)")
+                    }
+                    Text("La selección se recuerda en este iPhone. Ocultar un panel conserva su cuenta y su última lectura; sus widgets siguen disponibles.")
+                        .font(.caption).foregroundStyle(.secondary)
+                }
                 Section {
                     LabeledContent("Conexión", value: store.codexConfigured ? "Sesión web" : "Sin conectar")
+                    if let account = store.codex.accountLabel {
+                        LabeledContent("Cuenta de ChatGPT", value: account)
+                    }
+                    Text("La cifra grande es lo disponible; el porcentaje usado se muestra debajo, como en los IDEs. Compara la misma cuenta y hora de lectura.")
+                        .font(.caption).foregroundStyle(.secondary)
                     Button("Abrir sesión de ChatGPT") {
                         store.codex.openLogin()
                         showingCodex = true
@@ -56,6 +72,11 @@ struct ConnectionsView: View {
                     Text("Consulta los límites de tu plan de Claude y Claude Code desde la web oficial. La sesión se guarda por separado de Codex. El acceso puede fallar si cambia Claude o se bloquea el navegador integrado.")
                 }
                 Section {
+                    if store.githubConfigured {
+                        LabeledContent("Cuenta guardada", value: "@\(store.username)")
+                        Label("Credencial guardada en el llavero del iPhone", systemImage: "checkmark.shield")
+                            .font(.caption).foregroundStyle(.secondary)
+                    }
                     TextField("Usuario de GitHub", text: $githubDraft.username)
                         .textInputAutocapitalization(.never).autocorrectionDisabled()
                         .accessibilityIdentifier("githubUsername")
@@ -76,7 +97,7 @@ struct ConnectionsView: View {
                     Button("Borrar conexión de Copilot", role: .destructive) { confirmDisconnect = .copilot }
                     if let error = store.errors[.copilot] { Text(error).font(.caption).foregroundStyle(.orange) }
                 } header: { Text("GitHub Copilot") } footer: {
-                    Text("Cuenta personal: token con permiso Plan → lectura. El token se guarda en el llavero. La cuota incluida se introduce manualmente; si la dejas vacía, solo mostramos consumo. Las licencias de empresa requieren otra integración. Los datos de facturación pueden llegar con retraso.")
+                    Text("Cuenta personal: token con permiso Plan → lectura. El token se recuerda en el llavero: no necesitas pegarlo otra vez. El campo vacío sirve para reemplazarlo. La cuota incluida se introduce manualmente; si la dejas vacía, solo mostramos consumo. Las licencias de empresa requieren otra integración. Los datos de facturación pueden llegar con retraso.")
                 }
                 Section("En tu escritorio") {
                     Toggle("Mantener pantalla encendida", isOn: $store.deskMode)

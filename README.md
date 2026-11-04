@@ -11,6 +11,18 @@ Tus agentes, de un vistazo. App nativa SwiftUI para iPhone: Codex, GitHub Copilo
 
 Sin paquetes de terceros, backend, Mac puente o claves de API de OpenAI.
 
+## Lecturas y paneles visibles
+
+La cifra principal indica **disponible**, mientras que los IDEs suelen destacar **usado**. Ejemplos: 55% usado = 45% disponible; 57% usado = 43% disponible. Las cifras enteras se redondean juntas para evitar perder un punto por precisión de coma flotante. Copilot conserva además su cantidad consumida, incluso si supera el límite manual.
+
+Compara la misma cuenta y momento de lectura; Conexiones muestra la cuenta web de ChatGPT tras una consulta compatible. Ese identificador queda en memoria de la app, fuera del caché compartido con widgets.
+
+En **Conexiones → Paneles visibles** puedes ocultar proveedores. La elección se recuerda al cerrar/reabrir PULSO; las cuentas y lecturas se conservan y los widgets siguen disponibles. Si ocultas todos, **Elegir paneles** permite recuperarlos.
+
+GitHub muestra la cuenta y la credencial guardada. El campo de token vacío es para sustituirla, no significa que se haya olvidado. Puedes guardar otros ajustes sin volver a pegar el token.
+
+El acceso por código de dispositivo es técnicamente posible con una **GitHub App propia** y permiso de usuario Plan:read, pero necesita registrar y habilitar esa app con su Client ID. Esta versión conserva el PAT y no incluye un flujo de emparejamiento sin configurar. Documentación: https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app
+
 ## Conectar Copilot
 
 Esta primera versión usa un **token personal**, no OAuth. Es una decisión de entrega: un login OAuth pulido requiere registrar una aplicación propia de GitHub; no se incluyen identificadores ajenos ni secretos de cliente.
@@ -92,4 +104,4 @@ Las capturas se adjuntan a los resultados de XCTest. Las pruebas usan datos sint
 
 [Vertical](docs/screenshots/portrait.png) · [Horizontal](docs/screenshots/landscape.png) · [Claude](docs/screenshots/claude.png) · [Texto grande](docs/screenshots/large-text.png). Todas muestran datos de ejemplo.
 
-Verificado: compilación de app y extensión, 24 pruebas unitarias y 4 flujos de interfaz sin fallos tras añadir Claude. Revisión independiente sin problemas importantes pendientes. Los resultados locales están bajo `build/*.xcresult` y quedan fuera del control de versiones.
+Verificado: compilación de app y extensión, 31 pruebas unitarias y 5 flujos de interfaz sin fallos tras aclarar cuotas y añadir preferencias de paneles. Revisión independiente sin problemas importantes pendientes. Los resultados locales están bajo `build/*.xcresult` y quedan fuera del control de versiones.

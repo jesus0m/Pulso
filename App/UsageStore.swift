@@ -35,6 +35,7 @@ final class UsageStore {
     private(set) var snapshots: [UsageSnapshot]
     private(set) var errors: [Provider: String] = [:]
     private(set) var refreshing = false
+    private(set) var hiddenProviders: Set<Provider>
     var demo: Bool
     var deskMode = false
     var nightMode = false
@@ -55,6 +56,7 @@ final class UsageStore {
         username = defaults.string(forKey: "githubUsername") ?? ""
         allowanceText = defaults.string(forKey: "githubAllowance") ?? ""
         legacy = defaults.bool(forKey: "githubLegacy")
+        hiddenProviders = Set((defaults.stringArray(forKey: "hiddenProviders") ?? []).compactMap(Provider.init(rawValue:)))
         self.demo = demo ?? ProcessInfo.processInfo.arguments.contains("--demo")
     }
 
@@ -63,6 +65,15 @@ final class UsageStore {
     var claudeConfigured: Bool { defaults.bool(forKey: "claudeEnabled") }
     var githubDraft: GitHubDraft { GitHubDraft(username: username, allowanceText: allowanceText, legacy: legacy) }
     var allowance: Double? { Self.parseAllowance(allowanceText) }
+    var visibleProviders: [Provider] { Provider.allCases.filter { isProviderVisible($0) } }
+
+    func isProviderVisible(_ provider: Provider) -> Bool { !hiddenProviders.contains(provider) }
+
+    func setProviderVisible(_ provider: Provider, _ visible: Bool) {
+        if visible { hiddenProviders.remove(provider) }
+        else { hiddenProviders.insert(provider) }
+        defaults.set(Provider.allCases.filter { hiddenProviders.contains($0) }.map(\.rawValue), forKey: "hiddenProviders")
+    }
 
     private static func parseAllowance(_ text: String) -> Double? {
         guard let value = Double(text.replacingOccurrences(of: ",", with: ".")), value.isFinite, value > 0 else { return nil }

@@ -345,6 +345,7 @@
 				"PRODUCT_NAME" = "$(TARGET_NAME)";
 				"PRODUCT_BUNDLE_IDENTIFIER" = "com.jesusom.pulso";
 				"SWIFT_EMIT_LOC_STRINGS" = "YES";
+				"DEVELOPMENT_TEAM" = "672B2962EM";
 				"INFOPLIST_FILE" = "App/Info.plist";
 				"CODE_SIGN_ENTITLEMENTS" = "App/Pulso.entitlements";
 				"ASSETCATALOG_COMPILER_APPICON_NAME" = "AppIcon";
@@ -361,6 +362,7 @@
 				"PRODUCT_NAME" = "$(TARGET_NAME)";
 				"PRODUCT_BUNDLE_IDENTIFIER" = "com.jesusom.pulso";
 				"SWIFT_EMIT_LOC_STRINGS" = "YES";
+				"DEVELOPMENT_TEAM" = "672B2962EM";
 				"INFOPLIST_FILE" = "App/Info.plist";
 				"CODE_SIGN_ENTITLEMENTS" = "App/Pulso.entitlements";
 				"ASSETCATALOG_COMPILER_APPICON_NAME" = "AppIcon";
@@ -419,6 +421,7 @@
 				"PRODUCT_NAME" = "$(TARGET_NAME)";
 				"PRODUCT_BUNDLE_IDENTIFIER" = "com.jesusom.pulso.widgets";
 				"SWIFT_EMIT_LOC_STRINGS" = "YES";
+				"DEVELOPMENT_TEAM" = "672B2962EM";
 				"INFOPLIST_FILE" = "Widgets/Info.plist";
 				"CODE_SIGN_ENTITLEMENTS" = "Widgets/PulsoWidgets.entitlements";
 				"APPLICATION_EXTENSION_API_ONLY" = "YES";
@@ -436,6 +439,7 @@
 				"PRODUCT_NAME" = "$(TARGET_NAME)";
 				"PRODUCT_BUNDLE_IDENTIFIER" = "com.jesusom.pulso.widgets";
 				"SWIFT_EMIT_LOC_STRINGS" = "YES";
+				"DEVELOPMENT_TEAM" = "672B2962EM";
 				"INFOPLIST_FILE" = "Widgets/Info.plist";
 				"CODE_SIGN_ENTITLEMENTS" = "Widgets/PulsoWidgets.entitlements";
 				"APPLICATION_EXTENSION_API_ONLY" = "YES";
@@ -641,9 +645,19 @@
 				"TargetAttributes" = {
 					"42E26881C24981F62E0404C4" = {
 						"CreatedOnToolsVersion" = "16.0";
+						"SystemCapabilities" = {
+							"com.apple.ApplicationGroups.iOS" = {
+								"enabled" = "1";
+							};
+						};
 					};
 					"CBB00D6AC341A7D5D9DE9D28" = {
 						"CreatedOnToolsVersion" = "16.0";
+						"SystemCapabilities" = {
+							"com.apple.ApplicationGroups.iOS" = {
+								"enabled" = "1";
+							};
+						};
 					};
 					"FE5E05070239AFDE3E0978AC" = {
 						"CreatedOnToolsVersion" = "16.0";

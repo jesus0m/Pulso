@@ -36,20 +36,28 @@ struct DashboardView: View {
                                     .font(.caption.weight(.semibold)).foregroundStyle(.yellow)
                                     .accessibilityIdentifier("demoBanner")
                             }
-                            if landscape {
+                            if store.visibleProviders.isEmpty {
+                                ContentUnavailableView {
+                                    Label("Sin paneles visibles", systemImage: "rectangle.slash")
+                                } description: {
+                                    Text("Tus cuentas siguen conectadas. Elige qué paneles quieres mostrar.")
+                                } actions: {
+                                    Button("Elegir paneles") { showingConnections = true }
+                                }
+                            } else if landscape {
                                 HStack(alignment: .top, spacing: 24) {
-                                    providerPanel(.codex, now: context.date, compact: true)
-                                    Rectangle().fill(.white.opacity(0.12)).frame(width: 1)
-                                    providerPanel(.copilot, now: context.date, compact: true)
-                                    Rectangle().fill(.white.opacity(0.12)).frame(width: 1)
-                                    providerPanel(.claude, now: context.date, compact: true)
+                                    ForEach(store.visibleProviders) { provider in
+                                        providerPanel(provider, now: context.date, compact: true)
+                                    }
                                 }
                             } else {
-                                providerPanel(.codex, now: context.date, compact: false)
-                                Rectangle().fill(.white.opacity(0.12)).frame(height: 1)
-                                providerPanel(.copilot, now: context.date, compact: false)
-                                Rectangle().fill(.white.opacity(0.12)).frame(height: 1)
-                                providerPanel(.claude, now: context.date, compact: false)
+                                VStack(spacing: 32) {
+                                    ForEach(store.visibleProviders) { provider in
+                                        providerPanel(provider, now: context.date, compact: false)
+                                            .padding(.bottom, 24)
+                                            .overlay(alignment: .bottom) { Rectangle().fill(.white.opacity(0.12)).frame(height: 1) }
+                                    }
+                                }
                             }
                             if !store.deskMode {
                                 footer
@@ -89,7 +97,13 @@ struct DashboardView: View {
                 Text("PULSO").font(.system(.headline, design: .rounded).weight(.bold)).tracking(3)
             }
             Spacer()
-            if store.refreshing { ProgressView().controlSize(.small).accessibilityLabel("Consultando cuotas") }
+            Button { Task { await store.refresh() } } label: {
+                if store.refreshing { ProgressView().controlSize(.small) }
+                else { Image(systemName: "arrow.clockwise") }
+            }
+            .frame(width: 44, height: 44)
+            .disabled(store.refreshing || store.demo)
+            .accessibilityLabel("Actualizar cuotas")
             Button {
                 store.deskMode.toggle()
             } label: {
@@ -123,7 +137,7 @@ struct DashboardView: View {
             }
             if let window {
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
-                    Text(window.remainingPercent.map { String(Int($0.rounded(.down))) } ?? "—")
+                    Text(window.displayedRemainingPercent.map(String.init) ?? "—")
                         .font(.system(size: compact ? 62 : 88, weight: .light, design: .rounded))
                         .monospacedDigit().tracking(-3).minimumScaleFactor(0.5).lineLimit(1)
                         .accessibilityIdentifier("quota_\(provider.rawValue)")
@@ -133,7 +147,7 @@ struct DashboardView: View {
                     Spacer(minLength: 0)
                 }
                 .accessibilityElement(children: .ignore)
-                .accessibilityLabel(window.remainingPercent.map { "\(Int($0)) por ciento restante" } ?? "Cuota restante desconocida")
+                .accessibilityLabel(window.displayedRemainingPercent.map { "\($0) por ciento disponible; \(window.displayedUsedPercent ?? 0) por ciento usado" } ?? "Cuota restante desconocida")
                 VStack(alignment: .leading, spacing: 10) {
                     informationRow(stacked: compact) {
                         Text(window.remainingPercent == nil ? "CUOTA SIN DEFINIR" : "DISPONIBLE")
@@ -150,7 +164,10 @@ struct DashboardView: View {
                         }.frame(height: 4).accessibilityHidden(true)
                     }
                     informationRow(stacked: compact) {
-                        Text(provider != .copilot ? "\(window.used.formatted(.number.precision(.fractionLength(0...1))))% usado" : "\(window.used.formatted(.number.precision(.fractionLength(0...1)))) consumidos")
+                        Text(provider == .copilot
+                             ? "\(window.used.formatted(.number.precision(.fractionLength(0...1)))) consumidos" + (window.displayedUsedPercent.map { " · \($0)% de la cuota" } ?? "")
+                             : window.displayedUsedPercent.map { "\($0)% usado" } ?? "Consumo desconocido")
+                            .accessibilityIdentifier("used_\(provider.rawValue)")
                     } trailing: {
                         if let reset = window.resetsAt {
                             Text(reset > now ? "Renueva \(reset.formatted(.relative(presentation: .numeric)))" : "Renovación pendiente")
@@ -163,7 +180,7 @@ struct DashboardView: View {
                         informationRow(stacked: compact) {
                             Text(extra.title)
                         } trailing: {
-                            Text(extra.remainingPercent.map { "\(Int($0.rounded(.down)))% disponible" } ?? "Sin cuota")
+                            Text(extra.displayedRemainingPercent.map { "\($0)% disponible · \(extra.displayedUsedPercent ?? 0)% usado" } ?? "Sin cuota")
                                 .foregroundStyle(accent)
                         }.font(.subheadline)
                         if let reset = extra.resetsAt {
