@@ -1,26 +1,49 @@
-// Optional icon renderer: swift scripts/generate_project.swift
-// Run from the Pulso project root; uses only macOS system frameworks.
-import AppKit
+// Recreate the app icon: swift scripts/generate_project.swift
+// Uses an explicit Core Graphics bitmap so drawing is committed before PNG export.
+import Foundation
+import CoreGraphics
+import ImageIO
+import UniformTypeIdentifiers
 
-let size = CGSize(width: 1024, height: 1024)
-let bitmap = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: 1024, pixelsHigh: 1024,
-    bitsPerSample: 8, samplesPerPixel: 3, hasAlpha: false, isPlanar: false,
-    colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0)!
-NSGraphicsContext.saveGraphicsState()
-NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bitmap)
-NSColor(calibratedRed: 0.035, green: 0.045, blue: 0.05, alpha: 1).setFill()
-NSBezierPath(rect: CGRect(origin: .zero, size: size)).fill()
-let glow = NSGradient(starting: NSColor(calibratedRed: 0.12, green: 0.23, blue: 0.19, alpha: 1), ending: NSColor(calibratedRed: 0.035, green: 0.045, blue: 0.05, alpha: 1))!
-glow.draw(in: NSBezierPath(ovalIn: CGRect(x: 40, y: 60, width: 944, height: 904)), relativeCenterPosition: .zero)
-let pulse = NSBezierPath()
-pulse.move(to: CGPoint(x: 170, y: 500))
-for point in [CGPoint(x: 330, y: 500), CGPoint(x: 410, y: 675), CGPoint(x: 530, y: 325), CGPoint(x: 625, y: 550), CGPoint(x: 685, y: 500), CGPoint(x: 854, y: 500)] { pulse.line(to: point) }
-pulse.lineWidth = 58
-pulse.lineCapStyle = .round
-pulse.lineJoinStyle = .round
-NSColor(calibratedRed: 0.57, green: 0.95, blue: 0.78, alpha: 1).setStroke()
-pulse.stroke()
-NSGraphicsContext.restoreGraphicsState()
+let width = 1024
+let height = 1024
+let colorSpace = CGColorSpace(name: CGColorSpace.sRGB)!
+let context = CGContext(data: nil, width: width, height: height,
+    bitsPerComponent: 8, bytesPerRow: width * 4, space: colorSpace,
+    bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)!
+let bounds = CGRect(x: 0, y: 0, width: width, height: height)
+context.setFillColor(CGColor(colorSpace: colorSpace, components: [0.035, 0.045, 0.05, 1])!)
+context.fill(bounds)
+
+context.saveGState()
+context.addEllipse(in: CGRect(x: 40, y: 60, width: 944, height: 904))
+context.clip()
+let gradient = CGGradient(colorsSpace: colorSpace, colors: [
+    CGColor(colorSpace: colorSpace, components: [0.12, 0.23, 0.19, 1])!,
+    CGColor(colorSpace: colorSpace, components: [0.035, 0.045, 0.05, 1])!
+] as CFArray, locations: [0, 1])!
+context.drawRadialGradient(gradient, startCenter: CGPoint(x: 512, y: 512), startRadius: 0,
+    endCenter: CGPoint(x: 512, y: 512), endRadius: 472,
+    options: [.drawsBeforeStartLocation, .drawsAfterEndLocation])
+context.restoreGState()
+
+context.move(to: CGPoint(x: 170, y: 500))
+for point in [CGPoint(x: 330, y: 500), CGPoint(x: 410, y: 675),
+              CGPoint(x: 530, y: 325), CGPoint(x: 625, y: 550),
+              CGPoint(x: 685, y: 500), CGPoint(x: 854, y: 500)] {
+    context.addLine(to: point)
+}
+context.setLineWidth(58)
+context.setLineCap(.round)
+context.setLineJoin(.round)
+context.setStrokeColor(CGColor(colorSpace: colorSpace, components: [0.57, 0.95, 0.78, 1])!)
+context.strokePath()
+
 let url = URL(fileURLWithPath: "App/Assets.xcassets/AppIcon.appiconset/AppIcon.png")
-try bitmap.representation(using: .png, properties: [:])!.write(to: url)
-print("Rendered \(url.path)")
+guard let image = context.makeImage(),
+      let output = CGImageDestinationCreateWithURL(url as CFURL, UTType.png.identifier as CFString, 1, nil) else {
+    fatalError("Could not create app icon image")
+}
+CGImageDestinationAddImage(output, image, nil)
+guard CGImageDestinationFinalize(output) else { fatalError("Could not write app icon PNG") }
+print("Rendered opaque sRGB app icon: \(url.path)")
