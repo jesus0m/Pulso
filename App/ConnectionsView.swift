@@ -147,6 +147,21 @@ struct ConnectionsView: View {
         .interactiveDismissDisabled(saving || disconnecting)
     }
 
+    private func embeddedLoginBlocked(site: String, retry: @escaping () -> Void) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Label("Google no permite iniciar sesión aquí", systemImage: "exclamationmark.shield")
+                .font(.subheadline.weight(.semibold))
+            Text("Es una protección antiphishing de Google frente a navegadores dentro de apps, no un fallo de Pulso. Por eso la página sale en blanco.")
+            Text("Vuelve a \(site) y entra con tu correo: te envía un código de acceso a la misma cuenta.")
+            Button("Volver a \(site)", action: retry).font(.subheadline.weight(.medium))
+        }
+        .font(.caption)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(12)
+        .background(Color.orange.opacity(0.12))
+        .accessibilityIdentifier("embeddedLoginBlocked")
+    }
+
     private var claudeSheet: some View {
         NavigationStack {
             VStack(spacing: 0) {
@@ -156,6 +171,9 @@ struct ConnectionsView: View {
                     Spacer()
                     if store.claude.loading { ProgressView().controlSize(.small) }
                 }.padding(12).background(.thinMaterial)
+                if store.claude.blockedLoginHost != nil {
+                    embeddedLoginBlocked(site: "claude.ai") { store.claude.openLogin() }
+                }
                 ClaudeBrowser(session: store.claude)
                 Text("Inicia sesión en claude.ai y pulsa Consultar cuota. Si tienes varios espacios, podrás elegir uno en Conexiones.")
                     .font(.caption).foregroundStyle(.secondary).padding(12)
@@ -182,6 +200,9 @@ struct ConnectionsView: View {
                     Spacer()
                     if store.codex.loading { ProgressView().controlSize(.small) }
                 }.padding(12).background(.thinMaterial)
+                if store.codex.blockedLoginHost != nil {
+                    embeddedLoginBlocked(site: "chatgpt.com") { store.codex.openLogin() }
+                }
                 CodexBrowser(session: store.codex)
                 Text("Inicia sesión en la web oficial y pulsa Consultar cuota. Nunca te pediremos la contraseña fuera de esa web.")
                     .font(.caption).foregroundStyle(.secondary).padding(12)

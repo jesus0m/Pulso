@@ -6,6 +6,8 @@ import Observation
 final class CodexWebSession: NSObject, WKNavigationDelegate, WKUIDelegate {
     private(set) var address = "chatgpt.com"
     private(set) var loading = false
+    /// Google refuses OAuth inside embedded browsers and renders a blank page instead.
+    var blockedLoginHost: String? { address == "accounts.google.com" ? address : nil }
     private(set) var accountLabel: String?
     @ObservationIgnored private var waitingForLoad: CheckedContinuation<Void, Error>?
     @ObservationIgnored private var timeoutTask: Task<Void, Never>?

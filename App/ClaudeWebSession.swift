@@ -11,6 +11,8 @@ struct ClaudeOrganization: Identifiable, Equatable {
 final class ClaudeWebSession: NSObject, WKNavigationDelegate, WKUIDelegate {
     private(set) var address = "claude.ai"
     private(set) var loading = false
+    /// Google refuses OAuth inside embedded browsers and renders a blank page instead.
+    var blockedLoginHost: String? { address == "accounts.google.com" ? address : nil }
     private(set) var organizations: [ClaudeOrganization] = []
     private(set) var selectedOrganizationID: String?
     @ObservationIgnored private static let organizationKey = "claudeSelectedOrganizationID"
