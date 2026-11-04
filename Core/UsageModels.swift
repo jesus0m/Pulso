@@ -1,9 +1,15 @@
 import Foundation
 
 enum Provider: String, Codable, CaseIterable, Identifiable, Sendable {
-    case codex, copilot
+    case codex, copilot, claude
     var id: String { rawValue }
-    var title: String { self == .codex ? "Codex" : "GitHub Copilot" }
+    var title: String {
+        switch self {
+        case .codex: return "Codex"
+        case .copilot: return "GitHub Copilot"
+        case .claude: return "Claude"
+        }
+    }
 }
 
 struct UsageWindow: Codable, Identifiable, Equatable, Sendable {

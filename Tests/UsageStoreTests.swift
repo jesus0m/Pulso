@@ -58,6 +58,8 @@ final class UsageStoreTests: XCTestCase {
         let fixture = StoreFixture()
         let store = fixture.makeStore(demo: true)
         XCTAssertEqual(store.snapshot(for: .copilot)?.source, "Datos de ejemplo")
+        XCTAssertEqual(store.snapshot(for: .claude)?.source, "Datos de ejemplo")
+        XCTAssertEqual(store.snapshot(for: .claude)?.windows.first?.used, 37)
         await store.refresh()
         XCTAssertTrue(fixture.requests.isEmpty)
         XCTAssertTrue(fixture.saved.isEmpty)
@@ -71,6 +73,74 @@ final class UsageStoreTests: XCTestCase {
         XCTAssertFalse(store.codexConfigured)
         await store.disconnect(.codex)
         XCTAssertEqual(fixture.clearCodexCalls, 1)
+    }
+
+    func testClaudeRefreshAndLogoutPreserveOtherProviderSnapshots() async {
+        let fixture = StoreFixture()
+        fixture.defaults.removeObject(forKey: "githubUsername")
+        fixture.defaults.set(true, forKey: "claudeEnabled")
+        fixture.initialSnapshots = [fixture.snapshot(used: 12, provider: .codex)]
+        let store = fixture.makeStore()
+        let refresh = Task { await store.refresh() }
+        await waitForClaudeRequest(fixture)
+        fixture.claudeRequests[0].resume(returning: fixture.snapshot(used: 37, provider: .claude))
+        await refresh.value
+        XCTAssertEqual(store.snapshot(for: .claude)?.windows.first?.used, 37)
+        XCTAssertNotNil(store.snapshot(for: .codex))
+        await store.disconnect(.claude)
+        XCTAssertNil(store.snapshot(for: .claude))
+        XCTAssertNotNil(store.snapshot(for: .codex))
+        XCTAssertEqual(fixture.clearClaudeCalls, 1)
+        XCTAssertEqual(fixture.clearCodexCalls, 0)
+        XCTAssertFalse(store.claudeConfigured)
+        XCTAssertEqual(fixture.saved.last?.map(\.provider), [.codex])
+    }
+
+    func testClaudeLogoutDiscardsInflightResponse() async {
+        let fixture = StoreFixture()
+        fixture.defaults.removeObject(forKey: "githubUsername")
+        fixture.defaults.set(true, forKey: "claudeEnabled")
+        let store = fixture.makeStore()
+        let refresh = Task { await store.refresh() }
+        await waitForClaudeRequest(fixture)
+        await store.disconnect(.claude)
+        fixture.claudeRequests[0].resume(returning: fixture.snapshot(used: 37, provider: .claude))
+        await refresh.value
+        XCTAssertNil(store.snapshot(for: .claude))
+        XCTAssertFalse(fixture.saved.flatMap { $0 }.contains { $0.provider == .claude })
+    }
+
+    func testClaudeFailureKeepsLastReadingAndTimestamp() async {
+        let fixture = StoreFixture()
+        fixture.defaults.removeObject(forKey: "githubUsername")
+        fixture.defaults.set(true, forKey: "claudeEnabled")
+        let original = fixture.snapshot(used: 37, provider: .claude)
+        fixture.initialSnapshots = [original]
+        let store = fixture.makeStore()
+        let refresh = Task { await store.refresh() }
+        await waitForClaudeRequest(fixture)
+        fixture.claudeRequests[0].resume(throwing: UsageError.http(403))
+        await refresh.value
+        XCTAssertEqual(store.snapshot(for: .claude), original)
+        XCTAssertNotNil(store.errors[.claude])
+        XCTAssertTrue(fixture.saved.isEmpty)
+    }
+
+    func testClaudeCanClearSessionBeforeConnectionIsEnabled() async {
+        let fixture = StoreFixture()
+        let store = fixture.makeStore()
+        await store.disconnect(.claude)
+        XCTAssertEqual(fixture.clearClaudeCalls, 1)
+        XCTAssertEqual(fixture.clearCodexCalls, 0)
+        XCTAssertFalse(store.claudeConfigured)
+    }
+
+    private func waitForClaudeRequest(_ fixture: StoreFixture) async {
+        for _ in 0..<1000 {
+            if !fixture.claudeRequests.isEmpty { return }
+            await Task.yield()
+        }
+        XCTFail("Expected Claude quota request")
     }
 
     private func waitForRequests(_ count: Int, fixture: StoreFixture) async {
@@ -97,6 +167,9 @@ private final class StoreFixture {
     var requests: [Request] = []
     var saved: [[UsageSnapshot]] = []
     var clearCodexCalls = 0
+    var clearClaudeCalls = 0
+    var claudeRequests: [CheckedContinuation<UsageSnapshot, Error>] = []
+    var initialSnapshots: [UsageSnapshot]?
 
     init() {
         defaults = UserDefaults(suiteName: suite)!
@@ -108,7 +181,7 @@ private final class StoreFixture {
 
     func makeStore(demo: Bool = false) -> UsageStore {
         let dependencies = UsageStore.Dependencies(
-            loadSnapshots: { [self] in [snapshot(used: 12)] },
+            loadSnapshots: { [self] in initialSnapshots ?? [snapshot(used: 12)] },
             saveSnapshots: { [self] in saved.append($0) },
             readToken: { [self] in token },
             saveToken: { [self] in token = $0 },
@@ -118,7 +191,10 @@ private final class StoreFixture {
                     requests.append(Request(username: username, token: token, allowance: allowance, legacy: legacy, continuation: continuation))
                 }
             },
-            reloadWidgets: {}, clearCodex: { [self] in clearCodexCalls += 1 }
+            reloadWidgets: {}, clearCodex: { [self] in clearCodexCalls += 1 },
+            fetchClaude: { [self] in
+                try await withCheckedThrowingContinuation { claudeRequests.append($0) }
+            }, clearClaude: { [self] in clearClaudeCalls += 1 }
         )
         return UsageStore(dependencies: dependencies, defaults: defaults, demo: demo)
     }
@@ -127,7 +203,7 @@ private final class StoreFixture {
         requests[index].continuation.resume(returning: snapshot(used: used))
     }
 
-    private func snapshot(used: Double) -> UsageSnapshot {
-        UsageSnapshot(provider: .copilot, windows: [UsageWindow(id: "month", title: "Mes", used: used, limit: 100, resetsAt: nil)], updatedAt: Date(), source: "Fixture")
+    func snapshot(used: Double, provider: Provider = .copilot) -> UsageSnapshot {
+        UsageSnapshot(provider: provider, windows: [UsageWindow(id: "month", title: "Mes", used: used, limit: 100, resetsAt: nil)], updatedAt: Date(), source: "Fixture")
     }
 }

@@ -23,6 +23,7 @@ final class DashboardTests: XCTestCase {
         XCTAssertTrue(app.buttons["settingsButton"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.staticTexts["Codex"].exists)
         XCTAssertTrue(app.staticTexts["GitHub Copilot"].exists)
+        XCTAssertTrue(app.staticTexts["Claude"].exists)
         saveScreenshot("landscape-demo")
         app.buttons["deskModeButton"].tap()
         XCTAssertTrue(app.buttons["Desactivar modo escritorio"].exists)
@@ -53,13 +54,41 @@ final class DashboardTests: XCTestCase {
         app.launchArguments = ["--demo"]
         app.launch()
         let exit = app.buttons["exitDemoButton"]
-        if !exit.isHittable { app.swipeUp() }
+        for _ in 0..<5 {
+            if exit.isHittable { break }
+            app.swipeUp()
+        }
         XCTAssertTrue(exit.waitForExistence(timeout: 5))
         exit.tap()
         XCTAssertFalse(app.staticTexts["demoBanner"].exists)
         XCTAssertTrue(app.buttons["Conectar Codex"].exists)
         XCTAssertTrue(app.buttons["Conectar GitHub Copilot"].exists)
+        XCTAssertTrue(app.buttons["Conectar Claude"].exists)
         saveScreenshot("disconnected")
+    }
+
+    func testClaudeDemoAndConnectionControls() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--demo"]
+        app.launch()
+        let claude = app.staticTexts["Claude"]
+        for _ in 0..<5 {
+            if claude.isHittable { break }
+            app.swipeUp()
+        }
+        XCTAssertTrue(claude.isHittable)
+        saveScreenshot("claude-portrait-demo")
+        app.buttons["settingsButton"].tap()
+        let connect = app.buttons["Abrir sesión de Claude"]
+        for _ in 0..<5 {
+            if connect.isHittable { break }
+            let form = app.collectionViews.firstMatch
+            if form.exists { form.swipeUp() }
+            else { app.swipeUp() }
+        }
+        XCTAssertTrue(connect.isHittable)
+        XCTAssertTrue(app.buttons["Borrar sesión web de Claude"].exists)
+        saveScreenshot("claude-connection")
     }
 
     func testLargeTextLayout() {

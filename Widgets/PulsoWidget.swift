@@ -43,7 +43,13 @@ private struct CachedUsageProvider: TimelineProvider {
 
 private struct ProviderWidgetView: View {
     let entry: UsageEntry
-    private var accent: Color { entry.provider == .codex ? Color(red: 0.57, green: 0.95, blue: 0.78) : Color(red: 0.78, green: 0.69, blue: 1) }
+    private var accent: Color {
+        switch entry.provider {
+        case .codex: return Color(red: 0.57, green: 0.95, blue: 0.78)
+        case .copilot: return Color(red: 0.78, green: 0.69, blue: 1)
+        case .claude: return Color(red: 0.95, green: 0.65, blue: 0.48)
+        }
+    }
     private var window: UsageWindow? { entry.snapshot?.windows.first }
     private var renewalPending: Bool {
         entry.snapshot?.windows.contains { window in
@@ -115,10 +121,15 @@ private struct CopilotWidget: Widget {
     var body: some WidgetConfiguration { providerConfiguration(.copilot) }
 }
 
+private struct ClaudeWidget: Widget {
+    var body: some WidgetConfiguration { providerConfiguration(.claude) }
+}
+
 @main
 struct PulsoWidgetBundle: WidgetBundle {
     var body: some Widget {
         CodexWidget()
         CopilotWidget()
+        ClaudeWidget()
     }
 }

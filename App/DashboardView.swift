@@ -1,8 +1,20 @@
 import SwiftUI
 
 extension Provider {
-    var accent: Color { self == .codex ? Color(red: 0.55, green: 0.94, blue: 0.77) : Color(red: 0.77, green: 0.70, blue: 1) }
-    var symbol: String { self == .codex ? "terminal" : "chevron.left.forwardslash.chevron.right" }
+    var accent: Color {
+        switch self {
+        case .codex: return Color(red: 0.55, green: 0.94, blue: 0.77)
+        case .copilot: return Color(red: 0.77, green: 0.70, blue: 1)
+        case .claude: return Color(red: 0.95, green: 0.65, blue: 0.48)
+        }
+    }
+    var symbol: String {
+        switch self {
+        case .codex: return "terminal"
+        case .copilot: return "chevron.left.forwardslash.chevron.right"
+        case .claude: return "sun.max"
+        }
+    }
 }
 
 struct DashboardView: View {
@@ -25,15 +37,19 @@ struct DashboardView: View {
                                     .accessibilityIdentifier("demoBanner")
                             }
                             if landscape {
-                                HStack(alignment: .top, spacing: 40) {
+                                HStack(alignment: .top, spacing: 24) {
                                     providerPanel(.codex, now: context.date, compact: true)
                                     Rectangle().fill(.white.opacity(0.12)).frame(width: 1)
                                     providerPanel(.copilot, now: context.date, compact: true)
+                                    Rectangle().fill(.white.opacity(0.12)).frame(width: 1)
+                                    providerPanel(.claude, now: context.date, compact: true)
                                 }
                             } else {
                                 providerPanel(.codex, now: context.date, compact: false)
                                 Rectangle().fill(.white.opacity(0.12)).frame(height: 1)
                                 providerPanel(.copilot, now: context.date, compact: false)
+                                Rectangle().fill(.white.opacity(0.12)).frame(height: 1)
+                                providerPanel(.claude, now: context.date, compact: false)
                             }
                             if !store.deskMode {
                                 footer
@@ -101,14 +117,14 @@ struct DashboardView: View {
         return VStack(alignment: .leading, spacing: compact ? 12 : 20) {
             HStack(alignment: .center, spacing: 10) {
                 Image(systemName: provider.symbol).foregroundStyle(accent)
-                Text(provider.title).font(.title3.weight(.medium))
+                Text(provider.title).font(compact ? .headline : .title3.weight(.medium))
                 Spacer(minLength: 2)
-                if provider == .codex { Text("BETA").font(.system(size: 9, weight: .bold)).foregroundStyle(.secondary) }
+                if provider != .copilot { Text("BETA").font(.system(size: 9, weight: .bold)).foregroundStyle(.secondary) }
             }
             if let window {
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text(window.remainingPercent.map { String(Int($0.rounded(.down))) } ?? "—")
-                        .font(.system(size: compact ? 74 : 88, weight: .light, design: .rounded))
+                        .font(.system(size: compact ? 62 : 88, weight: .light, design: .rounded))
                         .monospacedDigit().tracking(-3).minimumScaleFactor(0.5).lineLimit(1)
                         .accessibilityIdentifier("quota_\(provider.rawValue)")
                     if window.remainingPercent != nil {
@@ -119,7 +135,7 @@ struct DashboardView: View {
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel(window.remainingPercent.map { "\(Int($0)) por ciento restante" } ?? "Cuota restante desconocida")
                 VStack(alignment: .leading, spacing: 10) {
-                    informationRow {
+                    informationRow(stacked: compact) {
                         Text(window.remainingPercent == nil ? "CUOTA SIN DEFINIR" : "DISPONIBLE")
                             .font(.caption2.weight(.semibold)).tracking(2)
                     } trailing: {
@@ -133,8 +149,8 @@ struct DashboardView: View {
                             }
                         }.frame(height: 4).accessibilityHidden(true)
                     }
-                    informationRow {
-                        Text(provider == .codex ? "\(window.used.formatted(.number.precision(.fractionLength(0...1))))% usado" : "\(window.used.formatted(.number.precision(.fractionLength(0...1)))) consumidos")
+                    informationRow(stacked: compact) {
+                        Text(provider != .copilot ? "\(window.used.formatted(.number.precision(.fractionLength(0...1))))% usado" : "\(window.used.formatted(.number.precision(.fractionLength(0...1)))) consumidos")
                     } trailing: {
                         if let reset = window.resetsAt {
                             Text(reset > now ? "Renueva \(reset.formatted(.relative(presentation: .numeric)))" : "Renovación pendiente")
@@ -144,7 +160,7 @@ struct DashboardView: View {
                 }
                 ForEach(snapshot?.windows.dropFirst().map { $0 } ?? []) { extra in
                     VStack(alignment: .leading, spacing: 5) {
-                        informationRow {
+                        informationRow(stacked: compact) {
                             Text(extra.title)
                         } trailing: {
                             Text(extra.remainingPercent.map { "\(Int($0.rounded(.down)))% disponible" } ?? "Sin cuota")
@@ -165,7 +181,7 @@ struct DashboardView: View {
                     }
                 }.font(.caption2)
             } else {
-                Text("—").font(.system(size: compact ? 74 : 88, weight: .ultraLight, design: .rounded)).foregroundStyle(accent.opacity(0.6))
+                Text("—").font(.system(size: compact ? 62 : 88, weight: .ultraLight, design: .rounded)).foregroundStyle(accent.opacity(0.6))
                 Text("Tu cuota, a un vistazo.").font(.subheadline).foregroundStyle(.secondary)
                 Button { showingConnections = true } label: {
                     Label("Conectar \(provider.title)", systemImage: "plus")
@@ -180,14 +196,16 @@ struct DashboardView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .contain)
+        .accessibilityIdentifier("panel_\(provider.rawValue)")
     }
 
     @ViewBuilder
     private func informationRow<Leading: View, Trailing: View>(
+        stacked: Bool = false,
         @ViewBuilder leading: () -> Leading,
         @ViewBuilder trailing: () -> Trailing
     ) -> some View {
-        if dynamicTypeSize.isAccessibilitySize {
+        if stacked || dynamicTypeSize.isAccessibilitySize {
             VStack(alignment: .leading, spacing: 6) {
                 leading()
                 trailing()

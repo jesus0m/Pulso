@@ -1,6 +1,6 @@
 # PULSO
 
-Tus agentes, de un vistazo. App nativa SwiftUI para iPhone: Codex y GitHub Copilot en un panel negro y minimalista, vertical u horizontal.
+Tus agentes, de un vistazo. App nativa SwiftUI para iPhone: Codex, GitHub Copilot y Claude en un panel negro y minimalista, vertical u horizontal.
 
 ## Abrir y ejecutar
 
@@ -38,12 +38,26 @@ Google/Apple/SSO, CAPTCHA u otras políticas pueden impedir iniciar sesión en u
 
 La consulta oficial documentada de límites de Codex utiliza app-server; esto explica por qué el adaptador web de una app exclusivamente iPhone es experimental: https://learn.chatgpt.com/docs/app-server
 
+## Conectar Claude (experimental)
+
+1. Abre **Conexiones → Abrir sesión de Claude**.
+2. Inicia sesión en `claude.ai` y pulsa **Consultar cuota**.
+3. Si tienes varios espacios de trabajo, selecciona uno en **Conexiones → Espacio de trabajo**. PULSO no elige uno arbitrariamente.
+
+Se muestran las ventanas de sesión y semanales devueltas por Claude, con límites adicionales por modelo cuando estén disponibles. Son cuotas de tu plan compartidas con Claude Code, no gasto de la API ni actividad individual de agentes.
+
+La integración intenta consultar `/api/organizations` y `/api/organizations/{id}/usage` desde el propio sitio de Claude. **Son endpoints privados y experimentales**: pueden cambiar, bloquear el navegador integrado o rechazar la sesión. No se ha validado un inicio de sesión con tu cuenta real. No se utiliza una clave de API de Anthropic.
+
+La sesión web se guarda en un contenedor WebKit exclusivo; borrar Claude conserva la sesión de Codex y viceversa. Los widgets reciben únicamente lecturas de cuota. **Borrar sesión web de Claude** está disponible incluso si cierras el navegador antes de consultar. Una renovación desconocida se deja sin fecha; no se inventa un reinicio.
+
+Fuentes oficiales sobre las cuotas y la diferencia con analítica de organizaciones: https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work y https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api
+
 ## Escritorio, Always-On y StandBy
 
 - En vertical: proveedores apilados. En horizontal: lado a lado.
 - El botón de pantalla activa **modo escritorio**: oculta parte del sistema y desactiva el temporizador de bloqueo **solo mientras la app esté activa**. Se restaura al salir o desactivar el modo.
 - El tono nocturno atenúa el aspecto hacia rojo; no controla el brillo físico ni las opciones del sistema.
-- Para **StandBy** de iOS: carga el iPhone, déjalo de lado y añade los widgets **Codex** y **Copilot** de PULSO.
+- Para **StandBy** de iOS: carga el iPhone, déjalo de lado y añade los widgets **Codex**, **Copilot** y **Claude** de PULSO.
 - Los widgets leen la última consulta guardada por la app. No consultan cuentas en segundo plano. Muestran el momento de lectura y se marcan sin actualizar tras cinco minutos; iOS decide cuándo renderiza cada entrada y permite actualizar cada widget.
 - **Always-On real** depende del hardware, la configuración y las decisiones de iOS. La app no puede forzarlo con el iPhone bloqueado.
 - PULSO consulta cada minuto mientras está abierta; las fuentes pueden publicar datos con retraso. No muestra agentes trabajando ni actividad por sesión porque los informes de cuota no permiten comprobarlo.
@@ -54,7 +68,7 @@ Apple: https://developer.apple.com/documentation/uikit/uiapplication/isidletimer
 
 - `App/`: panel, ajustes, estado y navegador experimental.
 - `Core/`: modelos, parsers, cliente GitHub y llavero.
-- `Widgets/`: dos widgets sin credenciales.
+- `Widgets/`: tres widgets sin credenciales.
 - `Tests/`: parsers, fronteras de cuota y transporte GitHub simulado.
 - `UITests/`: demostración, salida, modo escritorio, rotación, ajustes y texto grande.
 
@@ -76,6 +90,6 @@ Las capturas se adjuntan a los resultados de XCTest. Las pruebas usan datos sint
 
 ## Capturas y validación
 
-[Vertical](docs/screenshots/portrait.png) · [Horizontal](docs/screenshots/landscape.png) · [Texto grande](docs/screenshots/large-text.png). Todas muestran datos de ejemplo.
+[Vertical](docs/screenshots/portrait.png) · [Horizontal](docs/screenshots/landscape.png) · [Claude](docs/screenshots/claude.png) · [Texto grande](docs/screenshots/large-text.png). Todas muestran datos de ejemplo.
 
-Verificado: compilación de app y extensión, 16 pruebas unitarias y 3 flujos de interfaz sin fallos; prueba de texto grande repetida tras ajustar el apilado de datos. Revisión independiente sin problemas importantes pendientes. Los resultados locales están bajo `build/*.xcresult` y quedan fuera del control de versiones.
+Verificado: compilación de app y extensión, 24 pruebas unitarias y 4 flujos de interfaz sin fallos tras añadir Claude. Revisión independiente sin problemas importantes pendientes. Los resultados locales están bajo `build/*.xcresult` y quedan fuera del control de versiones.

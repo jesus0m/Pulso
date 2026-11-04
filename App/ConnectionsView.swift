@@ -6,6 +6,7 @@ struct ConnectionsView: View {
     @State private var token = ""
     @State private var githubDraft = UsageStore.GitHubDraft()
     @State private var showingCodex = false
+    @State private var showingClaude = false
     @State private var saving = false
     @State private var disconnecting = false
     @State private var confirmDisconnect: Provider?
@@ -28,6 +29,31 @@ struct ConnectionsView: View {
                     if let error = store.errors[.codex] { Text(error).font(.caption).foregroundStyle(.orange) }
                 } header: { Text("Codex · experimental") } footer: {
                     Text("Utiliza la web oficial de ChatGPT. La lectura de cuotas puede dejar de funcionar si cambia el servicio. Algunos métodos de inicio de sesión pueden bloquear el navegador integrado.")
+                }
+                Section {
+                    LabeledContent("Conexión", value: store.claudeConfigured ? "Sesión web" : "Sin conectar")
+                    Button("Abrir sesión de Claude") {
+                        store.beginClaudeLogin()
+                        showingClaude = true
+                    }
+                    if store.claude.organizations.count > 1 {
+                        Picker("Espacio de trabajo", selection: Binding(
+                            get: { store.claude.selectedOrganizationID ?? "" },
+                            set: { id in
+                                guard !id.isEmpty else { return }
+                                Task { await store.selectClaudeOrganization(id) }
+                            }
+                        )) {
+                            Text("Seleccionar…").tag("")
+                            ForEach(store.claude.organizations) { organization in
+                                Text(organization.name).tag(organization.id)
+                            }
+                        }
+                    }
+                    Button("Borrar sesión web de Claude", role: .destructive) { confirmDisconnect = .claude }
+                    if let error = store.errors[.claude] { Text(error).font(.caption).foregroundStyle(.orange) }
+                } header: { Text("Claude · experimental") } footer: {
+                    Text("Consulta los límites de tu plan de Claude y Claude Code desde la web oficial. La sesión se guarda por separado de Codex. El acceso puede fallar si cambia Claude o se bloquea el navegador integrado.")
                 }
                 Section {
                     TextField("Usuario de GitHub", text: $githubDraft.username)
@@ -70,6 +96,7 @@ struct ConnectionsView: View {
             .navigationTitle("Conexiones")
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Listo") { dismiss() } } }
             .sheet(isPresented: $showingCodex) { codexSheet }
+            .sheet(isPresented: $showingClaude) { claudeSheet }
             .confirmationDialog("Borrar la conexión y sus datos locales", isPresented: Binding(get: { confirmDisconnect != nil }, set: { if !$0 { confirmDisconnect = nil } }), titleVisibility: .visible) {
                 if let provider = confirmDisconnect {
                     Button("Desconectar \(provider.title)", role: .destructive) {
@@ -86,6 +113,32 @@ struct ConnectionsView: View {
         }
         .onAppear { githubDraft = store.githubDraft }
         .interactiveDismissDisabled(saving || disconnecting)
+    }
+
+    private var claudeSheet: some View {
+        NavigationStack {
+            VStack(spacing: 0) {
+                HStack {
+                    Image(systemName: "lock.shield")
+                    Text(store.claude.address).font(.caption).textSelection(.enabled)
+                    Spacer()
+                    if store.claude.loading { ProgressView().controlSize(.small) }
+                }.padding(12).background(.thinMaterial)
+                ClaudeBrowser(session: store.claude)
+                Text("Inicia sesión en claude.ai y pulsa Consultar cuota. Si tienes varios espacios, podrás elegir uno en Conexiones.")
+                    .font(.caption).foregroundStyle(.secondary).padding(12)
+            }
+            .navigationTitle("Claude").navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) { Button("Cerrar") { showingClaude = false } }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Consultar cuota") {
+                        showingClaude = false
+                        Task { await store.enableClaude() }
+                    }
+                }
+            }
+        }
     }
 
     private var codexSheet: some View {

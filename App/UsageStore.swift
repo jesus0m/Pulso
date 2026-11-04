@@ -20,6 +20,8 @@ final class UsageStore {
         var reloadWidgets: () -> Void
         var fetchCodex: (() async throws -> UsageSnapshot)? = nil
         var clearCodex: (() async -> Void)? = nil
+        var fetchClaude: (() async throws -> UsageSnapshot)? = nil
+        var clearClaude: (() async -> Void)? = nil
 
         static var live: Self {
             Self(loadSnapshots: SnapshotCache.load, saveSnapshots: SnapshotCache.save,
@@ -40,6 +42,7 @@ final class UsageStore {
     private(set) var allowanceText: String
     private(set) var legacy: Bool
     let codex = CodexWebSession()
+    let claude = ClaudeWebSession()
     private var revision = 0
     @ObservationIgnored private var activeRefresh: Task<Void, Never>?
     @ObservationIgnored private let dependencies: Dependencies
@@ -57,6 +60,7 @@ final class UsageStore {
 
     var githubConfigured: Bool { !username.isEmpty && dependencies.readToken() != nil }
     var codexConfigured: Bool { defaults.bool(forKey: "codexEnabled") }
+    var claudeConfigured: Bool { defaults.bool(forKey: "claudeEnabled") }
     var githubDraft: GitHubDraft { GitHubDraft(username: username, allowanceText: allowanceText, legacy: legacy) }
     var allowance: Double? { Self.parseAllowance(allowanceText) }
 
@@ -98,6 +102,31 @@ final class UsageStore {
         defaults.set(true, forKey: "codexEnabled")
         demo = false
         await refresh()
+    }
+
+    func beginClaudeLogin() {
+        invalidateRefresh()
+        removeSnapshot(.claude)
+        defaults.set(false, forKey: "claudeEnabled")
+        claude.openLogin()
+    }
+
+    func enableClaude() async {
+        invalidateRefresh()
+        removeSnapshot(.claude)
+        defaults.set(true, forKey: "claudeEnabled")
+        demo = false
+        await refresh()
+    }
+
+    func selectClaudeOrganization(_ id: String) async {
+        do {
+            try claude.selectOrganization(id)
+            invalidateRefresh()
+            removeSnapshot(.claude)
+            errors[.claude] = nil
+            if claudeConfigured { await refresh() }
+        } catch { errors[.claude] = error.localizedDescription }
     }
 
     func refresh() async {
@@ -142,6 +171,19 @@ final class UsageStore {
                 errors[.codex] = error.localizedDescription
             }
         }
+        guard revision == currentRevision, !Task.isCancelled else { return }
+        if claudeConfigured {
+            do {
+                let value: UsageSnapshot
+                if let fetch = dependencies.fetchClaude { value = try await fetch() }
+                else { value = try await claude.fetchUsage() }
+                guard !Task.isCancelled, revision == currentRevision else { return }
+                accept(value)
+            } catch {
+                guard revision == currentRevision, !Task.isCancelled else { return }
+                errors[.claude] = error.localizedDescription
+            }
+        }
     }
 
     private func invalidateRefresh() {
@@ -176,6 +218,10 @@ final class UsageStore {
             for key in ["githubUsername", "githubAllowance", "githubLegacy"] { defaults.removeObject(forKey: key) }
             do { try dependencies.deleteToken() }
             catch { errors[provider] = error.localizedDescription }
+        } else if provider == .claude {
+            defaults.set(false, forKey: "claudeEnabled")
+            if let clear = dependencies.clearClaude { await clear() }
+            else { await claude.clearSession() }
         } else {
             defaults.set(false, forKey: "codexEnabled")
             if let clear = dependencies.clearCodex { await clear() }
@@ -190,6 +236,10 @@ final class UsageStore {
         ], updatedAt: Date(), source: "Datos de ejemplo"),
         UsageSnapshot(provider: .copilot, windows: [
             UsageWindow(id: "month", title: "Créditos del mes", used: 184, limit: 1000, resetsAt: Date().addingTimeInterval(864000))
+        ], updatedAt: Date(), source: "Datos de ejemplo"),
+        UsageSnapshot(provider: .claude, windows: [
+            UsageWindow(id: "five_hour", title: "Sesión · 5 h", used: 37, limit: 100, resetsAt: Date().addingTimeInterval(10800)),
+            UsageWindow(id: "seven_day", title: "Semana", used: 22, limit: 100, resetsAt: Date().addingTimeInterval(259200))
         ], updatedAt: Date(), source: "Datos de ejemplo")
     ]
 }
