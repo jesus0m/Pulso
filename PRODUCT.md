@@ -1,0 +1,2 @@
+# PULSO
+Personal iPhone app to see Copilot and Codex usage at a glance while working, including an idle desk display. Swift native, minimal, portrait/landscape, entirely on iPhone. User accepted experimental Codex session integration. Quota comes before decoration. Status and freshness must remain truthful. iOS owns StandBy and hardware Always-On. No backend, no remote credential storage, no inferred agent activity. GitHub personal token is a first-version connection, pending own OAuth app registration for a polished login flow.
