@@ -12,10 +12,12 @@ enum CodexUsageParser {
                   raw.reset_at.isFinite, raw.reset_at > 0,
                   raw.limit_window_seconds > 0 else { throw UsageError.unsupportedSchema }
             let seconds = raw.limit_window_seconds
-            let title: String
-            if seconds % 86_400 == 0 { title = "\(seconds / 86_400) días" }
-            else if seconds % 3_600 == 0 { title = "\(seconds / 3_600) horas" }
-            else { title = "\(seconds) segundos" }
+            let duration: String
+            if seconds % 86_400 == 0 { duration = "\(seconds / 86_400) d" }
+            else if seconds % 3_600 == 0 { duration = "\(seconds / 3_600) h" }
+            else { duration = "\(seconds) s" }
+            // Matches Claude's "Sesión"/"Semana" labelling so both providers read the same way.
+            let title = id == "primary" ? "Sesión · \(duration)" : "Semana · \(duration)"
             windows.append(UsageWindow(id: id, title: title, used: raw.used_percent, limit: 100,
                                        resetsAt: Date(timeIntervalSince1970: raw.reset_at)))
         }

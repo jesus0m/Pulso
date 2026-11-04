@@ -197,6 +197,9 @@ struct DashboardView: View {
                     if provider == .copilot && !store.organizationPlan {
                         Text("Informe de facturación; puede llevar retraso.").foregroundStyle(.secondary)
                     }
+                    if provider == .copilot && window.id == "copilot_credits" {
+                        Text("GitHub no publica la unidad ni el total de este contador; puede ser acumulado, no del ciclo actual.").foregroundStyle(.secondary)
+                    }
                 }.font(.caption2)
             } else {
                 Text("—").font(.system(size: compact ? 62 : 88, weight: .ultraLight, design: .rounded)).foregroundStyle(accent.opacity(0.6))

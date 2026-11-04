@@ -31,7 +31,7 @@ final class UsageTests: XCTestCase {
         XCTAssertEqual(snapshot.provider, .codex)
         XCTAssertEqual(snapshot.updatedAt, now)
         XCTAssertEqual(snapshot.windows.map(\.remainingPercent), [73, 0])
-        XCTAssertEqual(snapshot.windows.map(\.title), ["5 horas", "7 días"])
+        XCTAssertEqual(snapshot.windows.map(\.title), ["Sesión · 5 h", "Semana · 7 d"])
         XCTAssertEqual(snapshot.windows[0].resetsAt, Date(timeIntervalSince1970: 1_793_768_400))
     }
 
