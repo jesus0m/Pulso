@@ -88,7 +88,8 @@ final class ClaudeUsageTests: XCTestCase {
             let view = WKWebView(frame: .zero, configuration: configuration)
             view.navigationDelegate = self
             view.loadHTMLString(html, baseURL: URL(string: origin)!)
-            await fulfillment(of: [loaded!], timeout: 5)
+            // Fresh hosted simulators need time to start WebKit's first process.
+            await fulfillment(of: [loaded!], timeout: 30)
             return view
         }
 

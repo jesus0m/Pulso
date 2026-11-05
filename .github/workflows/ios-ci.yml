@@ -37,6 +37,7 @@ jobs:
             -project Pulso.xcodeproj -scheme Pulso \
             -configuration Debug \
             -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=latest' \
+            -testLanguage es -testRegion ES \
             -derivedDataPath "$RUNNER_TEMP/PulsoDerivedData" \
             -parallel-testing-enabled NO \
             -only-testing:PulsoTests \
@@ -49,6 +50,7 @@ jobs:
             -project Pulso.xcodeproj -scheme Pulso \
             -configuration Release \
             -destination 'platform=iOS Simulator,name=iPhone 18 Pro,OS=latest' \
+            -testLanguage es -testRegion ES \
             -derivedDataPath "$RUNNER_TEMP/PulsoDerivedData" \
             -parallel-testing-enabled NO \
             -only-testing:PulsoUITests/DashboardTests/testReleaseBuildIgnoresDemoAndResetArguments \

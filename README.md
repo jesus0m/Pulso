@@ -104,6 +104,7 @@ accounts you want to keep. Release builds ignore both development arguments.
 # Replace the simulator name with one installed on your Mac.
 xcodebuild -project Pulso.xcodeproj -scheme Pulso \
   -destination 'platform=iOS Simulator,name=iPhone 18 Pro' \
+  -testLanguage es -testRegion ES \
   -only-testing:PulsoTests test
 ```
 
