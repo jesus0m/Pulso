@@ -54,5 +54,11 @@
 	<array>
 		<string>com.jesusom.pulso.refresh</string>
 	</array>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
+	<key>PulsoKeychainGroup</key>
+	<string>$(AppIdentifierPrefix)com.jesusom.pulso.quota</string>
+	<key>PulsoLegacyKeychainGroup</key>
+	<string>$(AppIdentifierPrefix)com.jesusom.pulso</string>
 </dict>
 </plist>

@@ -1,4 +1,5 @@
 import XCTest
+import WebKit
 @testable import Pulso
 
 final class ClaudeUsageTests: XCTestCase {
@@ -14,6 +15,87 @@ final class ClaudeUsageTests: XCTestCase {
         XCTAssertEqual(snapshot.windows[0].resetsAt, ISO8601DateFormatter().date(from: "2026-11-04T12:00:00Z"))
         XCTAssertNotEqual(snapshot.windows[1].resetsAt, snapshot.windows[0].resetsAt)
         XCTAssertEqual(snapshot.windows[1].resetsAt!.timeIntervalSince1970.truncatingRemainder(dividingBy: 1), 0.123, accuracy: 0.001)
+    }
+
+    @MainActor
+    final class ClaudeEmailLoginTests: XCTestCase, WKNavigationDelegate {
+        private var loaded: XCTestExpectation?
+
+        func testEmailIsPassedAsDataAndOnlyEmailFormIsSubmitted() async throws {
+            let view = await page("""
+            <form action="/login">
+              <input type="email">
+              <button type="submit">Continue</button>
+            </form>
+            <script>
+            document.querySelector('form').addEventListener('submit', event => {
+              event.preventDefault();
+              document.body.dataset.submitted = document.querySelector('input').value;
+            });
+            </script>
+            """)
+            let email = "o'hara@example.test"
+            let result = try await view.callAsyncJavaScript(
+                ClaudeWebSession.emailLoginScript, arguments: ["email": email], in: nil, contentWorld: .page
+            )
+            XCTAssertEqual(result as? String, "submitted")
+            let submitted = try await view.evaluateJavaScript("document.body.dataset.submitted")
+            XCTAssertEqual(submitted as? String, email)
+        }
+
+        func testForeignOriginAndForeignFormActionAreNotFilledOrSubmitted() async throws {
+            for (origin, action) in [
+                ("https://example.test", "/login"),
+                ("https://claude.ai", "https://example.test/login")
+            ] {
+                let view = await page(
+                    #"<form action="\#(action)"><input type="email"><button>Continue</button></form>"#,
+                    origin: origin
+                )
+                let result = try await view.callAsyncJavaScript(
+                    ClaudeWebSession.emailLoginScript, arguments: ["email": "test@example.test"],
+                    in: nil, contentWorld: .page
+                )
+                XCTAssertEqual(result as? String, "manual")
+                let value = try await view.evaluateJavaScript("document.querySelector('input').value")
+                XCTAssertEqual(value as? String, "")
+            }
+        }
+
+        func testConsentAndVerificationFormsRemainManual() async throws {
+            for extra in [
+                #"<input type="checkbox" required>"#,
+                #"<input type="password">"#,
+                #"<input autocomplete="one-time-code">"#
+            ] {
+                let view = await page("""
+                <form><input type="email">\(extra)<button>Continue</button></form>
+                """)
+                let result = try await view.callAsyncJavaScript(
+                    ClaudeWebSession.emailLoginScript, arguments: ["email": "test@example.test"],
+                    in: nil, contentWorld: .page
+                )
+                XCTAssertEqual(result as? String, "manual")
+                let value = try await view.evaluateJavaScript("document.querySelector('input[type=email]').value")
+                XCTAssertEqual(value as? String, "")
+            }
+        }
+
+        private func page(_ html: String, origin: String = "https://claude.ai") async -> WKWebView {
+            loaded = expectation(description: "Login fixture loaded")
+            let configuration = WKWebViewConfiguration()
+            configuration.websiteDataStore = .nonPersistent()
+            let view = WKWebView(frame: .zero, configuration: configuration)
+            view.navigationDelegate = self
+            view.loadHTMLString(html, baseURL: URL(string: origin)!)
+            await fulfillment(of: [loaded!], timeout: 5)
+            return view
+        }
+
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            loaded?.fulfill()
+            loaded = nil
+        }
     }
 
     func testNullOptionalWindowsAndUnknownFieldsAreSkipped() throws {

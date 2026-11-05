@@ -1,0 +1,4950 @@
+{
+  "sourceLanguage": "es",
+  "strings": {
+    "Sesión": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sesión"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Session"
+          }
+        }
+      }
+    },
+    "Sesión · 5 h": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sesión · 5 h"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Session · 5 h"
+          }
+        }
+      }
+    },
+    "Sesión · %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sesión · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Session · %@"
+          }
+        }
+      }
+    },
+    "Semana": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semana"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Week"
+          }
+        }
+      }
+    },
+    "Semana · %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semana · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Week · %@"
+          }
+        }
+      }
+    },
+    "Semana · Opus": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semana · Opus"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Week · Opus"
+          }
+        }
+      }
+    },
+    "Semana · Sonnet": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semana · Sonnet"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Week · Sonnet"
+          }
+        }
+      }
+    },
+    "Mes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mes"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Month"
+          }
+        }
+      }
+    },
+    "Créditos del mes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créditos del mes"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monthly credits"
+          }
+        }
+      }
+    },
+    "Créditos usados · cuenta": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créditos usados · cuenta"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Credits used · account"
+          }
+        }
+      }
+    },
+    "Premium · cuenta": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Premium · cuenta"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Premium · account"
+          }
+        }
+      }
+    },
+    "Chat · cuenta": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chat · cuenta"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chat · account"
+          }
+        }
+      }
+    },
+    "Mes · solicitudes premium": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mes · solicitudes premium"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Month · premium requests"
+          }
+        }
+      }
+    },
+    "Mes · créditos IA": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mes · créditos IA"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Month · AI credits"
+          }
+        }
+      }
+    },
+    "Peticiones premium": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peticiones premium"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Premium requests"
+          }
+        }
+      }
+    },
+    "Cuota": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuota"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quota"
+          }
+        }
+      }
+    },
+    "Cuotas": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuotas"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quotas"
+          }
+        }
+      }
+    },
+    "Proveedor": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proveedor"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Provider"
+          }
+        }
+      }
+    },
+    "Todos los proveedores": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todos los proveedores"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All providers"
+          }
+        }
+      }
+    },
+    "USADO": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USADO"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USED"
+          }
+        }
+      }
+    },
+    "DISPONIBLE": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DISPONIBLE"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AVAILABLE"
+          }
+        }
+      }
+    },
+    "usado": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "usado"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "used"
+          }
+        }
+      }
+    },
+    "disponible": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "disponible"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "available"
+          }
+        }
+      }
+    },
+    "Usado": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usado"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Used"
+          }
+        }
+      }
+    },
+    "Restante": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restante"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remaining"
+          }
+        }
+      }
+    },
+    "consumidos": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "consumidos"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "used"
+          }
+        }
+      }
+    },
+    "Actualizar cuotas": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizar cuotas"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refresh quotas"
+          }
+        }
+      }
+    },
+    "Actualizar": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizar"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refresh"
+          }
+        }
+      }
+    },
+    "Actualizar %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizar %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refresh %@"
+          }
+        }
+      }
+    },
+    "Actualizar ${target}": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizar ${target}"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refresh ${target}"
+          }
+        }
+      }
+    },
+    "Consulta las cuotas desde el widget sin abrir Pulso.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta las cuotas desde el widget sin abrir Pulso."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check quotas from the widget without opening Pulso."
+          }
+        }
+      }
+    },
+    "Actualizar cuota de %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizar cuota de %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refresh %@ quota"
+          }
+        }
+      }
+    },
+    "Consulta la última cuota sin abrir Pulso": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta la última cuota sin abrir Pulso"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check the latest quota without opening Pulso"
+          }
+        }
+      }
+    },
+    "El proveedor devolvió datos de uso no compatibles.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El proveedor devolvió datos de uso no compatibles."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The provider returned unsupported usage data."
+          }
+        }
+      }
+    },
+    "Introduce un usuario y un token válidos.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Introduce un usuario y un token válidos."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a valid username and token."
+          }
+        }
+      }
+    },
+    "El límite manual debe ser un número mayor que cero.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El límite manual debe ser un número mayor que cero."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The manual limit must be a number greater than zero."
+          }
+        }
+      }
+    },
+    "GitHub no ha devuelto datos de consumo para esta cuenta. No equivale a consumo cero. Comprueba el tipo de cuenta en Conexiones.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub no ha devuelto datos de consumo para esta cuenta. No equivale a consumo cero. Comprueba el tipo de cuenta en Conexiones."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub returned no usage data for this account. This does not mean zero usage. Check the account type in Connections."
+          }
+        }
+      }
+    },
+    "No se pudo verificar la respuesta del proveedor.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo verificar la respuesta del proveedor."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The provider's response could not be verified."
+          }
+        }
+      }
+    },
+    "La sesión ha caducado o el token no es válido.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La sesión ha caducado o el token no es válido."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The session has expired or the token is invalid."
+          }
+        }
+      }
+    },
+    "Acceso denegado. Comprueba el permiso Plan de lectura y los límites de GitHub.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acceso denegado. Comprueba el permiso Plan de lectura y los límites de GitHub."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Access denied. Check the Plan read permission and GitHub limits."
+          }
+        }
+      }
+    },
+    "Informe no disponible. Comprueba el usuario y si tu plan se factura a tu cuenta personal.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Informe no disponible. Comprueba el usuario y si tu plan se factura a tu cuenta personal."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Report unavailable. Check the username and whether your plan is billed to your personal account."
+          }
+        }
+      }
+    },
+    "El proveedor no pudo completar la consulta (HTTP %lld).": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El proveedor no pudo completar la consulta (HTTP %lld)."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The provider could not complete the request (HTTP %lld)."
+          }
+        }
+      }
+    },
+    "No se pudo preparar un inicio de sesión seguro.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo preparar un inicio de sesión seguro."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A secure sign-in could not be prepared."
+          }
+        }
+      }
+    },
+    "No se pudo verificar la respuesta del inicio de sesión.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo verificar la respuesta del inicio de sesión."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The sign-in response could not be verified."
+          }
+        }
+      }
+    },
+    "No se ha autorizado la conexión con ChatGPT.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se ha autorizado la conexión con ChatGPT."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The connection to ChatGPT was not authorized."
+          }
+        }
+      }
+    },
+    "No se pudo abrir el receptor local del inicio de sesión. Vuelve a intentarlo.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo abrir el receptor local del inicio de sesión. Vuelve a intentarlo."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The local sign-in receiver could not be opened. Try again."
+          }
+        }
+      }
+    },
+    "El inicio de sesión ha tardado demasiado. Vuelve a intentarlo.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El inicio de sesión ha tardado demasiado. Vuelve a intentarlo."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign-in timed out. Try again."
+          }
+        }
+      }
+    },
+    "No se pudo abrir la ventana segura de ChatGPT.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo abrir la ventana segura de ChatGPT."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The secure ChatGPT window could not be opened."
+          }
+        }
+      }
+    },
+    "ChatGPT devolvió una respuesta de autenticación no compatible.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ChatGPT devolvió una respuesta de autenticación no compatible."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ChatGPT returned an unsupported authentication response."
+          }
+        }
+      }
+    },
+    "La sesión de Codex ha caducado o no es válida. Vuelve a entrar con ChatGPT.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La sesión de Codex ha caducado o no es válida. Vuelve a entrar con ChatGPT."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your Codex session has expired or is invalid. Sign in with ChatGPT again."
+          }
+        }
+      }
+    },
+    "ChatGPT no permite consultar la cuota de Codex con esta cuenta.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ChatGPT no permite consultar la cuota de Codex con esta cuenta."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ChatGPT does not allow access to the Codex quota for this account."
+          }
+        }
+      }
+    },
+    "No se pudo consultar ChatGPT (HTTP %lld).": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo consultar ChatGPT (HTTP %lld)."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ChatGPT could not be queried (HTTP %lld)."
+          }
+        }
+      }
+    },
+    "No se pudo acceder al llavero del iPhone (%d).": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo acceder al llavero del iPhone (%d)."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The iPhone Keychain could not be accessed (%d)."
+          }
+        }
+      }
+    },
+    "No se pudo acceder al llavero del dispositivo (%d).": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo acceder al llavero del dispositivo (%d)."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The device Keychain could not be accessed (%d)."
+          }
+        }
+      }
+    },
+    "No se ha encontrado un token de ChatGPT en el texto copiado.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se ha encontrado un token de ChatGPT en el texto copiado."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No ChatGPT token was found in the copied text."
+          }
+        }
+      }
+    },
+    "El token de ChatGPT ha caducado. Abre la sesión en Safari y pega uno nuevo.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El token de ChatGPT ha caducado. Abre la sesión en Safari y pega uno nuevo."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The ChatGPT token has expired. Open your session in Safari and paste a new one."
+          }
+        }
+      }
+    },
+    "No se ha podido consultar Codex. Comprueba la conexión.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se ha podido consultar Codex. Comprueba la conexión."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex could not be queried. Check your connection."
+          }
+        }
+      }
+    },
+    "Abre la sesión de Claude en Pulso para renovar el acceso del widget.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre la sesión de Claude en Pulso para renovar el acceso del widget."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open your Claude session in Pulso to renew widget access."
+          }
+        }
+      }
+    },
+    "Claude pide una comprobación web. Abre su sesión en Pulso; el widget conserva la última lectura.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude pide una comprobación web. Abre su sesión en Pulso; el widget conserva la última lectura."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude requires a web check. Open its session in Pulso; the widget keeps the last reading."
+          }
+        }
+      }
+    },
+    "Claude ha devuelto una respuesta de cuota no compatible.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude ha devuelto una respuesta de cuota no compatible."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude returned an unsupported quota response."
+          }
+        }
+      }
+    },
+    "No se pudo consultar la cuota de Claude (HTTP %lld).": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo consultar la cuota de Claude (HTTP %lld)."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The Claude quota could not be retrieved (HTTP %lld)."
+          }
+        }
+      }
+    },
+    "Copilot no publica una cuota medible para esta cuenta. No se puede calcular el uso restante.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copilot no publica una cuota medible para esta cuenta. No se puede calcular el uso restante."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copilot does not publish a measurable quota for this account. Remaining usage cannot be calculated."
+          }
+        }
+      }
+    },
+    "Copilot devolvió un formato de cuota no compatible.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copilot devolvió un formato de cuota no compatible."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copilot returned an unsupported quota format."
+          }
+        }
+      }
+    },
+    "Copilot no permite consultar la cuota (HTTP %lld). El token puede servir para facturación y necesitar Copilot Requests de lectura en un token personal detallado, o estar limitado por la política de tu organización.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copilot no permite consultar la cuota (HTTP %lld). El token puede servir para facturación y necesitar Copilot Requests de lectura en un token personal detallado, o estar limitado por la política de tu organización."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copilot does not allow access to the quota (HTTP %lld). The token may work for billing but require Copilot Requests read access on a fine-grained personal access token, or be restricted by your organization's policy."
+          }
+        }
+      }
+    },
+    "La cuota de cuenta de Copilot no está disponible (HTTP 404).": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La cuota de cuenta de Copilot no está disponible (HTTP 404)."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The Copilot account quota is unavailable (HTTP 404)."
+          }
+        }
+      }
+    },
+    "No se pudo consultar la cuota de Copilot (HTTP %lld).": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo consultar la cuota de Copilot (HTTP %lld)."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The Copilot quota could not be retrieved (HTTP %lld)."
+          }
+        }
+      }
+    },
+    "Correo completado. Introduce en claude.ai el código que te envíe Claude.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Correo completado. Introduce en claude.ai el código que te envíe Claude."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email submitted. Enter the code Claude sends you on claude.ai."
+          }
+        }
+      }
+    },
+    "Si el correo no aparece, complétalo directamente en claude.ai. Pulso no acepta permisos ni introduce códigos.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si el correo no aparece, complétalo directamente en claude.ai. Pulso no acepta permisos ni introduce códigos."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If the email does not appear, enter it directly on claude.ai. Pulso does not accept permissions or enter codes."
+          }
+        }
+      }
+    },
+    "Abre la sesión de Claude y vuelve a consultar. El inicio de sesión puede no admitir navegadores integrados.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre la sesión de Claude y vuelve a consultar. El inicio de sesión puede no admitir navegadores integrados."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open your Claude session and try again. Sign-in may not support embedded browsers."
+          }
+        }
+      }
+    },
+    "Claude ha devuelto un formato de cuota no compatible. Abre su panel web para consultar el uso.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude ha devuelto un formato de cuota no compatible. Abre su panel web para consultar el uso."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude returned an unsupported quota format. Open its web dashboard to check usage."
+          }
+        }
+      }
+    },
+    "No se ha podido consultar Claude. Comprueba la conexión o abre su panel web.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se ha podido consultar Claude. Comprueba la conexión o abre su panel web."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude could not be queried. Check your connection or open its web dashboard."
+          }
+        }
+      }
+    },
+    "Selecciona una organización de Claude y vuelve a consultar.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selecciona una organización de Claude y vuelve a consultar."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Select a Claude organization and try again."
+          }
+        }
+      }
+    },
+    "Listo. Puedes volver a Pulso.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listo. Puedes volver a Pulso."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done. You can return to Pulso."
+          }
+        }
+      }
+    },
+    "Solicitud no valida.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solicitud no valida."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invalid request."
+          }
+        }
+      }
+    },
+    "%@ renovada": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ renovada"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ quota reset"
+          }
+        }
+      }
+    },
+    "%@ vuelve a estar al 100 %%.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ vuelve a estar al 100 %%."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ is back to 100%%."
+          }
+        }
+      }
+    },
+    "iOS no permite actividades en directo. Revisa Ajustes → PULSO.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS no permite actividades en directo. Revisa Ajustes → PULSO."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS does not allow Live Activities. Check Settings → PULSO."
+          }
+        }
+      }
+    },
+    "Desactiva los datos de ejemplo para iniciar una actividad real.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactiva los datos de ejemplo para iniciar una actividad real."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn off sample data to start a real activity."
+          }
+        }
+      }
+    },
+    "Conecta este proveedor y consulta una cuota real antes de iniciar.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conecta este proveedor y consulta una cuota real antes de iniciar."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connect this provider and retrieve a real quota before starting."
+          }
+        }
+      }
+    },
+    "iOS no pudo iniciar la actividad en directo. Vuelve a intentarlo con PULSO abierta.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS no pudo iniciar la actividad en directo. Vuelve a intentarlo con PULSO abierta."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS could not start the Live Activity. Try again with PULSO open."
+          }
+        }
+      }
+    },
+    "iOS tiene desactivadas las actividades en directo.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS tiene desactivadas las actividades en directo."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Live Activities are disabled in iOS."
+          }
+        }
+      }
+    },
+    "La demostración no se comparte con actividades en directo.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La demostración no se comparte con actividades en directo."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo data is not shared with Live Activities."
+          }
+        }
+      }
+    },
+    "Actividad finalizada: no hay una cuota real disponible.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actividad finalizada: no hay una cuota real disponible."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activity ended: no real quota is available."
+          }
+        }
+      }
+    },
+    "La actividad ha finalizado. Pulsa Iniciar para crear otra.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La actividad ha finalizado. Pulsa Iniciar para crear otra."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The activity has ended. Tap Start to create another."
+          }
+        }
+      }
+    },
+    "La sesión ha alcanzado su duración máxima. Puedes iniciar otra.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La sesión ha alcanzado su duración máxima. Puedes iniciar otra."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The session has reached its maximum duration. You can start another."
+          }
+        }
+      }
+    },
+    "En curso": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En curso"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Running"
+          }
+        }
+      }
+    },
+    "Actualizado": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizado"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Updated"
+          }
+        }
+      }
+    },
+    "Tiempo de ejecución agotado": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiempo de ejecución agotado"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Execution time expired"
+          }
+        }
+      }
+    },
+    "Sin proveedores conectados": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin proveedores conectados"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No connected providers"
+          }
+        }
+      }
+    },
+    "Abre Pulso para consultar": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre Pulso para consultar"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Pulso to check"
+          }
+        }
+      }
+    },
+    "Renovación pendiente": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renovación pendiente"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reset pending"
+          }
+        }
+      }
+    },
+    "consumidos · %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "consumidos · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "used · %@"
+          }
+        }
+      }
+    },
+    "%@ · %lld%% %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %lld%% %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %lld%% %@"
+          }
+        }
+      }
+    },
+    "Renueva en": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renueva en"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resets in"
+          }
+        }
+      }
+    },
+    "Renovación: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renovación: %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reset: %@"
+          }
+        }
+      }
+    },
+    "Renovación prevista": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renovación prevista"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expected reset"
+          }
+        }
+      }
+    },
+    "Renovación": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renovación"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reset"
+          }
+        }
+      }
+    },
+    "%@: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@: %@"
+          }
+        }
+      }
+    },
+    "Sin actualizar": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin actualizar"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Out of date"
+          }
+        }
+      }
+    },
+    "Sin datos": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin datos"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No data"
+          }
+        }
+      }
+    },
+    "CRÉDITOS DEL MES": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CRÉDITOS DEL MES"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "MONTHLY CREDITS"
+          }
+        }
+      }
+    },
+    "%@ consumidos": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ consumidos"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ used"
+          }
+        }
+      }
+    },
+    "%@ de límite": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de límite"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ limit"
+          }
+        }
+      }
+    },
+    "%@ restantes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ restantes"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ remaining"
+          }
+        }
+      }
+    },
+    "%@%% disponible": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%% disponible"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%% available"
+          }
+        }
+      }
+    },
+    "%lld%% %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%% %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%% %@"
+          }
+        }
+      }
+    },
+    "Cuota desconocida": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuota desconocida"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown quota"
+          }
+        }
+      }
+    },
+    "Conecta tu cuenta y consulta la cuota en Pulso.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conecta tu cuenta y consulta la cuota en Pulso."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connect your account and check the quota in Pulso."
+          }
+        }
+      }
+    },
+    "Última lectura": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Última lectura"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last reading"
+          }
+        }
+      }
+    },
+    "Consulta la cuota cuando iOS permite actualizar el widget. Conserva la última lectura sin conexión.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta la cuota cuando iOS permite actualizar el widget. Conserva la última lectura sin conexión."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checks the quota when iOS allows the widget to refresh. Keeps the last reading offline."
+          }
+        }
+      }
+    },
+    "Resumen de Pulso": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumen de Pulso"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pulso overview"
+          }
+        }
+      }
+    },
+    "Codex, Copilot y Claude se consultan cuando iOS permite actualizar. Conserva la última lectura sin conexión.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codex, Copilot y Claude se consultan cuando iOS permite actualizar. Conserva la última lectura sin conexión."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checks Codex, Copilot and Claude when iOS allows a refresh. Keeps the last reading offline."
+          }
+        }
+      }
+    },
+    "Sin lectura": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin lectura"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No reading"
+          }
+        }
+      }
+    },
+    "Sin lectura · Abre Pulso para consultar": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin lectura · Abre Pulso para consultar"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No reading · Open Pulso to check"
+          }
+        }
+      }
+    },
+    "%@ usados · %@ de límite": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ usados · %@ de límite"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ used · %@ limit"
+          }
+        }
+      }
+    },
+    "Sin fecha de renovación": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin fecha de renovación"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No reset date"
+          }
+        }
+      }
+    },
+    "Lectura": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lectura"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reading"
+          }
+        }
+      }
+    },
+    "Última lectura: %@%@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Última lectura: %@%@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last reading: %@%@"
+          }
+        }
+      }
+    },
+    ", sin actualizar": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ", sin actualizar"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ", out of date"
+          }
+        }
+      }
+    },
+    "%@ %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ %@"
+          }
+        }
+      }
+    },
+    "%@, %@, sin lectura": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, %@, sin lectura"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, %@, no reading"
+          }
+        }
+      }
+    },
+    "%@, %@, última lectura %@%@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, %@, última lectura %@%@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@, %@, last reading %@%@"
+          }
+        }
+      }
+    },
+    "+%lld cuotas": {
+      "localizations": {
+        "es": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld cuota"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld cuotas"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld quota"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "+%lld quotas"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Última lectura sin actualizar": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Última lectura sin actualizar"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last reading is out of date"
+          }
+        }
+      }
+    },
+    "Sin actualizar · abre PULSO": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin actualizar · abre PULSO"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Out of date · open PULSO"
+          }
+        }
+      }
+    },
+    "Última cuota": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Última cuota"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Latest quota"
+          }
+        }
+      }
+    },
+    "%@ usados · %@ restantes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ usados · %@ restantes"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ used · %@ remaining"
+          }
+        }
+      }
+    },
+    "Renovación\nsin fecha": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renovación\nsin fecha"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reset date\nunknown"
+          }
+        }
+      }
+    },
+    "DEMOSTRACIÓN": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DEMOSTRACIÓN"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DEMONSTRATION"
+          }
+        }
+      }
+    },
+    "DEMOSTRACIÓN · datos de ejemplo": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DEMOSTRACIÓN · datos de ejemplo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DEMONSTRATION · sample data"
+          }
+        }
+      }
+    },
+    "Sin paneles visibles": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin paneles visibles"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No visible panels"
+          }
+        }
+      }
+    },
+    "Tus cuentas siguen conectadas. Elige qué paneles quieres mostrar.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tus cuentas siguen conectadas. Elige qué paneles quieres mostrar."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your accounts are still connected. Choose which panels to show."
+          }
+        }
+      }
+    },
+    "Elegir paneles": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elegir paneles"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose panels"
+          }
+        }
+      }
+    },
+    "Desactivar modo escritorio": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactivar modo escritorio"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn off desk mode"
+          }
+        }
+      }
+    },
+    "Activar modo escritorio": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activar modo escritorio"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn on desk mode"
+          }
+        }
+      }
+    },
+    "Conexiones y ajustes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conexiones y ajustes"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connections and settings"
+          }
+        }
+      }
+    },
+    "%@ consumidos · %lld%% de la cuota": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ consumidos · %lld%% de la cuota"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ used · %lld%% of quota"
+          }
+        }
+      }
+    },
+    "%lld por ciento %@; %lld por ciento %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld por ciento %@; %lld por ciento %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld percent %@; %lld percent %@"
+          }
+        }
+      }
+    },
+    "%@ consumidos; cuota restante desconocida": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ consumidos; cuota restante desconocida"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ used; remaining quota unknown"
+          }
+        }
+      }
+    },
+    "CONSUMIDO · CUOTA DESCONOCIDA": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CONSUMIDO · CUOTA DESCONOCIDA"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "USED · UNKNOWN QUOTA"
+          }
+        }
+      }
+    },
+    "Consumo desconocido": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consumo desconocido"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown usage"
+          }
+        }
+      }
+    },
+    "Renueva %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renueva %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resets %@"
+          }
+        }
+      }
+    },
+    "%@ de límite mensual": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de límite mensual"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ monthly limit"
+          }
+        }
+      }
+    },
+    "%lld%% %@ · %lld%% %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%% %@ · %lld%% %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%% %@ · %lld%% %@"
+          }
+        }
+      }
+    },
+    "Sin cuota": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin cuota"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No quota"
+          }
+        }
+      }
+    },
+    "Renovación pendiente · última lectura": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renovación pendiente · última lectura"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reset pending · last reading"
+          }
+        }
+      }
+    },
+    "Sin actualizar · última lectura %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin actualizar · última lectura %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Out of date · last reading %@"
+          }
+        }
+      }
+    },
+    "Lectura %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lectura %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reading %@"
+          }
+        }
+      }
+    },
+    "Informe de facturación; puede llevar retraso.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Informe de facturación; puede llevar retraso."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Billing report; may be delayed."
+          }
+        }
+      }
+    },
+    "Cuenta guardada · sin lectura de cuota": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuenta guardada · sin lectura de cuota"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account saved · no quota reading"
+          }
+        }
+      }
+    },
+    "Tu cuota, a un vistazo.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu cuota, a un vistazo."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your quota at a glance."
+          }
+        }
+      }
+    },
+    "Revisar Copilot": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisar Copilot"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review Copilot"
+          }
+        }
+      }
+    },
+    "Conectar %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conectar %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connect %@"
+          }
+        }
+      }
+    },
+    "Consulta cada minuto con la app abierta": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta cada minuto con la app abierta"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checks every minute while the app is open"
+          }
+        }
+      }
+    },
+    "Salir de la demostración": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salir de la demostración"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exit demonstration"
+          }
+        }
+      }
+    },
+    "Ver una demostración": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver una demostración"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View a demonstration"
+          }
+        }
+      }
+    },
+    "Introduce tu usuario de GitHub.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Introduce tu usuario de GitHub."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter your GitHub username."
+          }
+        }
+      }
+    },
+    "Añade un token de GitHub con permiso Plan de lectura.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añade un token de GitHub con permiso Plan de lectura."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add a GitHub token with Plan read permission."
+          }
+        }
+      }
+    },
+    "La cuota debe ser un número mayor que cero, o quedar vacía.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La cuota debe ser un número mayor que cero, o quedar vacía."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The quota must be a number greater than zero, or left blank."
+          }
+        }
+      }
+    },
+    "El llavero no está disponible. Desbloquea el iPhone para actualizar GitHub Copilot.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El llavero no está disponible. Desbloquea el iPhone para actualizar GitHub Copilot."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The Keychain is unavailable. Unlock your iPhone to refresh GitHub Copilot."
+          }
+        }
+      }
+    },
+    "Datos de ejemplo": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datos de ejemplo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sample data"
+          }
+        }
+      }
+    },
+    "Tus cuentas. Solo en tu iPhone.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tus cuentas. Solo en tu iPhone."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your accounts. Only on your iPhone."
+          }
+        }
+      }
+    },
+    "Las credenciales permanecen en el dispositivo. PULSO no necesita un servidor ni un Mac.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las credenciales permanecen en el dispositivo. PULSO no necesita un servidor ni un Mac."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Credentials stay on your device. PULSO does not need a server or a Mac."
+          }
+        }
+      }
+    },
+    "Paneles visibles": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paneles visibles"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visible panels"
+          }
+        }
+      }
+    },
+    "La selección se recuerda en este iPhone. Ocultar un panel conserva su cuenta y su última lectura; sus widgets siguen disponibles.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La selección se recuerda en este iPhone. Ocultar un panel conserva su cuenta y su última lectura; sus widgets siguen disponibles."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your selection is saved on this iPhone. Hiding a panel keeps its account and last reading; its widgets remain available."
+          }
+        }
+      }
+    },
+    "Conexión": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conexión"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connection"
+          }
+        }
+      }
+    },
+    "Sesión guardada": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sesión guardada"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Session saved"
+          }
+        }
+      }
+    },
+    "Sin conectar": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin conectar"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not connected"
+          }
+        }
+      }
+    },
+    "Cuenta de ChatGPT": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuenta de ChatGPT"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ChatGPT account"
+          }
+        }
+      }
+    },
+    "La cifra grande es lo disponible; el porcentaje usado se muestra debajo, como en los IDEs. Compara la misma cuenta y hora de lectura.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La cifra grande es lo disponible; el porcentaje usado se muestra debajo, como en los IDEs. Compara la misma cuenta y hora de lectura."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The large number shows what is available; the used percentage appears below, as in IDEs. Compare the same account and reading time."
+          }
+        }
+      }
+    },
+    "Esperando a ChatGPT…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esperando a ChatGPT…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waiting for ChatGPT…"
+          }
+        }
+      }
+    },
+    "Entrar con ChatGPT": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrar con ChatGPT"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in with ChatGPT"
+          }
+        }
+      }
+    },
+    "Cancelar inicio de sesión": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar inicio de sesión"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel sign-in"
+          }
+        }
+      }
+    },
+    "Borrar sesión de Codex": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar sesión de Codex"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete Codex session"
+          }
+        }
+      }
+    },
+    "Inicia sesión con ChatGPT en la ventana segura del sistema. La sesión se guarda en el llavero y se renueva cuando ChatGPT lo permite.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inicia sesión con ChatGPT en la ventana segura del sistema. La sesión se guarda en el llavero y se renueva cuando ChatGPT lo permite."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in with ChatGPT in the secure system window. The session is saved in the Keychain and renewed when ChatGPT allows it."
+          }
+        }
+      }
+    },
+    "Sesión web": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sesión web"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Web session"
+          }
+        }
+      }
+    },
+    "Abrir sesión de Claude": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir sesión de Claude"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Claude session"
+          }
+        }
+      }
+    },
+    "Espacio de trabajo": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espacio de trabajo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Workspace"
+          }
+        }
+      }
+    },
+    "Seleccionar…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seleccionar…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Select…"
+          }
+        }
+      }
+    },
+    "Claude HTTP nativo: %@ · %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude HTTP nativo: %@ · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Native Claude HTTP: %@ · %@"
+          }
+        }
+      }
+    },
+    "Borrar sesión web de Claude": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar sesión web de Claude"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete Claude web session"
+          }
+        }
+      }
+    },
+    "Consulta los límites de tu plan de Claude y Claude Code. La sesión se guarda por separado de Codex.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta los límites de tu plan de Claude y Claude Code. La sesión se guarda por separado de Codex."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check the limits of your Claude and Claude Code plan. The session is saved separately from Codex."
+          }
+        }
+      }
+    },
+    "Cuenta guardada": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuenta guardada"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account saved"
+          }
+        }
+      }
+    },
+    "Credencial guardada en el llavero del iPhone": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Credencial guardada en el llavero del iPhone"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Credential saved in the iPhone Keychain"
+          }
+        }
+      }
+    },
+    "Usuario de GitHub": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usuario de GitHub"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub username"
+          }
+        }
+      }
+    },
+    "Nuevo token (opcional)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuevo token (opcional)"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New token (optional)"
+          }
+        }
+      }
+    },
+    "Token personal de GitHub": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Token personal de GitHub"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub personal access token"
+          }
+        }
+      }
+    },
+    "Tipo de cuenta": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo de cuenta"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account type"
+          }
+        }
+      }
+    },
+    "Empresa u organización": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empresa u organización"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Business or organization"
+          }
+        }
+      }
+    },
+    "Personal, pagada por mí": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personal, pagada por mí"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personal, paid by me"
+          }
+        }
+      }
+    },
+    "La cuota se consulta en tu cuenta de Copilot, no en tu facturación personal. Tu token puede necesitar Copilot Requests → lectura y autorización de tu organización.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La cuota se consulta en tu cuenta de Copilot, no en tu facturación personal. Tu token puede necesitar Copilot Requests → lectura y autorización de tu organización."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The quota comes from your Copilot account, not your personal billing. Your token may need Copilot Requests → read permission and your organization's authorization."
+          }
+        }
+      }
+    },
+    "Límite mensual de respaldo (opcional)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Límite mensual de respaldo (opcional)"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fallback monthly limit (optional)"
+          }
+        }
+      }
+    },
+    "Plan con peticiones premium antiguas": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan con peticiones premium antiguas"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Legacy premium request plan"
+          }
+        }
+      }
+    },
+    "Cuota mensual de peticiones (opcional)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuota mensual de peticiones (opcional)"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monthly request quota (optional)"
+          }
+        }
+      }
+    },
+    "Créditos incluidos al mes (opcional)": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créditos incluidos al mes (opcional)"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Included monthly credits (optional)"
+          }
+        }
+      }
+    },
+    "Consultando…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consultando…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checking…"
+          }
+        }
+      }
+    },
+    "Guardar y consultar Copilot": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar y consultar Copilot"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save and check Copilot"
+          }
+        }
+      }
+    },
+    "Ver mi uso en GitHub": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver mi uso en GitHub"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View my usage on GitHub"
+          }
+        }
+      }
+    },
+    "Crear token en GitHub": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crear token en GitHub"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create token on GitHub"
+          }
+        }
+      }
+    },
+    "Borrar conexión de Copilot": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar conexión de Copilot"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete Copilot connection"
+          }
+        }
+      }
+    },
+    "Empresa: el límite mensual se obtiene de GitHub. Si no está disponible, se utiliza el límite de respaldo. Personal: token con permiso Plan → lectura y cuota incluida manual. El token se guarda en el llavero; déjalo vacío para conservarlo.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empresa: el límite mensual se obtiene de GitHub. Si no está disponible, se utiliza el límite de respaldo. Personal: token con permiso Plan → lectura y cuota incluida manual. El token se guarda en el llavero; déjalo vacío para conservarlo."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Business: the monthly limit comes from GitHub. If unavailable, the fallback limit is used. Personal: a token with Plan → read permission and a manually entered allowance. The token is saved in the Keychain; leave it blank to keep it."
+          }
+        }
+      }
+    },
+    "Mostrar cuotas como": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar cuotas como"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show quotas as"
+          }
+        }
+      }
+    },
+    "Se aplica al panel y a los widgets. La otra cifra sigue visible al lado, así que «72 % disponible» y «28 % usado» son la misma lectura.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se aplica al panel y a los widgets. La otra cifra sigue visible al lado, así que «72 % disponible» y «28 % usado» son la misma lectura."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Applies to the dashboard and widgets. The other figure stays visible alongside it, so “72% available” and “28% used” are the same reading."
+          }
+        }
+      }
+    },
+    "Pantalla": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pantalla"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Display"
+          }
+        }
+      }
+    },
+    "Activar actividad en directo": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activar actividad en directo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable Live Activity"
+          }
+        }
+      }
+    },
+    "Proveedor en la isla": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proveedor en la isla"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Provider in the island"
+          }
+        }
+      }
+    },
+    "Estado": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estado"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Status"
+          }
+        }
+      }
+    },
+    "Detenida": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detenida"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stopped"
+          }
+        }
+      }
+    },
+    "Finalizar actividad": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finalizar actividad"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End activity"
+          }
+        }
+      }
+    },
+    "Iniciar actividad en directo": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iniciar actividad en directo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start Live Activity"
+          }
+        }
+      }
+    },
+    "Actividad en directo · Dynamic Island": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actividad en directo · Dynamic Island"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Live Activity · Dynamic Island"
+          }
+        }
+      }
+    },
+    "Opcional: muestra un proveedor en la pantalla bloqueada y, si tu iPhone tiene Dynamic Island, un icono y su porcentaje. Mantén pulsada la isla para ver todas sus cuotas. Los datos se actualizan solo cuando PULSO recibe una lectura; el contador de renovación funciona sin conexión, pero no consulta cuotas cada minuto en segundo plano. Dura como máximo 8 horas; iOS decide el tamaño y puede finalizarla antes. Después debes iniciarla de nuevo. El proveedor y sus cifras quedan visibles sin desbloquear; no se muestran cuentas ni credenciales.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opcional: muestra un proveedor en la pantalla bloqueada y, si tu iPhone tiene Dynamic Island, un icono y su porcentaje. Mantén pulsada la isla para ver todas sus cuotas. Los datos se actualizan solo cuando PULSO recibe una lectura; el contador de renovación funciona sin conexión, pero no consulta cuotas cada minuto en segundo plano. Dura como máximo 8 horas; iOS decide el tamaño y puede finalizarla antes. Después debes iniciarla de nuevo. El proveedor y sus cifras quedan visibles sin desbloquear; no se muestran cuentas ni credenciales."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optional: shows one provider on the Lock Screen and, if your iPhone has Dynamic Island, an icon and its percentage. Touch and hold the island to see all its quotas. Data updates only when PULSO receives a reading; the reset countdown works offline, but does not check quotas every minute in the background. Lasts up to 8 hours; iOS controls its size and may end it sooner. You must then start it again. The provider and its figures are visible without unlocking; accounts and credentials are not shown."
+          }
+        }
+      }
+    },
+    "Avisarme cuando se restablezca una cuota": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avisarme cuando se restablezca una cuota"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notify me when a quota resets"
+          }
+        }
+      }
+    },
+    "iOS tiene las notificaciones desactivadas para PULSO. Actívalas en Ajustes para recibir el aviso.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS tiene las notificaciones desactivadas para PULSO. Actívalas en Ajustes para recibir el aviso."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications are disabled for PULSO in iOS. Enable them in Settings to receive the alert."
+          }
+        }
+      }
+    },
+    "El aviso se programa para la hora exacta de renovación que informa el proveedor, así que llega puntual aunque no abras PULSO. Si esa hora cambia, se recoloca en la siguiente lectura.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El aviso se programa para la hora exacta de renovación que informa el proveedor, así que llega puntual aunque no abras PULSO. Si esa hora cambia, se recoloca en la siguiente lectura."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The alert is scheduled for the exact reset time reported by the provider, so it arrives on time even if you do not open PULSO. If that time changes, it is rescheduled on the next reading."
+          }
+        }
+      }
+    },
+    "Notificaciones": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notificaciones"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications"
+          }
+        }
+      }
+    },
+    "En tu escritorio": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En tu escritorio"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On your desk"
+          }
+        }
+      }
+    },
+    "Mantener pantalla encendida": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantener pantalla encendida"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep screen on"
+          }
+        }
+      }
+    },
+    "Tono nocturno": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tono nocturno"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Night tint"
+          }
+        }
+      }
+    },
+    "Mantiene la pantalla encendida mientras PULSO esté abierta. Para StandBy: carga el iPhone, colócalo en horizontal y añade los widgets de PULSO. iOS controla Always-On y la frecuencia de actualización de los widgets.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantiene la pantalla encendida mientras PULSO esté abierta. Para StandBy: carga el iPhone, colócalo en horizontal y añade los widgets de PULSO. iOS controla Always-On y la frecuencia de actualización de los widgets."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keeps the screen on while PULSO is open. For StandBy: charge your iPhone, place it horizontally and add PULSO widgets. iOS controls Always-On and widget refresh frequency."
+          }
+        }
+      }
+    },
+    "Actualización de iOS": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualización de iOS"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS background refresh"
+          }
+        }
+      }
+    },
+    "Modo de bajo consumo": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modo de bajo consumo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Low Power Mode"
+          }
+        }
+      }
+    },
+    "Activado": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activado"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On"
+          }
+        }
+      }
+    },
+    "Desactivado": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactivado"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off"
+          }
+        }
+      }
+    },
+    "Activada": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activada"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enabled"
+          }
+        }
+      }
+    },
+    "Desactivada": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactivada"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disabled"
+          }
+        }
+      }
+    },
+    "Restringida": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restringida"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restricted"
+          }
+        }
+      }
+    },
+    "Desconocida": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desconocida"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown"
+          }
+        }
+      }
+    },
+    "Última solicitud: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Última solicitud: %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last request: %@"
+          }
+        }
+      }
+    },
+    "Solicitud rechazada: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solicitud rechazada: %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Request rejected: %@"
+          }
+        }
+      }
+    },
+    "Aceptada; no antes de: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aceptada; no antes de: %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accepted; no earlier than: %@"
+          }
+        }
+      }
+    },
+    "Último intento: %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Último intento: %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last attempt: %@"
+          }
+        }
+      }
+    },
+    "%lld despertares desde la instalación": {
+      "localizations": {
+        "es": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld despertar desde la instalación"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld despertares desde la instalación"
+                }
+              }
+            }
+          }
+        },
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld wake-up since installation"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld wake-ups since installation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "iOS todavía no ha despertado a PULSO": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS todavía no ha despertado a PULSO"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS has not woken PULSO yet"
+          }
+        }
+      }
+    },
+    "Widget %@: %@ · %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widget %@: %@ · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widget %@: %@ · %@"
+          }
+        }
+      }
+    },
+    "Actualización en segundo plano": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualización en segundo plano"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Background refresh"
+          }
+        }
+      }
+    },
+    "iOS decide cuándo ejecuta la solicitud. Los widgets pueden consultar Codex, Copilot y Claude con el iPhone bloqueado, después del primer desbloqueo tras reiniciar. Usan el llavero cifrado compartido con PULSO y conservan la última lectura si falla la consulta. Claude utiliza su sesión web experimental: si caduca o pide una comprobación, abre su sesión en PULSO. Ningún intervalo está garantizado.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS decide cuándo ejecuta la solicitud. Los widgets pueden consultar Codex, Copilot y Claude con el iPhone bloqueado, después del primer desbloqueo tras reiniciar. Usan el llavero cifrado compartido con PULSO y conservan la última lectura si falla la consulta. Claude utiliza su sesión web experimental: si caduca o pide una comprobación, abre su sesión en PULSO. Ningún intervalo está garantizado."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iOS decides when to run the request. Widgets can check Codex, Copilot and Claude while your iPhone is locked, after the first unlock following a restart. They use the encrypted Keychain shared with PULSO and keep the last reading if the request fails. Claude uses its experimental web session: if it expires or requires a check, open its session in PULSO. No refresh interval is guaranteed."
+          }
+        }
+      }
+    },
+    "Mostrar datos de ejemplo": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar datos de ejemplo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show sample data"
+          }
+        }
+      }
+    },
+    "La demostración no reemplaza las lecturas reales ni se comparte con los widgets.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La demostración no reemplaza las lecturas reales ni se comparte con los widgets."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The demo does not replace real readings or share data with widgets."
+          }
+        }
+      }
+    },
+    "Actualizar ahora": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizar ahora"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Refresh now"
+          }
+        }
+      }
+    },
+    "Conexiones": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conexiones"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connections"
+          }
+        }
+      }
+    },
+    "Listo": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        }
+      }
+    },
+    "Borrar la conexión y sus datos locales": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Borrar la conexión y sus datos locales"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete the connection and its local data"
+          }
+        }
+      }
+    },
+    "Desconectar %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desconectar %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disconnect %@"
+          }
+        }
+      }
+    },
+    "Google no permite iniciar sesión aquí": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google no permite iniciar sesión aquí"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google does not allow sign-in here"
+          }
+        }
+      }
+    },
+    "Es una protección antiphishing de Google frente a navegadores dentro de apps, no un fallo de Pulso. Por eso la página sale en blanco.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es una protección antiphishing de Google frente a navegadores dentro de apps, no un fallo de Pulso. Por eso la página sale en blanco."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This is Google's anti-phishing protection against in-app browsers, not a Pulso issue. That is why the page appears blank."
+          }
+        }
+      }
+    },
+    "Vuelve a %@ y entra con tu correo: te envía un código de acceso a la misma cuenta.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vuelve a %@ y entra con tu correo: te envía un código de acceso a la misma cuenta."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Return to %@ and sign in with your email: it sends a sign-in code for the same account."
+          }
+        }
+      }
+    },
+    "Volver a %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volver a %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Return to %@"
+          }
+        }
+      }
+    },
+    "Entra con tu correo": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entra con tu correo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in with your email"
+          }
+        }
+      }
+    },
+    "Pulso rellena y envía tu correo en la web oficial. Después introduces allí el código que te envíe Claude. No guardamos tu correo en los ajustes.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pulso rellena y envía tu correo en la web oficial. Después introduces allí el código que te envíe Claude. No guardamos tu correo en los ajustes."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pulso fills in and submits your email on the official website. Then enter the code Claude sends you there. Your email is not saved in settings."
+          }
+        }
+      }
+    },
+    "Correo de tu cuenta de Claude": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Correo de tu cuenta de Claude"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude account email"
+          }
+        }
+      }
+    },
+    "Continuar con correo": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuar con correo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue with email"
+          }
+        }
+      }
+    },
+    "Abrir web sin rellenar el correo": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir web sin rellenar el correo"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open website without filling in email"
+          }
+        }
+      }
+    },
+    "Google no admite este navegador integrado. Usa el acceso por correo. Este paso no es OAuth nativo: conserva la sesión web actual. Al consultar la cuota, su sesión se guarda en el llavero cifrado compartido para actualizar los widgets. Desconectar Claude elimina esa copia. Los códigos, CAPTCHA y cualquier autorización los confirmas tú en claude.ai.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google no admite este navegador integrado. Usa el acceso por correo. Este paso no es OAuth nativo: conserva la sesión web actual. Al consultar la cuota, su sesión se guarda en el llavero cifrado compartido para actualizar los widgets. Desconectar Claude elimina esa copia. Los códigos, CAPTCHA y cualquier autorización los confirmas tú en claude.ai."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google does not support this embedded browser. Sign in with email instead. This is not native OAuth: it keeps the current web session. When you check the quota, its session is saved in the shared encrypted Keychain to refresh widgets. Disconnecting Claude deletes that copy. You confirm codes, CAPTCHAs and any authorization yourself on claude.ai."
+          }
+        }
+      }
+    },
+    "Cerrar": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close"
+          }
+        }
+      }
+    },
+    "Consultar cuota": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consultar cuota"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check quota"
+          }
+        }
+      }
+    },
+    "Inicia sesión en claude.ai y pulsa Consultar cuota. Si tienes varios espacios, podrás elegir uno en Conexiones.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inicia sesión en claude.ai y pulsa Consultar cuota. Si tienes varios espacios, podrás elegir uno en Conexiones."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in on claude.ai and tap Check quota. If you have multiple workspaces, you can choose one in Connections."
+          }
+        }
+      }
+    },
+    "Tu cuota, en la muñeca": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu cuota, en la muñeca"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your quota on your wrist"
+          }
+        }
+      }
+    },
+    "Elige los proveedores en Pulso para iPhone.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elige los proveedores en Pulso para iPhone."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose providers in Pulso for iPhone."
+          }
+        }
+      }
+    },
+    "Conecta tus cuentas en Pulso para iPhone. Las cuotas se sincronizarán aquí.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conecta tus cuentas en Pulso para iPhone. Las cuotas se sincronizarán aquí."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connect your accounts in Pulso for iPhone. Quotas will sync here."
+          }
+        }
+      }
+    },
+    "Sincronizando…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizando…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Syncing…"
+          }
+        }
+      }
+    },
+    "Sincronizar con iPhone": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizar con iPhone"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sync with iPhone"
+          }
+        }
+      }
+    },
+    "Sincronizar recibe la lectura guardada y solicita otra al iPhone.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizar recibe la lectura guardada y solicita otra al iPhone."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sync retrieves the saved reading and requests a new one from your iPhone."
+          }
+        }
+      }
+    },
+    "Sin actualizar · última lectura": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin actualizar · última lectura"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Out of date · last reading"
+          }
+        }
+      }
+    },
+    "No se pudo consultar la cuota. Abre Pulso en el iPhone.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo consultar la cuota. Abre Pulso en el iPhone."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The quota could not be retrieved. Open Pulso on your iPhone."
+          }
+        }
+      }
+    },
+    "Sin lectura. Abre Pulso en el iPhone.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin lectura. Abre Pulso en el iPhone."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No reading. Open Pulso on your iPhone."
+          }
+        }
+      }
+    },
+    "créditos restantes": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "créditos restantes"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "credits remaining"
+          }
+        }
+      }
+    },
+    "No hay ventanas de cuota en la última lectura.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay ventanas de cuota en la última lectura."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The last reading has no quota windows."
+          }
+        }
+      }
+    },
+    "El contador indica la renovación prevista; no actualiza la cuota.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El contador indica la renovación prevista; no actualiza la cuota."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The countdown shows the expected reset; it does not refresh the quota."
+          }
+        }
+      }
+    },
+    "Abre Pulso en el iPhone para conectar esta cuenta o consultar la cuota.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre Pulso en el iPhone para conectar esta cuenta o consultar la cuota."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Pulso on your iPhone to connect this account or check the quota."
+          }
+        }
+      }
+    },
+    "Consumido · cuota desconocida": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consumido · cuota desconocida"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Used · unknown quota"
+          }
+        }
+      }
+    },
+    "Renovación pendiente de confirmar": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renovación pendiente de confirmar"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reset awaiting confirmation"
+          }
+        }
+      }
+    },
+    "Abre Pulso en el iPhone para sincronizar.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre Pulso en el iPhone para sincronizar."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Pulso on your iPhone to sync."
+          }
+        }
+      }
+    },
+    "Lectura guardada. Conecta el iPhone para sincronizar.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lectura guardada. Conecta el iPhone para sincronizar."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reading saved. Connect your iPhone to sync."
+          }
+        }
+      }
+    },
+    "Sin conexión. Abre Pulso en el iPhone.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin conexión. Abre Pulso en el iPhone."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offline. Open Pulso on your iPhone."
+          }
+        }
+      }
+    },
+    "Sincronizando con el iPhone…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizando con el iPhone…"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Syncing with iPhone…"
+          }
+        }
+      }
+    },
+    "Se conserva la lectura más reciente.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se conserva la lectura más reciente."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The latest reading is kept."
+          }
+        }
+      }
+    },
+    "Lectura recibida del iPhone": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lectura recibida del iPhone"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reading received from iPhone"
+          }
+        }
+      }
+    },
+    "No se pudo sincronizar. Abre Pulso en el iPhone.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo sincronizar. Abre Pulso en el iPhone."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not sync. Open Pulso on your iPhone."
+          }
+        }
+      }
+    },
+    "No se pudo conectar con el iPhone.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo conectar con el iPhone."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not connect to your iPhone."
+          }
+        }
+      }
+    },
+    "Sin conexión. Se conserva la última lectura.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin conexión. Se conserva la última lectura."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offline. The last reading is kept."
+          }
+        }
+      }
+    },
+    "%@. Sin lectura. Abre Pulso en el iPhone.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@. Sin lectura. Abre Pulso en el iPhone."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@. No reading. Open Pulso on your iPhone."
+          }
+        }
+      }
+    },
+    "Renovación pendiente de confirmar.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renovación pendiente de confirmar."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reset awaiting confirmation."
+          }
+        }
+      }
+    },
+    "Sin actualizar.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin actualizar."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Out of date."
+          }
+        }
+      }
+    },
+    "Demostración. ": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demostración. "
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demonstration. "
+          }
+        }
+      }
+    },
+    "%@%@. %@ %@. %@ Última lectura: %@.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%@. %@ %@. %@ Última lectura: %@."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%@. %@ %@. %@ Last reading: %@."
+          }
+        }
+      }
+    },
+    "Abre Pulso en el iPhone": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre Pulso en el iPhone"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Pulso on your iPhone"
+          }
+        }
+      }
+    },
+    "Anterior · %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anterior · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previous · %@"
+          }
+        }
+      }
+    },
+    "Lectura · %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lectura · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reading · %@"
+          }
+        }
+      }
+    },
+    "Pendiente": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pendiente"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pending"
+          }
+        }
+      }
+    },
+    "Anterior": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anterior"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previous"
+          }
+        }
+      }
+    },
+    "disp.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "disp."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "avail."
+          }
+        }
+      }
+    },
+    "Demo · ": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo · "
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo · "
+          }
+        }
+      }
+    },
+    " · renovación pendiente": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " · renovación pendiente"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " · reset pending"
+          }
+        }
+      }
+    },
+    " · anterior": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " · anterior"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " · previous"
+          }
+        }
+      }
+    },
+    "%@%@ %@ %@%@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%@ %@ %@%@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@%@ %@ %@%@"
+          }
+        }
+      }
+    },
+    "%@ · sin lectura": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · sin lectura"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · no reading"
+          }
+        }
+      }
+    },
+    "Última cuota del iPhone. Sigue la selección de usado o disponible de Pulso.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Última cuota del iPhone. Sigue la selección de usado o disponible de Pulso."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last quota from iPhone. Follows Pulso's used or available selection."
+          }
+        }
+      }
+    },
+    "Autor": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autor"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Author"
+          }
+        }
+      }
+    },
+    "Sitio web": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sitio web"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Website"
+          }
+        }
+      }
+    },
+    "Apoyar en Ko-fi": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apoyar en Ko-fi"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Support on Ko-fi"
+          }
+        }
+      }
+    },
+    "Acerca de Pulso": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acerca de Pulso"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About Pulso"
+          }
+        }
+      }
+    },
+    "Web del desarrollador": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Web del desarrollador"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Developer website"
+          }
+        }
+      }
+    },
+    "Invítame a un café": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invítame a un café"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buy me a coffee"
+          }
+        }
+      }
+    },
+    "Uso personal no comercial. Los derechos de venta y explotación comercial están reservados al autor.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uso personal no comercial. Los derechos de venta y explotación comercial están reservados al autor."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personal, noncommercial use. Sale and commercial exploitation rights are reserved by the author."
+          }
+        }
+      }
+    },
+    "%@ · %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ · %@"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

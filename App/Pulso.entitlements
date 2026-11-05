@@ -6,5 +6,10 @@
 	<array>
 		<string>group.com.jesusom.pulso</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)com.jesusom.pulso</string>
+		<string>$(AppIdentifierPrefix)com.jesusom.pulso.quota</string>
+	</array>
 </dict>
 </plist>

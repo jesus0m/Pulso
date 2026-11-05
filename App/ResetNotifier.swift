@@ -5,6 +5,11 @@ import UserNotifications
 /// for that moment rather than waiting for a later refresh to notice it passed.
 enum ResetNotifier {
     private static let prefix = "reset."
+    private static let foregroundDelegate = ForegroundNotificationDelegate()
+
+    static func configureForegroundPresentation() {
+        UNUserNotificationCenter.current().delegate = foregroundDelegate
+    }
 
     struct Pending: Equatable {
         let id: String
@@ -13,14 +18,21 @@ enum ResetNotifier {
         let fireAt: Date
     }
 
+    private final class ForegroundNotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
+        func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,
+                                    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+            completionHandler([.banner, .sound])
+        }
+    }
+
     /// Only future resets, newest reading wins, and one alert per window.
     static func pending(for snapshots: [UsageSnapshot], now: Date) -> [Pending] {
         snapshots.flatMap { snapshot in
             snapshot.windows.compactMap { window -> Pending? in
                 guard let reset = window.resetsAt, reset > now else { return nil }
                 return Pending(id: "\(prefix)\(snapshot.provider.rawValue).\(window.id)",
-                               title: "\(snapshot.provider.title) renovada",
-                               body: "\(window.title) vuelve a estar al 100 %.",
+                               title: String(localized: "\(snapshot.provider.title) renovada"),
+                               body: String(localized: "\(window.localizedTitle) vuelve a estar al 100 %."),
                                fireAt: reset)
             }
         }

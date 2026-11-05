@@ -2,6 +2,57 @@ import XCTest
 @testable import Pulso
 
 final class CopilotQuotaTests: XCTestCase {
+    func testBusinessAICreditsPreservesPublishedMonthlyValuesAcrossCacheRoundTrip() throws {
+        let data = Data(#"{"copilot_plan":"business","token_based_billing":true,"quota_reset_date":"2026-12-01","quota_snapshots":{"premium_interactions":{"credits_used":6134,"entitlement":60000,"remaining":53774,"percent_remaining":89.6,"token_based_billing":true},"chat":{"credits_used":6134,"entitlement":999999,"remaining":1,"percent_remaining":1}}}"#.utf8)
+        for manualLimit: Double? in [nil, 120000] {
+            let snapshot = try CopilotQuotaClient.parse(data, allowance: manualLimit)
+            let restored = try JSONDecoder().decode(UsageSnapshot.self, from: JSONEncoder().encode(snapshot))
+            let window = try XCTUnwrap(restored.windows.first)
+            XCTAssertEqual(restored.windows.count, 1)
+            XCTAssertEqual(window.used, 6134)
+            XCTAssertEqual(window.limit, 60000)
+            XCTAssertEqual(try XCTUnwrap(window.remainingPercent), 89.6, accuracy: 0.00001)
+            XCTAssertEqual(window.displayedRemainingPercent, 90)
+            XCTAssertEqual(window.resetsAt, ISO8601DateFormatter().date(from: "2026-12-01T00:00:00Z"))
+            let saved = try XCTUnwrap(JSONSerialization.jsonObject(with: JSONEncoder().encode(window)) as? [String: Any])
+            XCTAssertEqual(saved["remaining"] as? Double, 53774,
+                           "Preserve GitHub's balance, not 60000 - 6134")
+        }
+    }
+
+    func testTokenBasedBillingFallsBackOnlyForMissingOrInvalidEntitlement() throws {
+        for entitlement in ["null", "-1", "0", #""invalid""#, "true", "1e999"] {
+            let data = Data("""
+            {"token_based_billing":true,"quota_snapshots":{"premium_interactions":{"credits_used":6134,"entitlement":\(entitlement)}}}
+            """.utf8)
+            XCTAssertEqual(try CopilotQuotaClient.parse(data, allowance: 70000).windows.first?.limit, 70000)
+            XCTAssertNil(try CopilotQuotaClient.parse(data).windows.first?.limit)
+        }
+        let missing = Data(#"{"token_based_billing":true,"quota_snapshots":{"premium_interactions":{"credits_used":6134}}}"#.utf8)
+        XCTAssertEqual(try CopilotQuotaClient.parse(missing, allowance: 70000).windows.first?.limit, 70000)
+    }
+
+    func testPublishedRemainingPercentageDoesNotNeedAManualLimit() throws {
+        let snapshot = try parse(#"{"token_based_billing":true,"quota_snapshots":{"premium_interactions":{"credits_used":100,"remaining":0,"percent_remaining":0}}}"#)
+        XCTAssertEqual(snapshot.windows.first?.remainingPercent, 0)
+        XCTAssertEqual(snapshot.windows.first?.displayedRemainingPercent, 0)
+        XCTAssertNil(snapshot.windows.first?.limit)
+    }
+
+    func testMalformedPublishedCreditBalancesAreRejected() {
+        for fields in [
+            #""remaining":-1"#, #""remaining":"53774""#, #""remaining":true"#,
+            #""percent_remaining":-0.1"#, #""percent_remaining":100.1"#
+        ] {
+            let fixture = """
+            {"token_based_billing":true,"quota_snapshots":{"premium_interactions":{"credits_used":6134,"entitlement":60000,\(fields)}}}
+            """
+            XCTAssertThrowsError(try parse(fixture)) { error in
+                XCTAssertEqual(error as? CopilotQuotaError, .unsupportedSchema)
+            }
+        }
+    }
+
     func testBusinessPremiumQuotaPreservesCountsAndPlan() throws {
         let now = Date(timeIntervalSince1970: 123)
         let snapshot = try parse(#"{"copilot_plan":"business","quota_reset_date":"2026-12-01","quota_snapshots":{"premium_interactions":{"entitlement":300,"percent_remaining":75,"unlimited":false},"chat":{"entitlement":-1,"percent_remaining":100,"unlimited":true}},"future_field":true}"#, now: now)
@@ -49,8 +100,16 @@ final class CopilotQuotaTests: XCTestCase {
         XCTAssertEqual(snapshot.windows[0].title, "Créditos usados · cuenta")
         XCTAssertEqual(snapshot.windows[0].used, 15.5)
         XCTAssertNil(snapshot.windows[0].limit)
-        XCTAssertNil(snapshot.windows[0].remainingPercent)
+        XCTAssertEqual(snapshot.windows[0].remainingPercent, 100)
         XCTAssertEqual(snapshot.windows[0].resetsAt, ISO8601DateFormatter().date(from: "2026-12-01T00:00:00Z"))
+    }
+
+    func testTokenBasedBillingAppliesManualAllowanceForPercentage() throws {
+        let data = Data(#"{"token_based_billing":true,"quota_snapshots":{"premium_interactions":{"credits_used":3810}}}"#.utf8)
+        let window = try CopilotQuotaClient.parse(data, allowance: 60000).windows[0]
+        XCTAssertEqual(window.limit, 60000)
+        XCTAssertEqual(window.displayedUsedPercent, 6)
+        XCTAssertNil(try CopilotQuotaClient.parse(data, allowance: -5).windows[0].limit)
     }
 
     func testTokenBasedBillingPreservesExplicitZeroCreditsAndDoesNotFallBackToChat() throws {

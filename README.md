@@ -1,109 +1,127 @@
-# PULSO
+<div align="center">
 
-Tus agentes, de un vistazo. App nativa SwiftUI para iPhone: Codex, GitHub Copilot y Claude en un panel negro y minimalista, vertical u horizontal.
+# Pulso
 
-## Abrir y ejecutar
+### Your AI limits. One glance.
 
-1. Abre `Pulso.xcodeproj` en Xcode 15 o posterior (verificado con el Xcode instalado y simulador iOS 27.2).
-2. Selecciona el esquema **Pulso** y un simulador de iPhone. Ejecuta con ⌘R.
-3. En **Conexiones**, activa **Mostrar datos de ejemplo** para explorar la interfaz sin credenciales. También admite el argumento `--demo`.
-4. Para instalar en tu iPhone, elige tu equipo en **Signing & Capabilities** de Pulso y PulsoWidgets. Debes registrar identificadores y App Group con tu equipo. El grupo `group.com.jesusom.pulso` debe coincidir en los dos entitlements y en `Core/UsageModels.swift`. Si cambias el bundle ID, cambia también el servicio del llavero en `Core/TokenVault.swift`. Un equipo sin capacidad App Groups no permite los widgets compartidos.
+A native iPhone dashboard for **Codex, Claude, and GitHub Copilot**.
+Keep your quotas close: on your desk, Home Screen, Lock Screen, or Apple Watch.
 
-Sin paquetes de terceros, backend, Mac puente o claves de API de OpenAI.
+**SwiftUI** &nbsp; / &nbsp; **iOS 17+** &nbsp; / &nbsp; **watchOS 10+** &nbsp; / &nbsp; **English & Spanish**
 
-## Lecturas y paneles visibles
+[Website](https://olivathedev.com/) &nbsp; / &nbsp; [Buy me a coffee](https://ko-fi.com/olivathedev) &nbsp; / &nbsp; [License](LICENSE)
 
-La cifra principal indica **disponible**, mientras que los IDEs suelen destacar **usado**. Ejemplos: 55% usado = 45% disponible; 57% usado = 43% disponible. Las cifras enteras se redondean juntas para evitar perder un punto por precisión de coma flotante. Copilot conserva además su cantidad consumida, incluso si supera el límite manual.
+![Pulso landscape dashboard](docs/screenshots/landscape.png)
 
-Compara la misma cuenta y momento de lectura; Conexiones muestra la cuenta web de ChatGPT tras una consulta compatible. Ese identificador queda en memoria de la app, fuera del caché compartido con widgets.
+</div>
 
-En **Conexiones → Paneles visibles** puedes ocultar proveedores. La elección se recuerda al cerrar/reabrir PULSO; las cuentas y lecturas se conservan y los widgets siguen disponibles. Si ocultas todos, **Elegir paneles** permite recuperarlos.
+## Less guessing. More building.
 
-GitHub muestra la cuenta y la credencial guardada. El campo de token vacío es para sustituirla, no significa que se haya olvidado. Puedes guardar otros ajustes sin volver a pegar el token.
+Pulso puts the usage information that matters in one quiet, glanceable place:
+remaining quota, used quota, renewal times, and the freshness of the last reading.
+No fake activity indicators. No pretend real-time usage.
 
-El acceso por código de dispositivo es técnicamente posible con una **GitHub App propia** y permiso de usuario Plan:read, pero necesita registrar y habilitar esa app con su Client ID. Esta versión conserva el PAT y no incluye un flujo de emparejamiento sin configurar. Documentación: https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app
+- **Three providers, one dashboard.** Codex session and weekly windows, Claude usage windows, and GitHub Copilot allowance information where the connected account exposes it.
+- **Your numbers, your view.** Switch between remaining and used quota, choose visible providers, and use portrait or a three-column landscape layout.
+- **Made for your desk.** Dark OLED-friendly styling, desk mode, a red night tone, and StandBy-compatible widgets.
+- **Interactive widgets.** Refresh an individual provider or the summary directly in the widget without opening Pulso. iOS may require unlocking before interaction.
+- **Live Activities and Apple Watch.** Keep supported quota information nearby without returning to the dashboard.
+- **Useful reminders.** Optional local reset alerts and native renewal countdowns, including days and hours for long intervals.
+- **English and Spanish.** Follows the device or per-app language.
 
-## Conectar Copilot
+<div align="center">
+<img src="docs/screenshots/portrait.png" alt="Pulso iPhone dashboard in English" width="310">
+</div>
 
-Esta primera versión usa un **token personal**, no OAuth. Es una decisión de entrega: un login OAuth pulido requiere registrar una aplicación propia de GitHub; no se incluyen identificadores ajenos ni secretos de cliente.
+Screenshots are real iOS Simulator captures with synthetic development data.
+Sample accounts and demo controls are compiled only into **Debug** builds.
+**Release builds contain no demo UI or sample-data activation.**
 
-- Selecciona **Empresa u organización** si te proporcionan la licencia, o **Personal** si pagas tu propio plan. Esta instalación usa Empresa por defecto.
-- Empresa: token personal detallado, propiedad de tu usuario, que puede necesitar **Copilot Requests → Read** y autorización por política de la organización. Personal: permiso **Plan → Read**. No se solicitan permisos de administración de facturación.
-- En modo personal, introduce tu usuario, token y, opcionalmente, los créditos incluidos en tu cuota mensual. Ese límite se etiqueta **manual**. Sin él solo se muestra consumo, no se inventa un porcentaje restante.
-- Si tu plan conserva peticiones premium, activa la opción correspondiente e introduce un límite en peticiones, no en créditos.
-- En modo personal se consulta el uso **bruto** mensual de Copilot; no es una predicción de factura ni representa límites horarios/semanales adicionales. Los informes pueden llevar retraso.
-- Las licencias de empresa no se consultan mediante el informe personal. Se intenta leer la cuota de la cuenta con `/copilot_internal/user`, una API privada experimental que puede cambiar o rechazar el token. Algunos planes con créditos, consumo por tokens o cuota ilimitada no publican ventanas numéricas: PULSO muestra uso no disponible, sin inventar cero ni disponibilidad completa.
+## Connections and privacy
 
-En modo empresa, el consumo derivado del porcentaje se marca aproximado (≈). Si falta permiso o la política bloquea la consulta, el panel muestra el error y el enlace **Ver mi uso en GitHub** permite abrir la página oficial. Un informe personal sin filas de Copilot se interpreta como ausencia de datos, nunca como consumo cero.
+| Provider | Connection |
+|---|---|
+| Codex | Native OAuth with the system browser; usage is retrieved with the authorized account session. |
+| Claude | Sign-in inside the app; the authenticated session is reused for native quota requests. Some login providers may restrict embedded sign-in. |
+| GitHub Copilot | GitHub authentication/token connection; available billing and allowance fields depend on the account and organization. |
 
-El token se guarda en el llavero con `WhenUnlockedThisDeviceOnly`. No se comparte con widgets. Desconectar borra el token y la lectura compartida.
+Pulso does not require a separate Pulso backend. Provider requests go directly
+to the relevant services. Credentials are stored in the device Keychain, not
+in plain-text preferences. A restricted shared Keychain group lets the iPhone
+app and its widget extension refresh independently after the first unlock.
+The Apple Watch receives quota state, not provider credentials.
 
-Fuente oficial: https://docs.github.com/en/rest/billing/usage
+**Important limitations**
 
-## Conectar Codex (experimental)
+Automatic widget, StandBy, and background updates are scheduled by iOS.
+A requested refresh time is not a guaranteed polling interval. The manual
+widget button requests a new reading; a live countdown alone does not mean
+new usage data has arrived.
 
-1. Abre **Conexiones → Abrir sesión de ChatGPT**.
-2. Inicia sesión en la página oficial dentro del navegador de la app.
-3. Pulsa **Consultar cuota**.
+Some provider integrations use undocumented service endpoints and authenticated
+web sessions. They can change, become unavailable, or be restricted by provider
+policies. Account plans and organization permissions affect which values are
+available. Use your own accounts and comply with each provider's terms.
+Pulso is an independent project, not an official OpenAI, Anthropic, or GitHub app.
 
-La app intenta leer `/backend-api/wham/usage` desde `chatgpt.com`, utilizando la sesión web de ese sitio. **Es una integración privada, sin garantía de compatibilidad.** La sesión se mantiene únicamente en el almacenamiento WebKit local; el token de sesión no se devuelve a Swift ni se guarda en el caché de los widgets. Se aceptan solo ventanas de uso conocidas y validadas; un formato diferente muestra un error.
+## Build your own
 
-Google/Apple/SSO, CAPTCHA u otras políticas pueden impedir iniciar sesión en un navegador integrado. Si ocurre, esta versión no puede conectar esa cuenta; no incluye un bypass ni presume que la sesión está autenticada. Los widgets y el panel permanecen con datos desconocidos o con la última lectura identificada como desactualizada.
+Requirements: macOS, Xcode with iOS and watchOS SDKs, and Python 3 for project
+generation. The project is tested with Xcode 27.2; deployment targets are
+iOS 17 and watchOS 10.
 
-La consulta oficial documentada de límites de Codex utiliza app-server; esto explica por qué el adaptador web de una app exclusivamente iPhone es experimental: https://learn.chatgpt.com/docs/app-server
-
-## Conectar Claude (experimental)
-
-1. Abre **Conexiones → Abrir sesión de Claude**.
-2. Inicia sesión en `claude.ai` y pulsa **Consultar cuota**.
-3. Si tienes varios espacios de trabajo, selecciona uno en **Conexiones → Espacio de trabajo**. PULSO no elige uno arbitrariamente.
-
-Se muestran las ventanas de sesión y semanales devueltas por Claude, con límites adicionales por modelo cuando estén disponibles. Son cuotas de tu plan compartidas con Claude Code, no gasto de la API ni actividad individual de agentes.
-
-La integración intenta consultar `/api/organizations` y `/api/organizations/{id}/usage` desde el propio sitio de Claude. **Son endpoints privados y experimentales**: pueden cambiar, bloquear el navegador integrado o rechazar la sesión. No se ha validado un inicio de sesión con tu cuenta real. No se utiliza una clave de API de Anthropic.
-
-La sesión web se guarda en un contenedor WebKit exclusivo; borrar Claude conserva la sesión de Codex y viceversa. Los widgets reciben únicamente lecturas de cuota. **Borrar sesión web de Claude** está disponible incluso si cierras el navegador antes de consultar. Una renovación desconocida se deja sin fecha; no se inventa un reinicio.
-
-Fuentes oficiales sobre las cuotas y la diferencia con analítica de organizaciones: https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work y https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api
-
-## Escritorio, Always-On y StandBy
-
-- En vertical: proveedores apilados. En horizontal: lado a lado.
-- El botón de pantalla activa **modo escritorio**: oculta parte del sistema y desactiva el temporizador de bloqueo **solo mientras la app esté activa**. Se restaura al salir o desactivar el modo.
-- El tono nocturno atenúa el aspecto hacia rojo; no controla el brillo físico ni las opciones del sistema.
-- Para **StandBy** de iOS: carga el iPhone, déjalo de lado y añade los widgets **Codex**, **Copilot** y **Claude** de PULSO.
-- Los widgets leen la última consulta guardada por la app. No consultan cuentas en segundo plano. Muestran el momento de lectura y se marcan sin actualizar tras cinco minutos; iOS decide cuándo renderiza cada entrada y permite actualizar cada widget.
-- **Always-On real** depende del hardware, la configuración y las decisiones de iOS. La app no puede forzarlo con el iPhone bloqueado.
-- PULSO consulta cada minuto mientras está abierta; las fuentes pueden publicar datos con retraso. No muestra agentes trabajando ni actividad por sesión porque los informes de cuota no permiten comprobarlo.
-
-Apple: https://developer.apple.com/documentation/uikit/uiapplication/isidletimerdisabled
-
-## Proyecto y comprobaciones
-
-- `App/`: panel, ajustes, estado y navegador experimental.
-- `Core/`: modelos, parsers, cliente GitHub y llavero.
-- `Widgets/`: tres widgets sin credenciales.
-- `Tests/`: parsers, fronteras de cuota y transporte GitHub simulado.
-- `UITests/`: demostración, salida, modo escritorio, rotación, ajustes y texto grande.
-
-Regenerar referencias tras añadir archivos (no instala herramientas):
-
-```sh
+```bash
+git clone https://github.com/jesus0m/Pulso.git
+cd Pulso
 python3 scripts/generate_project.py
+open Pulso.xcodeproj
 ```
 
-Compilar o ejecutar pruebas; sustituye el destino por un iPhone instalado:
+In Xcode, choose your own signing team and configure unique bundle identifiers,
+App Groups, and Keychain Sharing consistently across the app, widgets, and watch
+targets. Update the corresponding identifiers in the source and entitlements
+if you change them. Select the **Pulso** scheme and run on an iPhone simulator
+or your development device.
 
-```sh
+There are no third-party package dependencies. The Xcode project is generated
+by [`scripts/generate_project.py`](scripts/generate_project.py); update the
+generator when changing target membership or build configuration.
+
+### Development and tests
+
+Debug builds include sample data for UI development and screenshots.
+Launch a Debug simulator build with `--demo --reset-preferences`, or use the
+development controls in Settings. Do not use reset arguments on a device with
+accounts you want to keep. Release builds ignore both development arguments.
+
+```bash
+# Replace the simulator name with one installed on your Mac.
 xcodebuild -project Pulso.xcodeproj -scheme Pulso \
   -destination 'platform=iOS Simulator,name=iPhone 18 Pro' \
-  -derivedDataPath build CODE_SIGNING_ALLOWED=NO test
+  -only-testing:PulsoTests test
 ```
 
-Las capturas se adjuntan a los resultados de XCTest. Las pruebas usan datos sintéticos; no prueban tus sesiones reales. Las comprobaciones de OAuth/SSO, cuota de tu cuenta, Always-On físico y StandBy deben hacerse en el iPhone con tus credenciales. No se ha publicado ni firmado para distribución.
+Keep normal simulator signing enabled: App Group and shared Keychain tests
+depend on simulated entitlements. UI tests that launch demo data are intended
+for simulators, not a personal device with real accounts.
 
-## Capturas y validación
+## Support the project
 
-[Vertical](docs/screenshots/portrait.png) · [Horizontal](docs/screenshots/landscape.png) · [Claude](docs/screenshots/claude.png) · [Texto grande](docs/screenshots/large-text.png). Todas muestran datos de ejemplo.
+If Pulso makes your workday a little calmer, you can support its development:
 
-Verificado: compilación de app y extensión, 50 pruebas unitarias y 6 flujos de interfaz sin fallos tras añadir la consulta de cuota de Copilot corporativo y el soporte de facturación por créditos. Revisión independiente sin problemas importantes pendientes. Los resultados locales están bajo `build/*.xcresult` y quedan fuera del control de versiones.
+**[Buy me a coffee on Ko-fi](https://ko-fi.com/olivathedev)**
+
+Created by **Jesus Oliva Morales (olivathedev)**.
+[olivathedev.com](https://olivathedev.com/)
+
+## License
+
+Copyright (c) 2026 Jesus Oliva Morales (olivathedev).
+
+Pulso is **source-available for personal, noncommercial use** under the custom
+[Pulso Personal Noncommercial License](LICENSE). Commercial use, sale, and
+commercial redistribution require the author's prior written permission.
+This is **not** MIT-licensed or an OSI open-source project.
+
+Third-party brands and logos belong to their respective owners. Publishing
+this repository does not imply provider endorsement or App Store approval.

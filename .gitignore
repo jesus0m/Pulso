@@ -6,3 +6,12 @@ DerivedData/
 xcuserdata/
 *.xcresult
 .env
+.env.*
+!.env.example
+*.log
+*.ipa
+*.xcarchive/
+*.p12
+*.p8
+*.mobileprovision
+*.key

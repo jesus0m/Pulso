@@ -1,8 +1,16 @@
 import XCTest
+import UserNotifications
 @testable import Pulso
 
 final class ResetNotifierTests: XCTestCase {
     private let now = Date(timeIntervalSince1970: 1_000_000)
+
+    func testAppKeepsForegroundNotificationDelegateRegistered() throws {
+        let delegate = try XCTUnwrap(UNUserNotificationCenter.current().delegate)
+        XCTAssertTrue(delegate.responds(to: #selector(
+            UNUserNotificationCenterDelegate.userNotificationCenter(_:willPresent:withCompletionHandler:)
+        )))
+    }
 
     private func snapshot(_ provider: Provider, windows: [UsageWindow]) -> UsageSnapshot {
         UsageSnapshot(provider: provider, windows: windows, updatedAt: now, source: "test")

@@ -6,7 +6,7 @@ struct CopilotQuotaClient {
     var session: URLSession = .shared
     var clock: @Sendable () -> Date = { Date() }
 
-    func fetch(token: String) async throws -> UsageSnapshot {
+    func fetch(token: String, allowance: Double? = nil) async throws -> UsageSnapshot {
         let token = token.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !token.isEmpty, !token.contains(where: { $0.isWhitespace || $0.isNewline }) else {
             throw UsageError.invalidCredentials
@@ -37,31 +37,39 @@ struct CopilotQuotaClient {
         }
         #endif
         switch response.statusCode {
-        case 200: return try Self.parse(data, now: clock())
+        case 200: return try Self.parse(data, allowance: allowance, now: clock())
         case 401, 403: throw CopilotQuotaError.accessDenied(response.statusCode)
         case 404: throw CopilotQuotaError.unavailable
         default: throw CopilotQuotaError.http(response.statusCode)
         }
     }
 
-    static func parse(_ data: Data, now: Date = Date()) throws -> UsageSnapshot {
+    static func parse(_ data: Data, allowance: Double? = nil, now: Date = Date()) throws -> UsageSnapshot {
         guard let payload = try? JSONDecoder().decode(Payload.self, from: data) else {
             throw CopilotQuotaError.unsupportedSchema
         }
         let plan = payload.copilot_plan?.trimmingCharacters(in: .whitespacesAndNewlines)
         let planSuffix = plan.flatMap { $0.isEmpty ? nil : " · plan \($0)" } ?? ""
         if payload.token_based_billing == true {
-            // Token billing exposes consumed credits, but no published allowance.
-            // Premium and chat can repeat the same account total; never add them.
-            guard let credits = payload.quota_snapshots?.premium_interactions?.credits_used
-                ?? payload.quota_snapshots?.chat?.credits_used else {
+            // Keep the balance and allowance from the same quota; never add duplicate chat credits.
+            let quota = payload.quota_snapshots?.premium_interactions?.credits_used != nil
+                ? payload.quota_snapshots?.premium_interactions : payload.quota_snapshots?.chat
+            guard let quota, let credits = quota.credits_used else {
                 throw CopilotQuotaError.noPublishedQuota
             }
             guard credits.isFinite, credits >= 0 else { throw CopilotQuotaError.unsupportedSchema }
+            if let remaining = quota.remaining {
+                guard remaining.isFinite, remaining >= 0 else { throw CopilotQuotaError.unsupportedSchema }
+            }
+            if let percent = quota.percent_remaining {
+                guard percent.isFinite, (0...100).contains(percent) else { throw CopilotQuotaError.unsupportedSchema }
+            }
+            let limit = [quota.entitlement, allowance].compactMap { $0 }.first { $0.isFinite && $0 > 0 }
             let reset = payload.quota_reset_date.flatMap(parseResetDate)
             return UsageSnapshot(provider: .copilot,
                                  windows: [UsageWindow(id: "copilot_credits", title: "Créditos usados · cuenta",
-                                                       used: credits, limit: nil, resetsAt: reset)],
+                                                       used: credits, limit: limit, resetsAt: reset,
+                                                       remaining: quota.remaining, reportedRemainingPercent: quota.percent_remaining)],
                                  updatedAt: now,
                                  source: "Copilot · créditos comunicados · cuenta experimental" + planSuffix)
         }
@@ -77,7 +85,9 @@ struct CopilotQuotaClient {
             ("copilot_premium", "Premium · cuenta", payload.quota_snapshots?.premium_interactions),
             ("copilot_chat", "Chat · cuenta", payload.quota_snapshots?.chat)
         ] {
-            guard let quota, quota.unlimited != true else { continue }
+            guard let quota else { continue }
+            guard !quota.invalidEntitlement else { throw CopilotQuotaError.unsupportedSchema }
+            guard quota.unlimited != true else { continue }
             guard let entitlement = quota.entitlement, entitlement.isFinite, entitlement > 0,
                   let remaining = quota.percent_remaining else { continue }
             guard remaining.isFinite, (0...100).contains(remaining) else {
@@ -128,10 +138,28 @@ struct CopilotQuotaClient {
 
     private struct Quota: Decodable {
         let entitlement: Double?
+        let invalidEntitlement: Bool
         let percent_remaining: Double?
+        let remaining: Double?
         let unlimited: Bool?
         let overage_count: Double?
         let credits_used: Double?
+
+        private enum CodingKeys: String, CodingKey {
+            case entitlement, percent_remaining, remaining, unlimited, overage_count, credits_used
+        }
+
+        init(from decoder: Decoder) throws {
+            let fields = try decoder.container(keyedBy: CodingKeys.self)
+            // Invalid entitlements may fall back to a manual limit only in the AI Credits branch.
+            entitlement = try? fields.decodeIfPresent(Double.self, forKey: .entitlement)
+            invalidEntitlement = entitlement == nil && (try? fields.decodeNil(forKey: .entitlement)) == false
+            percent_remaining = try fields.decodeIfPresent(Double.self, forKey: .percent_remaining)
+            remaining = try fields.decodeIfPresent(Double.self, forKey: .remaining)
+            unlimited = try fields.decodeIfPresent(Bool.self, forKey: .unlimited)
+            overage_count = try fields.decodeIfPresent(Double.self, forKey: .overage_count)
+            credits_used = try fields.decodeIfPresent(Double.self, forKey: .credits_used)
+        }
     }
 }
 
@@ -141,15 +169,15 @@ enum CopilotQuotaError: Error, Equatable, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .noPublishedQuota:
-            return "Copilot no publica una cuota medible para esta cuenta en el endpoint experimental. No se puede calcular el uso restante."
+            return String(localized: "Copilot no publica una cuota medible para esta cuenta. No se puede calcular el uso restante.")
         case .unsupportedSchema:
-            return "Copilot devolvió un formato de cuota no compatible en el endpoint experimental."
+            return String(localized: "Copilot devolvió un formato de cuota no compatible.")
         case .accessDenied(let status):
-            return "Copilot no permite consultar la cuota (HTTP \(status)). El token puede servir para facturación y necesitar Copilot Requests de lectura en un token personal detallado, o estar limitado por la política de tu organización."
+            return String(localized: "Copilot no permite consultar la cuota (HTTP \(status)). El token puede servir para facturación y necesitar Copilot Requests de lectura en un token personal detallado, o estar limitado por la política de tu organización.")
         case .unavailable:
-            return "La cuota de cuenta de Copilot no está disponible en este endpoint experimental (HTTP 404)."
+            return String(localized: "La cuota de cuenta de Copilot no está disponible (HTTP 404).")
         case .http(let status):
-            return "No se pudo consultar la cuota de Copilot (HTTP \(status))."
+            return String(localized: "No se pudo consultar la cuota de Copilot (HTTP \(status)).")
         }
     }
 }

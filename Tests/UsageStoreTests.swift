@@ -3,6 +3,174 @@ import XCTest
 
 @MainActor
 final class UsageStoreTests: XCTestCase {
+    func testLogoutInvalidatesWidgetBeforeDeletingCredentialAndPublishesDisconnectedState() async {
+        let fixture = StoreFixture()
+        let store = fixture.makeStore()
+        fixture.widgetEvents.removeAll()
+        await store.disconnect(.copilot)
+        XCTAssertEqual(fixture.widgetEvents, ["invalidate", "delete", "publish"])
+        XCTAssertEqual(fixture.widgetConfigurations.last?.username, "")
+    }
+
+    func testSavedAccountPublishesNewWidgetConfigurationBeforeFetching() async {
+        let fixture = StoreFixture()
+        let store = fixture.makeStore()
+        let save = Task {
+            await store.saveGitHub(username: "second", allowanceText: "200", legacy: true, token: "new-fixture",
+                                   organizationPlan: false)
+        }
+        await waitForRequests(1, fixture: fixture)
+        XCTAssertEqual(fixture.widgetConfigurations.last?.username, "second")
+        XCTAssertEqual(fixture.widgetConfigurations.last?.allowance, 200)
+        XCTAssertEqual(fixture.widgetConfigurations.last?.legacy, true)
+        fixture.complete(0, used: 20)
+        await save.value
+    }
+
+    func testCancellingOnlyWaiterReleasesRefreshAndDiscardsLateResponse() async {
+        let fixture = StoreFixture()
+        let store = fixture.makeStore()
+        let cancelled = Task { await store.refresh() }
+        await waitForRequests(1, fixture: fixture)
+        cancelled.cancel()
+        let result = await cancelled.value
+        XCTAssertTrue(result.cancelled)
+        XCTAssertFalse(store.refreshing)
+
+        let replacement = Task { await store.refresh() }
+        await waitForRequests(2, fixture: fixture)
+        fixture.complete(0, used: 90)
+        for _ in 0..<10 { await Task.yield() }
+        XCTAssertEqual(store.snapshot(for: .copilot)?.windows.first?.used, 12)
+        XCTAssertTrue(fixture.saved.isEmpty)
+        fixture.complete(1, used: 25)
+        await replacement.value
+        XCTAssertEqual(store.snapshot(for: .copilot)?.windows.first?.used, 25)
+        XCTAssertFalse(fixture.saved.flatMap { $0 }.contains { $0.windows.first?.used == 90 })
+    }
+
+    func testCancelledWaiterDoesNotCancelSharedForegroundRefresh() async {
+        let fixture = StoreFixture()
+        let store = fixture.makeStore()
+        let background = Task { await store.refresh() }
+        await waitForRequests(1, fixture: fixture)
+        var foregroundStarted = false
+        let foreground = Task {
+            foregroundStarted = true
+            return await store.refresh()
+        }
+        for _ in 0..<1000 {
+            if foregroundStarted { break }
+            await Task.yield()
+        }
+        XCTAssertTrue(foregroundStarted)
+        background.cancel()
+        let cancelled = await background.value
+        XCTAssertTrue(cancelled.cancelled)
+        XCTAssertTrue(store.refreshing)
+        XCTAssertEqual(fixture.requests.count, 1)
+
+        fixture.complete(0, used: 42)
+        let result = await foreground.value
+        XCTAssertEqual(result.refreshed, [.copilot])
+        XCTAssertFalse(result.cancelled)
+        XCTAssertEqual(store.snapshot(for: .copilot)?.windows.first?.used, 42)
+    }
+
+    func testCancellingRefreshPropagatesToCancellableProvider() async {
+        let fixture = StoreFixture()
+        fixture.defaults.set(true, forKey: "githubOrganizationPlan")
+        let started = expectation(description: "Provider started")
+        let cancelled = expectation(description: "Provider cancelled")
+        fixture.quotaFetch = {
+            started.fulfill()
+            do {
+                try await Task.sleep(for: .seconds(60))
+                throw UsageError.noUsageData
+            } catch {
+                if Task.isCancelled { cancelled.fulfill() }
+                throw error
+            }
+        }
+        let store = fixture.makeStore()
+        let refresh = Task { await store.refresh() }
+        await fulfillment(of: [started], timeout: 1)
+        refresh.cancel()
+        await refresh.value
+        await fulfillment(of: [cancelled], timeout: 1)
+        XCTAssertTrue(fixture.saved.isEmpty)
+    }
+
+    func testTemporarilyLockedPATRemainsConfiguredAndPreservesActivity() async {
+        let fixture = StoreFixture()
+        var ended = 0
+        let session = LiveActivityController.Session(
+            id: "copilot-activity", provider: .copilot, startedAt: Date(),
+            update: { _, _ in }, end: { ended += 1 }
+        )
+        fixture.defaults.set(true, forKey: "liveActivityEnabled")
+        fixture.defaults.set("copilot", forKey: "liveActivityProvider")
+        fixture.defaults.set(session.id, forKey: "liveActivityID")
+        let controller = LiveActivityController(
+            defaults: fixture.defaults,
+            backend: .init(isAuthorized: { true }, sessions: { [session] },
+                           request: { _, _, _ in session })
+        )
+        fixture.availability = .temporarilyUnavailable
+        let store = fixture.makeStore(liveActivity: controller)
+        let before = store.snapshot(for: .copilot)
+        let result = await store.refresh()
+        XCTAssertTrue(store.githubConfigured)
+        XCTAssertEqual(result.attempted, [.copilot])
+        XCTAssertEqual(result.failed, [.copilot])
+        XCTAssertTrue(result.refreshed.isEmpty)
+        XCTAssertEqual(store.snapshot(for: .copilot), before)
+        XCTAssertNotNil(store.errors[.copilot])
+        XCTAssertTrue(controller.isRunning)
+        XCTAssertEqual(ended, 0)
+        XCTAssertTrue(fixture.saved.isEmpty)
+        XCTAssertTrue(fixture.requests.isEmpty)
+    }
+
+    func testWatchReceivesDisplayAndVisibilityChangesWithoutRemovingPhoneReadings() throws {
+        let fixture = StoreFixture()
+        let store = fixture.makeStore()
+        let previousDisplay = store.quotaDisplay
+        defer { store.quotaDisplay = previousDisplay }
+        store.quotaDisplay = .used
+        store.setProviderVisible(.copilot, false)
+        let state = try XCTUnwrap(fixture.watchStates.last)
+        XCTAssertEqual(state.quotaDisplay, .used)
+        XCTAssertEqual(state.visibleProviders, [.codex, .claude])
+        XCTAssertNil(state.snapshot(for: .copilot))
+        XCTAssertNotNil(store.snapshot(for: .copilot))
+        XCTAssertEqual(fixture.token, "original-token")
+    }
+
+    func testWatchReceivesRefreshAndLogoutInsteadOfRetainingDisconnectedQuota() async throws {
+        let fixture = StoreFixture()
+        fixture.defaults.set(true, forKey: "githubOrganizationPlan")
+        let store = fixture.makeStore()
+        await store.refresh()
+        let state = try XCTUnwrap(fixture.watchStates.last)
+        XCTAssertEqual(state.snapshot(for: .copilot)?.windows.first?.used, 42)
+        XCTAssertEqual(state.snapshot(for: .copilot)?.source, "")
+        await store.disconnect(.copilot)
+        XCTAssertNil(fixture.watchStates.last?.snapshot(for: .copilot))
+        XCTAssertTrue(fixture.watchStates.last?.visibleProviders.contains(.copilot) == true)
+    }
+
+    func testWatchKeepsLastReadingAndMarksFailedFetchWithoutSendingErrorText() async {
+        let fixture = StoreFixture()
+        fixture.defaults.set(true, forKey: "githubOrganizationPlan")
+        fixture.quotaError = UsageError.http(403)
+        let store = fixture.makeStore()
+        await store.refresh()
+        XCTAssertEqual(fixture.watchStates.last?.failedProviders, [.copilot])
+        XCTAssertEqual(fixture.watchStates.last?.snapshot(for: .copilot)?.windows.first?.used, 12)
+        XCTAssertNotNil(store.errors[.copilot])
+    }
+
     func testProviderVisibilityRestoresAndIgnoresUnknownProviders() {
         let fixture = StoreFixture()
         fixture.defaults.set(["copilot", "unknown-provider"], forKey: "hiddenProviders")
@@ -162,7 +330,9 @@ final class UsageStoreTests: XCTestCase {
         await store.refresh()
         XCTAssertTrue(fixture.requests.isEmpty)
         XCTAssertTrue(fixture.saved.isEmpty)
+        XCTAssertEqual(fixture.watchStates.last?.isDemo, true)
         store.demo = false
+        XCTAssertEqual(fixture.watchStates.last?.isDemo, false)
         XCTAssertEqual(store.snapshot(for: .copilot)?.windows.first?.used, 12)
     }
 
@@ -186,11 +356,14 @@ final class UsageStoreTests: XCTestCase {
         await refresh.value
         XCTAssertEqual(store.snapshot(for: .claude)?.windows.first?.used, 37)
         XCTAssertNotNil(store.snapshot(for: .codex))
+        fixture.widgetEvents.removeAll()
         await store.disconnect(.claude)
         XCTAssertNil(store.snapshot(for: .claude))
         XCTAssertNotNil(store.snapshot(for: .codex))
         XCTAssertEqual(fixture.clearClaudeCalls, 1)
         XCTAssertEqual(fixture.clearCodexCalls, 0)
+        XCTAssertEqual(fixture.deleteClaudeCredentialsCalls, 1)
+        XCTAssertEqual(fixture.widgetEvents, ["invalidate", "delete-claude", "publish"])
         XCTAssertFalse(store.claudeConfigured)
         XCTAssertEqual(fixture.saved.last?.map(\.provider), [.codex])
     }
@@ -317,6 +490,7 @@ private final class StoreFixture {
     var saved: [[UsageSnapshot]] = []
     var clearCodexCalls = 0
     var clearClaudeCalls = 0
+    var deleteClaudeCredentialsCalls = 0
     var saveTokenCalls = 0
     var deleteTokenCalls = 0
     var claudeRequests: [CheckedContinuation<UsageSnapshot, Error>] = []
@@ -324,6 +498,11 @@ private final class StoreFixture {
     var quotaCalls = 0
     var quotaToken: String?
     var quotaError: Error?
+    var quotaFetch: (() async throws -> UsageSnapshot)?
+    var availability: TokenVault.Availability?
+    var watchStates: [WatchQuotaState] = []
+    var widgetConfigurations: [WidgetQuotaConfiguration] = []
+    var widgetEvents: [String] = []
 
     init() {
         defaults = UserDefaults(suiteName: suite)!
@@ -334,13 +513,13 @@ private final class StoreFixture {
 
     deinit { defaults.removePersistentDomain(forName: suite) }
 
-    func makeStore(demo: Bool = false) -> UsageStore {
+    func makeStore(demo: Bool = false, liveActivity: LiveActivityController? = nil) -> UsageStore {
         let dependencies = UsageStore.Dependencies(
             loadSnapshots: { [self] in initialSnapshots ?? [snapshot(used: 12)] },
             saveSnapshots: { [self] in saved.append($0) },
             readToken: { [self] in token },
             saveToken: { [self] in saveTokenCalls += 1; token = $0 },
-            deleteToken: { [self] in deleteTokenCalls += 1; token = nil },
+            deleteToken: { [self] in deleteTokenCalls += 1; token = nil; widgetEvents.append("delete") },
             fetchGitHub: { [self] username, token, allowance, legacy in
                 try await withCheckedThrowingContinuation { continuation in
                     requests.append(Request(username: username, token: token, allowance: allowance, legacy: legacy, continuation: continuation))
@@ -353,11 +532,17 @@ private final class StoreFixture {
             fetchCopilotQuota: { [self] token in
                 quotaCalls += 1
                 quotaToken = token
+                if let quotaFetch { return try await quotaFetch() }
                 if let quotaError { throw quotaError }
                 return snapshot(used: 42)
-            }
+            },
+            syncWatch: { [self] in watchStates.append($0) },
+            tokenAvailability: { [self] in availability ?? token.map(TokenVault.Availability.available) ?? .missing },
+            publishWidgetConfiguration: { [self] in widgetConfigurations.append($0); widgetEvents.append("publish") },
+            invalidateWidgetConfiguration: { [self] _ in widgetEvents.append("invalidate") },
+            deleteClaudeCredentials: { [self] in deleteClaudeCredentialsCalls += 1; widgetEvents.append("delete-claude") }
         )
-        return UsageStore(dependencies: dependencies, defaults: defaults, demo: demo)
+        return UsageStore(dependencies: dependencies, defaults: defaults, demo: demo, liveActivity: liveActivity)
     }
 
     func complete(_ index: Int, used: Double) {
