@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="App/Assets.xcassets/AppIcon.appiconset/AppIcon.png" alt="Pulso app icon" width="96" height="96">
+
 # Pulso
 
 ### Your AI limits. One glance.
@@ -9,7 +11,7 @@ Keep your quotas close: on your desk, Home Screen, Lock Screen, or Apple Watch.
 
 **SwiftUI** &nbsp; / &nbsp; **iOS 17+** &nbsp; / &nbsp; **watchOS 10+** &nbsp; / &nbsp; **English & Spanish**
 
-[Website](https://olivathedev.com/) &nbsp; / &nbsp; [Buy me a coffee](https://ko-fi.com/olivathedev) &nbsp; / &nbsp; [License](LICENSE)
+[Website](https://pulso.olivathedev.com/) &nbsp; / &nbsp; [Buy me a coffee](https://ko-fi.com/olivathedev) &nbsp; / &nbsp; [License](LICENSE)
 
 ![Pulso landscape dashboard](docs/screenshots/landscape.png)
 
