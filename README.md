@@ -91,6 +91,10 @@ generator when changing target membership or build configuration.
 
 ### Development and tests
 
+GitHub Actions runs the unit tests and the Release demo-exclusion regression
+on the official `xcode-27` macOS runner with Xcode 27.2. Simulator signing stays
+enabled; no Apple account, device credentials, or App Store upload is required.
+
 Debug builds include sample data for UI development and screenshots.
 Launch a Debug simulator build with `--demo --reset-preferences`, or use the
 development controls in Settings. Do not use reset arguments on a device with
