@@ -2,10 +2,10 @@ name: Android CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
     paths: ['android/**', 'App/Localizable.xcstrings', '.github/workflows/android-ci.yml']
   pull_request:
-    branches: [main]
+    branches: [main, develop]
     paths: ['android/**', 'App/Localizable.xcstrings', '.github/workflows/android-ci.yml']
   workflow_dispatch:
 

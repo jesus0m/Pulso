@@ -6,14 +6,14 @@
 
 ### Your AI limits. One glance.
 
-A native iPhone dashboard for **Codex, Claude, and GitHub Copilot**.
+A native iPhone and Android dashboard for **Codex, Claude, and GitHub Copilot**.
 Keep your quotas close: on your desk, Home Screen, Lock Screen, or Apple Watch.
 
-**SwiftUI** &nbsp; / &nbsp; **iOS 17+** &nbsp; / &nbsp; **watchOS 10+** &nbsp; / &nbsp; **English & Spanish**
+**SwiftUI** &nbsp; / &nbsp; **iOS 17+** &nbsp; / &nbsp; **watchOS 10+** &nbsp; / &nbsp; **Kotlin & Compose** &nbsp; / &nbsp; **Android 8+** &nbsp; / &nbsp; **English & Spanish**
 
 [Website](https://pulso.olivathedev.com/) &nbsp; / &nbsp; [Buy me a coffee](https://ko-fi.com/olivathedev) &nbsp; / &nbsp; [License](LICENSE)
 
-![Pulso landscape dashboard](docs/screenshots/landscape.png)
+![Pulso on iPhone and Android](docs/screenshots/devices-en.png)
 
 </div>
 
@@ -114,12 +114,21 @@ for simulators, not a personal device with real accounts.
 
 ## Android
 
-An Android port with the same dashboard, providers, widgets, reset alerts and
-display options lives in [`android/`](android/) (Kotlin, Jetpack Compose, Glance
-widgets, WorkManager; Android 8.0+). Credentials are kept encrypted with the
-Android Keystore. Differences from iOS: the Live Activity is an ongoing
-notification, and background refresh is limited by Android to every 15 minutes at
-best. There is no Wear OS companion yet.
+The same dashboard, providers, widgets, reset alerts and display options for Android
+8.0+ live in [`android/`](android/) (Kotlin, Jetpack Compose, Glance widgets, WorkManager).
+Credentials are kept encrypted with the Android Keystore.
+
+**Install:** download the APK from the [latest release](https://github.com/jesus0m/Pulso/releases/latest)
+and allow "install unknown apps" for your browser. Builds are signed, but not distributed
+through Google Play. Prereleases (from `develop`) are marked as such on the releases page.
+
+Differences from iOS: the Live Activity is an ongoing notification, and Android limits
+background refresh to every 15 minutes at best. There is no Wear OS companion yet.
+
+<div align="center">
+<img src="docs/screenshots/android-framed-en.png" alt="Pulso on Android" width="300">
+<img src="docs/screenshots/ios-framed-en.png" alt="Pulso on iPhone" width="300">
+</div>
 
 ```bash
 brew install --cask android-commandlinetools temurin   # JDK 17+ and the SDK tools
@@ -132,7 +141,16 @@ Shared copy is generated from `App/Localizable.xcstrings` with
 `python3 android/scripts/generate_strings.py`; re-run it after changing strings.
 Debug builds accept `--ez demo true --ez reset-preferences true` launch extras
 (`adb shell am start -n com.jesusom.pulso/.MainActivity --ez demo true`); Release
-ignores them.
+ignores them. Framed screenshots are produced with `scripts/frame_screenshots.py`.
+
+### Branches and releases
+
+Work lands on `develop`; every push to it publishes an Android **prerelease**
+(`android-v<version>-pre.<n>`). Pushing to `main` publishes the stable release `v<version>`
+with the APK (the version comes from `android/app/build.gradle.kts`, kept in step with the iOS
+`CFBundleShortVersionString`; bump it to publish a new one). Signing uses the repository secrets
+`ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD` and `ANDROID_KEY_ALIAS` when present;
+otherwise a throwaway key is used and installs cannot be updated across builds.
 
 ## Support the project
 

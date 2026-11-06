@@ -1,10 +1,11 @@
 name: Android prerelease
 
 # Builds the Release APK, signs it and publishes it as a GitHub prerelease.
+# Prereleases come only from `develop`; stable releases come from `main` (android-release.yml).
 # It never runs for pull requests, so no pull request can publish a binary.
 on:
   push:
-    branches: [main]
+    branches: [develop]
     paths: ['android/**', 'App/Localizable.xcstrings', '.github/workflows/android-prerelease.yml']
   workflow_dispatch:
 
@@ -19,6 +20,8 @@ jobs:
   prerelease:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    # A manual run from any other branch must not publish a prerelease.
+    if: github.ref == 'refs/heads/develop'
     permissions:
       contents: write # create the tag and the prerelease; nothing else is granted
     env:

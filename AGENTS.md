@@ -123,6 +123,10 @@ when a parser, quota rule or string changes in `Core/` or the catalog, change th
 Kotlin counterpart and its tests too. Regenerate strings with
 `python3 android/scripts/generate_strings.py` (never edit `strings_catalog.xml`).
 Verify with `cd android && ./gradlew :app:testDebugUnitTest :app:lintDebug`.
+Branching: feature branches target `develop` (pushes there publish an Android prerelease);
+`main` publishes the stable release `v<versionName>`. Bump `versionName`/`versionCode` and the
+iOS `CFBundleShortVersionString` in `scripts/generate_project.py` together when releasing;
+an existing tag makes the release workflow stop without publishing.
 The same invariants apply: demo/reset extras are Debug-only, credentials only in
 `KeystoreSecretStore`, never log tokens, missing data is unknown, not zero.
 

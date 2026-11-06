@@ -29,4 +29,8 @@
     <string name="a_claude_email_footer">Google does not support this embedded browser. Use email access. This step is not native OAuth: it keeps the current web session. When the quota is queried, its session is stored encrypted so widgets can refresh. Disconnecting Claude removes that copy. You confirm codes, CAPTCHAs and any authorization on claude.ai.</string>
     <string name="a_move_up">Move %1$s up</string>
     <string name="a_move_down">Move %1$s down</string>
+    <plurals name="a_in_minutes"><item quantity="one">in %d minute</item><item quantity="other">in %d minutes</item></plurals>
+    <plurals name="a_in_hours"><item quantity="one">in %d hour</item><item quantity="other">in %d hours</item></plurals>
+    <plurals name="a_in_days"><item quantity="one">in %d day</item><item quantity="other">in %d days</item></plurals>
+    <plurals name="a_in_weeks"><item quantity="one">in %d week</item><item quantity="other">in %d weeks</item></plurals>
 </resources>

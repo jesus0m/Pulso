@@ -28,4 +28,8 @@
     <string name="a_claude_email_footer">Google no admite este navegador integrado. Usa el acceso por correo. Este paso no es OAuth nativo: conserva la sesión web actual. Al consultar la cuota, su sesión se guarda cifrada para actualizar los widgets. Desconectar Claude elimina esa copia. Los códigos, CAPTCHA y cualquier autorización los confirmas tú en claude.ai.</string>
     <string name="a_move_up">Subir %1$s</string>
     <string name="a_move_down">Bajar %1$s</string>
+    <plurals name="a_in_minutes"><item quantity="one">dentro de %d minuto</item><item quantity="other">dentro de %d minutos</item></plurals>
+    <plurals name="a_in_hours"><item quantity="one">dentro de %d hora</item><item quantity="other">dentro de %d horas</item></plurals>
+    <plurals name="a_in_days"><item quantity="one">dentro de %d día</item><item quantity="other">dentro de %d días</item></plurals>
+    <plurals name="a_in_weeks"><item quantity="one">dentro de %d semana</item><item quantity="other">dentro de %d semanas</item></plurals>
 </resources>

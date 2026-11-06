@@ -16,9 +16,9 @@ android {
         applicationId = "com.jesusom.pulso"
         minSdk = 26
         targetSdk = 36
-        // Keep in step with MARKETING_VERSION in scripts/generate_project.py.
-        versionCode = 1
-        versionName = "1.0"
+        // Keep in step with CFBundleShortVersionString in scripts/generate_project.py.
+        versionCode = 2
+        versionName = "1.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         androidResources.localeFilters += listOf("en", "es")
     }

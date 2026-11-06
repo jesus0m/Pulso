@@ -286,7 +286,7 @@ private fun ProviderPanel(
                 }, {
                     window.resetsAt?.let { reset ->
                         Text(
-                            if (reset > now) stringResource(R.string.s_renueva, relativeFuture(now, reset).toString())
+                            if (reset > now) stringResource(R.string.s_renueva, relativeFuture(context, now, reset))
                             else stringResource(R.string.s_renovacion_pendiente),
                             fontSize = 12.sp, color = SecondaryText,
                         )
@@ -357,7 +357,7 @@ private fun ExtraWindow(extra: UsageWindow, store: UsageStore, compact: Boolean,
         })
         extra.resetsAt?.let { reset ->
             Text(
-                if (reset > now) stringResource(R.string.s_renueva, relativeFuture(now, reset).toString())
+                if (reset > now) stringResource(R.string.s_renueva, relativeFuture(context, now, reset))
                 else stringResource(R.string.s_renovacion_pendiente_ultima_lectura),
                 fontSize = 12.sp, color = if (reset > now) SecondaryText else WarningColor,
             )

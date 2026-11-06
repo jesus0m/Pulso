@@ -3,6 +3,7 @@ package com.jesusom.pulso.core
 import android.content.Context
 import android.text.format.DateFormat
 import android.text.format.DateUtils
+import com.jesusom.pulso.R
 import androidx.compose.ui.graphics.Color
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -49,10 +50,17 @@ fun countdownText(now: Instant, reset: Instant): String {
     }
 }
 
-/** "in 2 hours" / "dentro de 2 horas", lower-cased so it reads inside "Resets …". */
-fun relativeFuture(now: Instant, reset: Instant): CharSequence =
-    DateUtils.getRelativeTimeSpanString(reset.toEpochMilli(), now.toEpochMilli(), DateUtils.MINUTE_IN_MILLIS)
-        .toString().replaceFirstChar { it.lowercase() }
+/** "in 2 hours" / "dentro de 2 horas" from the app's own resources, so it follows the app language. */
+fun relativeFuture(context: Context, now: Instant, reset: Instant): String {
+    val minutes = maxOf(1L, Duration.between(now, reset).toMinutes())
+    val res = context.resources
+    return when {
+        minutes < 60 -> res.getQuantityString(R.plurals.a_in_minutes, minutes.toInt(), minutes.toInt())
+        minutes < 60 * 24 -> (minutes / 60).toInt().let { res.getQuantityString(R.plurals.a_in_hours, it, it) }
+        minutes < 60 * 24 * 14 -> (minutes / (60 * 24)).toInt().let { res.getQuantityString(R.plurals.a_in_days, it, it) }
+        else -> (minutes / (60 * 24 * 7)).toInt().let { res.getQuantityString(R.plurals.a_in_weeks, it, it) }
+    }
+}
 
 fun shortTime(context: Context, instant: Instant): String =
     DateFormat.getTimeFormat(context).format(Date.from(instant))

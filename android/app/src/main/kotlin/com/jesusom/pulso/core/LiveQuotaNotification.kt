@@ -141,8 +141,7 @@ class LiveQuotaNotification(
             complement?.let { append(" · $it% ${display.complementNoun(context)}") }
             window.resetsAt?.takeIf { it.isAfter(now()) }?.let {
                 append(" · ")
-                append(context.getString(R.string.s_renueva, android.text.format.DateUtils.getRelativeTimeSpanString(
-                    it.toEpochMilli(), now().toEpochMilli(), android.text.format.DateUtils.MINUTE_IN_MILLIS)))
+                append(context.getString(R.string.s_renueva, relativeFuture(context, now(), it)))
             }
         }
         val reading = android.text.format.DateFormat.getTimeFormat(context)
