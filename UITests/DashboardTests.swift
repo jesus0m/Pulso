@@ -394,6 +394,28 @@ final class DashboardTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["GitHub Copilot"].exists)
     }
 
+    func testPanelOrderIsChosenInSettingsAndRemembered() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--demo", "--reset-preferences"]
+        app.launch()
+        XCTAssertTrue(app.otherElements["panel_codex"].waitForExistence(timeout: 10))
+        XCTAssertLessThan(app.otherElements["panel_codex"].frame.minY, app.otherElements["panel_claude"].frame.minY)
+        app.buttons["settingsButton"].tap()
+        XCTAssertTrue(app.buttons["moveUp_claude"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["moveUp_codex"].isEnabled, "The first panel cannot move up")
+        app.buttons["moveUp_claude"].tap()
+        app.buttons["moveUp_claude"].tap()
+        saveScreenshot("panel-order")
+        app.buttons["Listo"].tap()
+        XCTAssertLessThan(app.otherElements["panel_claude"].frame.minY, app.otherElements["panel_codex"].frame.minY)
+        app.terminate()
+        // Relaunch without the reset: this is what verifies the order is remembered.
+        app.launchArguments = ["--demo"]
+        app.launch()
+        XCTAssertTrue(app.otherElements["panel_claude"].waitForExistence(timeout: 10))
+        XCTAssertLessThan(app.otherElements["panel_claude"].frame.minY, app.otherElements["panel_codex"].frame.minY)
+    }
+
     func testQuotaDisplayPreferenceSwapsTheHeadlineFigure() {
         let app = XCUIApplication()
         app.launchArguments = ["--demo", "--reset-preferences"]

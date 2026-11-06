@@ -49,7 +49,7 @@ def plist(path, value):
 
 common_info = {'CFBundleDevelopmentRegion':'es', 'CFBundleExecutable':'$(EXECUTABLE_NAME)',
                'CFBundleIdentifier':'$(PRODUCT_BUNDLE_IDENTIFIER)', 'CFBundleInfoDictionaryVersion':'6.0',
-               'CFBundleName':'$(PRODUCT_NAME)', 'CFBundleShortVersionString':'1.0', 'CFBundleVersion':'1'}
+               'CFBundleName':'$(PRODUCT_NAME)', 'CFBundleShortVersionString':'1.1.0', 'CFBundleVersion':'1'}
 plist('App/Info.plist', dict(common_info, CFBundleDisplayName='Pulso', CFBundlePackageType='APPL',
     LSRequiresIPhoneOS=True, UIApplicationSceneManifest={'UIApplicationSupportsMultipleScenes':False},
     UILaunchScreen={}, UISupportedInterfaceOrientations=['UIInterfaceOrientationPortrait','UIInterfaceOrientationLandscapeLeft','UIInterfaceOrientationLandscapeRight'],

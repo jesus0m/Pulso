@@ -62,6 +62,7 @@ class UsageStore(
         val clearCodex: (suspend () -> Unit)? = null,
         val clearClaude: (suspend () -> Unit)? = null,
         val deleteClaudeCredentials: () -> Unit = {},
+        val publishSummaryProviders: (List<Provider>) -> Unit = {},
         val reloadWidgets: () -> Unit = {},
         val scheduleResetAlerts: (List<UsageSnapshot>, Boolean) -> Unit = { _, _ -> },
         val requestNotifications: suspend () -> Boolean = { false },
@@ -77,6 +78,9 @@ class UsageStore(
     var refreshing by mutableStateOf(false)
         private set
     var hiddenProviders by mutableStateOf(prefs.stringList("hiddenProviders").mapNotNull(Provider::from).toSet())
+        private set
+    /** One display order shared by the dashboard, summary widget and live-activity picker. */
+    var providerOrder by mutableStateOf(Provider.ordered(prefs.stringList("providerOrder")))
         private set
     /** Sample data is a Debug-only development aid; Release builds can never turn it on. */
     var demo by mutableStateOf(BuildConfig.DEBUG && demo)
@@ -111,6 +115,7 @@ class UsageStore(
         }
         reconcileLiveActivity()
         publishWidgetConfiguration()
+        dependencies.publishSummaryProviders(visibleProviders)
     }
 
     // region Derived state
@@ -121,7 +126,7 @@ class UsageStore(
     val claudeConfigured get() = prefs.bool("claudeEnabled")
     val allowance: Double? get() = parseAllowance(allowanceText)
     val githubDraft get() = GitHubDraft(username, allowanceText, legacy, organizationPlan)
-    val visibleProviders get() = Provider.entries.filter { isProviderVisible(it) }
+    val visibleProviders get() = providerOrder.filter { isProviderVisible(it) }
 
     fun isConfigured(provider: Provider) = when (provider) {
         Provider.CODEX -> codexConfigured
@@ -134,6 +139,28 @@ class UsageStore(
     fun setProviderVisible(provider: Provider, visible: Boolean) {
         hiddenProviders = if (visible) hiddenProviders - provider else hiddenProviders + provider
         prefs.putList("hiddenProviders", Provider.entries.filter { it in hiddenProviders }.map { it.raw })
+        layoutChanged()
+    }
+
+    fun canMoveProvider(provider: Provider, offset: Int): Boolean {
+        val index = providerOrder.indexOf(provider)
+        return index >= 0 && index + offset in providerOrder.indices
+    }
+
+    /** Moves a panel one step up (-1) or down (+1); a move past either end is ignored. */
+    fun moveProvider(provider: Provider, offset: Int) {
+        if (!canMoveProvider(provider, offset)) return
+        val order = providerOrder.toMutableList()
+        val index = order.indexOf(provider)
+        order[index] = order[index + offset].also { order[index + offset] = order[index] }
+        providerOrder = order
+        prefs.putList("providerOrder", order.map { it.raw })
+        layoutChanged()
+    }
+
+    private fun layoutChanged() {
+        dependencies.publishSummaryProviders(visibleProviders)
+        dependencies.reloadWidgets()
     }
 
     fun snapshot(provider: Provider): UsageSnapshot? {
@@ -145,7 +172,8 @@ class UsageStore(
     fun resetDevelopmentPreferences() {
         if (!BuildConfig.DEBUG) return
         hiddenProviders = emptySet()
-        prefs.remove("hiddenProviders")
+        prefs.remove("hiddenProviders", "providerOrder")
+        providerOrder = Provider.entries
         quotaDisplay = QuotaDisplay.REMAINING
         SnapshotCacheDisplay.write(prefs, QuotaDisplay.REMAINING)
         liveActivity.changeEnabled(false)

@@ -126,10 +126,35 @@ func localizedQuotaStatus(_ status: String) -> String {
     }
 }
 
+extension Provider {
+    /// Saved raw values in saved order; unknown or repeated values are dropped and
+    /// providers added later are appended in their canonical position.
+    static func ordered(from raw: [String]) -> [Provider] {
+        var result: [Provider] = []
+        for provider in raw.compactMap(Provider.init(rawValue:)) where !result.contains(provider) {
+            result.append(provider)
+        }
+        return result + allCases.filter { !result.contains($0) }
+    }
+}
+
 enum SnapshotCache {
     static let suite = "group.com.jesusom.pulso"
     private static let key = "usageSnapshots"
     private static let displayKey = "quotaDisplay"
+    private static let summaryKey = "summaryProviders"
+
+    /// Visible providers in display order, published by the app for the summary widget.
+    /// Individual provider widgets ignore it: they are added on purpose and stay available.
+    static var summaryProviders: [Provider] {
+        get {
+            guard let raw = UserDefaults(suiteName: suite)?.stringArray(forKey: summaryKey) else { return Provider.allCases }
+            var seen: [Provider] = []
+            for provider in raw.compactMap(Provider.init(rawValue:)) where !seen.contains(provider) { seen.append(provider) }
+            return seen
+        }
+        set { UserDefaults(suiteName: suite)?.set(newValue.map(\.rawValue), forKey: summaryKey) }
+    }
 
     /// Lives in the shared group so the widgets read the same preference as the app.
     static var quotaDisplay: QuotaDisplay {

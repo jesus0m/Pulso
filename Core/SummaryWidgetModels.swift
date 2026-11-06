@@ -32,9 +32,9 @@ struct SummaryWidgetState {
     let readings: [SummaryProviderReading]
     let display: QuotaDisplay
 
-    init(snapshots: [UsageSnapshot], display: QuotaDisplay) {
+    init(snapshots: [UsageSnapshot], display: QuotaDisplay, providers: [Provider] = Provider.allCases) {
         self.display = display
-        readings = Provider.allCases.map { provider in
+        readings = providers.map { provider in
             let snapshot = snapshots.filter { $0.provider == provider }
                 .max { $0.updatedAt < $1.updatedAt }
             return SummaryProviderReading(provider: provider, windows: snapshot?.windows ?? [],

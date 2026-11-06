@@ -76,6 +76,7 @@ class Services(val app: Application) {
                 requestNotifications = { notificationPermission?.invoke() ?: ResetNotifier.hasPermission(app) },
                 publishWidgetConfiguration = widgetState::save,
                 invalidateWidgetConfiguration = widgetState::invalidate,
+                publishSummaryProviders = { cache.summaryProviders = it },
             ),
         )
     }

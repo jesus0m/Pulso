@@ -12,7 +12,7 @@
     <string name="a_live_failed">Android could not start the live activity. Try again with PULSO open.</string>
     <string name="a_live_disabled_by_system">Notifications are turned off for PULSO.</string>
     <string name="a_title_accounts">Your accounts. Only on your phone.</string>
-    <string name="a_visible_note">The selection is remembered on this phone. Hiding a panel keeps its account and last reading; its widgets stay available.</string>
+    <string name="a_visible_note">Order and selection are remembered on this phone. Hiding a panel keeps its account and last reading. The summary widget follows the selection; individual widgets stay available.</string>
     <string name="a_codex_footer">Sign in with ChatGPT in your system browser. The session is stored encrypted with the Android Keystore and renewed when ChatGPT allows it.</string>
     <string name="a_secure_saved">Credential stored encrypted on this phone</string>
     <string name="a_github_footer">Enterprise: the monthly limit comes from GitHub. If unavailable, the fallback limit is used. Personal: a token with Plan → read permission and a manual included quota. The token is stored encrypted; leave it empty to keep it.</string>
@@ -27,4 +27,10 @@
     <string name="a_bg_never">Android has not woken PULSO yet</string>
     <string name="a_bg_footer">Android decides when it runs the request, and never more often than every 15 minutes; Doze and battery saver can delay it further. Widgets can query Codex, Copilot and Claude with the phone locked, using the encrypted storage shared with PULSO, and keep the last reading if a query fails. Claude uses its experimental web session: if it expires or asks for a check, open its session in PULSO. No interval is guaranteed.</string>
     <string name="a_claude_email_footer">Google does not support this embedded browser. Use email access. This step is not native OAuth: it keeps the current web session. When the quota is queried, its session is stored encrypted so widgets can refresh. Disconnecting Claude removes that copy. You confirm codes, CAPTCHAs and any authorization on claude.ai.</string>
+    <string name="a_move_up">Move %1$s up</string>
+    <string name="a_move_down">Move %1$s down</string>
+    <plurals name="a_in_minutes"><item quantity="one">in %d minute</item><item quantity="other">in %d minutes</item></plurals>
+    <plurals name="a_in_hours"><item quantity="one">in %d hour</item><item quantity="other">in %d hours</item></plurals>
+    <plurals name="a_in_days"><item quantity="one">in %d day</item><item quantity="other">in %d days</item></plurals>
+    <plurals name="a_in_weeks"><item quantity="one">in %d week</item><item quantity="other">in %d weeks</item></plurals>
 </resources>

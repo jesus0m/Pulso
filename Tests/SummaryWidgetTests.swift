@@ -102,4 +102,22 @@ final class SummaryWidgetTests: XCTestCase {
             UsageWindow(id: "session", title: "Sesión", used: used, limit: 100)
         ], updatedAt: updatedAt ?? now, source: "")
     }
+
+    func testSummaryFollowsPublishedProvidersAndOrder() {
+        let state = SummaryWidgetState(snapshots: [], display: .remaining, providers: [.claude, .codex])
+        XCTAssertEqual(state.readings.map(\.provider), [.claude, .codex])
+        XCTAssertTrue(SummaryWidgetState(snapshots: [], display: .used, providers: []).readings.isEmpty)
+        XCTAssertEqual(SummaryWidgetState(snapshots: [], display: .used).readings.map(\.provider), Provider.allCases)
+    }
+
+    func testProviderOrderNormalizationAndSharedSummaryLayout() {
+        XCTAssertEqual(Provider.ordered(from: []), Provider.allCases)
+        XCTAssertEqual(Provider.ordered(from: ["claude", "claude", "x"]), [.claude, .codex, .copilot])
+        let previous = SnapshotCache.summaryProviders
+        defer { SnapshotCache.summaryProviders = previous }
+        SnapshotCache.summaryProviders = [.copilot, .codex]
+        XCTAssertEqual(SnapshotCache.summaryProviders, [.copilot, .codex])
+        SnapshotCache.summaryProviders = []
+        XCTAssertEqual(SnapshotCache.summaryProviders, [], "All panels hidden is a real state, not a missing one")
+    }
 }

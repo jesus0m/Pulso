@@ -1,0 +1,73 @@
+name: Android release
+
+# Every push to `main` that changes the Android app publishes a stable release with the signed APK.
+# The version comes from android/app/build.gradle.kts; if that tag already exists the run stops
+# without publishing, so bump versionName/versionCode (and the iOS version) in the same change.
+on:
+  push:
+    branches: [main]
+    paths: ['android/**', 'App/Localizable.xcstrings', '.github/workflows/android-release.yml']
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write # create the tag and the release; nothing else is granted
+    env:
+      ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+      ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Read the version and stop if it is already released
+        id: version
+        run: |
+          version="$(sed -n 's/.*versionName = "\(.*\)".*/\1/p' android/app/build.gradle.kts)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          if gh release view "v$version" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release v$version already exists; bump the version to publish a new one."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Test and build the Release APK
+        if: steps.version.outputs.skip != 'true'
+        working-directory: android
+        run: ./gradlew --no-daemon :app:testDebugUnitTest :app:lintDebug :app:assembleRelease
+
+      - name: Sign
+        if: steps.version.outputs.skip != 'true'
+        id: sign
+        working-directory: android
+        run: |
+          name="Pulso-android-${{ steps.version.outputs.version }}.apk"
+          ./scripts/sign_prerelease.sh app/build/outputs/apk/release/app-release-unsigned.apk "$RUNNER_TEMP/$name"
+          echo "apk=$RUNNER_TEMP/$name" >> "$GITHUB_OUTPUT"
+
+      - name: Publish release
+        if: steps.version.outputs.skip != 'true'
+        env:
+          APK: ${{ steps.sign.outputs.apk }}
+          TAG: ${{ steps.version.outputs.tag }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          signing="a throwaway key (it cannot update an install signed by another key)"
+          if [ -n "$ANDROID_KEYSTORE_BASE64" ]; then signing="the repository release key"; fi
+          gh release create "$TAG" "$APK" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --latest --title "Pulso $VERSION" --generate-notes \
+            --notes "Android APK built from $GITHUB_SHA and signed with $signing. The iOS app is built from source with Xcode (see the README). Wear OS is not included. Personal, noncommercial use under the repository LICENSE."

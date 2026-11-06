@@ -30,7 +30,8 @@ private struct CachedSummaryProvider: TimelineProvider {
 
     private func entry(at date: Date) -> SummaryEntry {
         SummaryEntry(date: date, state: SummaryWidgetState(
-            snapshots: SnapshotCache.load(), display: SnapshotCache.quotaDisplay
+            snapshots: SnapshotCache.load(), display: SnapshotCache.quotaDisplay,
+            providers: SnapshotCache.summaryProviders
         ))
     }
 }
@@ -57,7 +58,9 @@ private struct SummaryWidgetView: View {
         GeometryReader { geometry in
             VStack(alignment: .leading, spacing: family == .systemSmall ? 6 : 10) {
                 header
-                if family == .systemSmall {
+                if entry.state.readings.isEmpty {
+                    emptyState
+                } else if family == .systemSmall {
                     compactRows
                 } else if family == .systemMedium {
                     if dynamicTypeSize.isAccessibilitySize || geometry.size.height < 120 {
@@ -76,6 +79,17 @@ private struct SummaryWidgetView: View {
         .foregroundStyle(.white)
         .containerBackground(.black, for: .widget)
         .widgetURL(URL(string: "pulso://dashboard"))
+    }
+
+    /// Every panel is hidden in the app; the accounts and readings are untouched.
+    private var emptyState: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Sin paneles visibles").font(.caption.weight(.semibold))
+            Text("Tus cuentas siguen conectadas. Elige qué paneles quieres mostrar.")
+                .font(.caption2).foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        .accessibilityElement(children: .combine)
     }
 
     private var header: some View {

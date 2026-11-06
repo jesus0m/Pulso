@@ -22,7 +22,12 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -45,6 +50,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -155,9 +162,23 @@ fun ConnectionsScreen(store: UsageStore, services: Services, onDone: () -> Unit)
             Caption(stringResource(R.string.s_las_credenciales_permanecen_en_el_dispositiv))
 
             SectionHeader(stringResource(R.string.s_paneles_visibles))
-            Provider.entries.forEach { provider ->
-                ToggleRow(provider.title, store.isProviderVisible(provider), "visible_${provider.raw}") {
-                    store.setProviderVisible(provider, it)
+            store.providerOrder.forEach { provider ->
+                Row(Modifier.fillMaxWidth(), verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                    Box(Modifier.weight(1f)) {
+                        ToggleRow(provider.title, store.isProviderVisible(provider), "visible_${provider.raw}") {
+                            store.setProviderVisible(provider, it)
+                        }
+                    }
+                    val up = stringResource(R.string.a_move_up, provider.title)
+                    val down = stringResource(R.string.a_move_down, provider.title)
+                    IconButton(
+                        onClick = { store.moveProvider(provider, -1) }, enabled = store.canMoveProvider(provider, -1),
+                        modifier = Modifier.testTag("moveUp_${provider.raw}").semantics { contentDescription = up },
+                    ) { Icon(Icons.Default.KeyboardArrowUp, null, tint = if (store.canMoveProvider(provider, -1)) Color.White else Color.White.copy(alpha = 0.25f)) }
+                    IconButton(
+                        onClick = { store.moveProvider(provider, 1) }, enabled = store.canMoveProvider(provider, 1),
+                        modifier = Modifier.testTag("moveDown_${provider.raw}").semantics { contentDescription = down },
+                    ) { Icon(Icons.Default.KeyboardArrowDown, null, tint = if (store.canMoveProvider(provider, 1)) Color.White else Color.White.copy(alpha = 0.25f)) }
                 }
             }
             Caption(stringResource(R.string.a_visible_note))
@@ -304,7 +325,7 @@ fun ConnectionsScreen(store: UsageStore, services: Services, onDone: () -> Unit)
             if (store.liveActivity.enabled) {
                 Text(stringResource(R.string.a_live_provider), color = Color.White, modifier = Modifier.padding(top = 8.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.testTag("liveActivityProvider")) {
-                    Provider.entries.forEach { provider ->
+                    store.providerOrder.forEach { provider ->
                         FilterChip(
                             selected = store.liveActivity.provider == provider,
                             onClick = { store.selectLiveActivityProvider(provider) }, label = { Text(provider.title) },

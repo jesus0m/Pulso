@@ -39,6 +39,7 @@ class UsageStoreTests {
         var token: String? = null
         val events = mutableListOf<String>()
         val widgetConfigs = mutableListOf<com.jesusom.pulso.core.WidgetQuotaConfiguration>()
+        val summaryPublications = mutableListOf<List<Provider>>()
         var codexFetch: suspend () -> UsageSnapshot = { error("codex not expected") }
         var claudeFetch: suspend () -> UsageSnapshot = { error("claude not expected") }
         var copilotFetch: suspend (String, Double?) -> UsageSnapshot = { _, _ -> error("copilot not expected") }
@@ -63,6 +64,7 @@ class UsageStoreTests {
                 deleteClaudeCredentials = { events += "deleteClaudeCredentials" },
                 reloadWidgets = { events += "reload" },
                 publishWidgetConfiguration = { widgetConfigs += it },
+                publishSummaryProviders = { summaryPublications += it },
                 invalidateWidgetConfiguration = { events += "invalidate.${it.raw}" },
                 now = { Instant.now() },
             ),
@@ -83,6 +85,45 @@ class UsageStoreTests {
         assertEquals(listOf(Provider.CODEX, Provider.COPILOT), h.store.visibleProviders)
         h.store.setProviderVisible(Provider.COPILOT, false)
         assertEquals(listOf("copilot", "claude"), prefs.stringList("hiddenProviders"))
+    }
+
+    @Test fun panelOrderPersistsNormalizesAndDrivesEveryConsumer() = runTest {
+        val prefs = fakePrefs()
+        prefs.putList("providerOrder", listOf("claude", "bogus", "claude", "codex"))
+        val h = harness(prefs)
+        assertEquals(listOf(Provider.CLAUDE, Provider.CODEX, Provider.COPILOT), h.store.providerOrder)
+        assertEquals(listOf(Provider.CLAUDE, Provider.CODEX, Provider.COPILOT), h.summaryPublications.last())
+        h.store.moveProvider(Provider.COPILOT, -1)
+        assertEquals(listOf(Provider.CLAUDE, Provider.COPILOT, Provider.CODEX), h.store.providerOrder)
+        assertEquals(listOf("claude", "copilot", "codex"), prefs.stringList("providerOrder"))
+        h.store.moveProvider(Provider.CLAUDE, -1)
+        h.store.moveProvider(Provider.CODEX, 1)
+        assertEquals("Moves past either end are ignored", listOf(Provider.CLAUDE, Provider.COPILOT, Provider.CODEX), h.store.providerOrder)
+        assertFalse(h.store.canMoveProvider(Provider.CLAUDE, -1))
+        assertTrue(h.store.canMoveProvider(Provider.CODEX, -1))
+    }
+
+    @Test fun hiddenPanelsLeaveTheSummaryButKeepOrderAndAccounts() = runTest {
+        val prefs = fakePrefs().also { it.put("codexEnabled", true) }
+        val h = harness(prefs)
+        h.store.moveProvider(Provider.CLAUDE, -1)
+        h.store.moveProvider(Provider.CLAUDE, -1)
+        h.store.setProviderVisible(Provider.COPILOT, false)
+        assertEquals(listOf(Provider.CLAUDE, Provider.CODEX), h.summaryPublications.last())
+        assertEquals("Hiding never reorders", listOf(Provider.CLAUDE, Provider.CODEX, Provider.COPILOT), h.store.providerOrder)
+        assertTrue(h.store.codexConfigured)
+        Provider.entries.forEach { h.store.setProviderVisible(it, false) }
+        assertEquals(emptyList<Provider>(), h.summaryPublications.last())
+    }
+
+    @Test fun summaryLayoutIsSharedThroughTheCache() {
+        val cache = SnapshotCache(fakePrefs())
+        assertEquals(Provider.entries, cache.summaryProviders)
+        cache.summaryProviders = listOf(Provider.COPILOT, Provider.CODEX)
+        assertEquals(listOf(Provider.COPILOT, Provider.CODEX), cache.summaryProviders)
+        cache.summaryProviders = emptyList()
+        assertEquals("All panels hidden is a real state, not a missing one", emptyList<Provider>(), cache.summaryProviders)
+        assertEquals(Provider.entries, Provider.ordered(emptyList()))
     }
 
     @Test fun allProvidersCanBeHiddenAndRestoredInStableOrder() = runTest {

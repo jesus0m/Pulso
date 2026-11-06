@@ -202,6 +202,12 @@ class WidgetRefreshTests {
         assertEquals(SummaryQuotaValue.Percent(90), state.readings[2].value(state.readings[2].windows.first(), QuotaDisplay.REMAINING))
     }
 
+    @Test fun summaryFollowsPublishedProvidersAndOrder() {
+        val state = SummaryWidgetState(emptyList(), QuotaDisplay.REMAINING, listOf(Provider.CLAUDE, Provider.CODEX))
+        assertEquals(listOf(Provider.CLAUDE, Provider.CODEX), state.readings.map { it.provider })
+        assertTrue(SummaryWidgetState(emptyList(), QuotaDisplay.USED, emptyList()).readings.isEmpty())
+    }
+
     @Test fun preferenceAppliesToAllWindowsWithoutInventingUnknownRemainingBalances() {
         val credits = UsageWindow("copilot_credits", "Créditos del mes", 3251.0, null, null)
         val reading = SummaryWidgetState(

@@ -11,7 +11,7 @@
     <string name="a_live_failed">Android no pudo iniciar la actividad en directo. Vuelve a intentarlo con PULSO abierta.</string>
     <string name="a_live_disabled_by_system">Las notificaciones de PULSO están desactivadas.</string>
     <string name="a_title_accounts">Tus cuentas. Solo en tu teléfono.</string>
-    <string name="a_visible_note">La selección se recuerda en este teléfono. Ocultar un panel conserva su cuenta y su última lectura; sus widgets siguen disponibles.</string>
+    <string name="a_visible_note">El orden y la selección se recuerdan en este teléfono. Ocultar un panel conserva su cuenta y su última lectura. El widget resumen sigue esa selección; los widgets individuales siguen disponibles.</string>
     <string name="a_codex_footer">Inicia sesión con ChatGPT en el navegador del sistema. La sesión se guarda cifrada con Android Keystore y se renueva cuando ChatGPT lo permite.</string>
     <string name="a_secure_saved">Credencial guardada cifrada en este teléfono</string>
     <string name="a_github_footer">Empresa: el límite mensual se obtiene de GitHub. Si no está disponible, se utiliza el límite de respaldo. Personal: token con permiso Plan → lectura y cuota incluida manual. El token se guarda cifrado; déjalo vacío para conservarlo.</string>
@@ -26,4 +26,10 @@
     <string name="a_bg_never">Android todavía no ha despertado a PULSO</string>
     <string name="a_bg_footer">Android decide cuándo ejecuta la solicitud, nunca con una frecuencia mayor que cada 15 minutos; Doze y el ahorro de batería pueden retrasarla más. Los widgets pueden consultar Codex, Copilot y Claude con el teléfono bloqueado, usando el almacén cifrado compartido con PULSO, y conservan la última lectura si falla la consulta. Claude utiliza su sesión web experimental: si caduca o pide una comprobación, abre su sesión en PULSO. Ningún intervalo está garantizado.</string>
     <string name="a_claude_email_footer">Google no admite este navegador integrado. Usa el acceso por correo. Este paso no es OAuth nativo: conserva la sesión web actual. Al consultar la cuota, su sesión se guarda cifrada para actualizar los widgets. Desconectar Claude elimina esa copia. Los códigos, CAPTCHA y cualquier autorización los confirmas tú en claude.ai.</string>
+    <string name="a_move_up">Subir %1$s</string>
+    <string name="a_move_down">Bajar %1$s</string>
+    <plurals name="a_in_minutes"><item quantity="one">dentro de %d minuto</item><item quantity="other">dentro de %d minutos</item></plurals>
+    <plurals name="a_in_hours"><item quantity="one">dentro de %d hora</item><item quantity="other">dentro de %d horas</item></plurals>
+    <plurals name="a_in_days"><item quantity="one">dentro de %d día</item><item quantity="other">dentro de %d días</item></plurals>
+    <plurals name="a_in_weeks"><item quantity="one">dentro de %d semana</item><item quantity="other">dentro de %d semanas</item></plurals>
 </resources>

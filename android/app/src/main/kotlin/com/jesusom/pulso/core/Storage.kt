@@ -30,6 +30,14 @@ class SnapshotCache(private val prefs: PulsoPrefs) {
         get() = QuotaDisplay.from(prefs.string(DISPLAY_KEY))
         set(value) = prefs.put(DISPLAY_KEY, value.raw)
 
+    /**
+     * Visible providers in display order, published by the app for the summary widget. Individual
+     * provider widgets ignore it: they are added on purpose and stay available.
+     */
+    var summaryProviders: List<Provider>
+        get() = if (prefs.has(SUMMARY_KEY)) prefs.stringList(SUMMARY_KEY).mapNotNull(Provider::from).distinct() else Provider.entries
+        set(value) = prefs.putList(SUMMARY_KEY, value.map { it.raw })
+
     fun load(): List<UsageSnapshot> = SharedQuotaAccess.transaction { read() }
 
     fun save(snapshots: List<UsageSnapshot>) = SharedQuotaAccess.transaction { write(snapshots) }
@@ -57,6 +65,7 @@ class SnapshotCache(private val prefs: PulsoPrefs) {
     private companion object {
         const val KEY = "usageSnapshots"
         const val DISPLAY_KEY = "quotaDisplay"
+        const val SUMMARY_KEY = "summaryProviders"
     }
 }
 

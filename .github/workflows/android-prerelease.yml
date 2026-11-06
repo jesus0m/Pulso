@@ -1,10 +1,11 @@
 name: Android prerelease
 
 # Builds the Release APK, signs it and publishes it as a GitHub prerelease.
+# Prereleases come only from `develop`; stable releases come from `main` (android-release.yml).
 # It never runs for pull requests, so no pull request can publish a binary.
 on:
   push:
-    branches: [main]
+    branches: [develop]
     paths: ['android/**', 'App/Localizable.xcstrings', '.github/workflows/android-prerelease.yml']
   workflow_dispatch:
 
@@ -19,6 +20,8 @@ jobs:
   prerelease:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    # A manual run from any other branch must not publish a prerelease.
+    if: github.ref == 'refs/heads/develop'
     permissions:
       contents: write # create the tag and the prerelease; nothing else is granted
     env:
@@ -32,11 +35,22 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Stop if this version is already released
+        id: released
+        run: |
+          version="$(sed -n 's/.*versionName = "\(.*\)".*/\1/p' android/app/build.gradle.kts)"
+          if gh release view "v$version" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "v$version is already a stable release; no prerelease needed."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Test and build the Release APK
+        if: steps.released.outputs.skip != 'true'
         working-directory: android
         run: ./gradlew --no-daemon :app:testDebugUnitTest :app:assembleRelease
 
       - name: Sign
+        if: steps.released.outputs.skip != 'true'
         id: sign
         working-directory: android
         run: |
@@ -47,6 +61,7 @@ jobs:
           echo "tag=android-v${version}-pre.${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
 
       - name: Publish prerelease
+        if: steps.released.outputs.skip != 'true'
         env:
           APK: ${{ steps.sign.outputs.apk }}
           TAG: ${{ steps.sign.outputs.tag }}
