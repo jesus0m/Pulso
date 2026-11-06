@@ -115,6 +115,17 @@ xcodebuild -project Pulso.xcodeproj -scheme Pulso \
   Respect provider policies and surface failures honestly rather than inventing
   usage values or bypassing authentication challenges.
 
+## Android
+
+`android/` is a self-contained Gradle project (Kotlin, Compose, Glance, WorkManager)
+that mirrors the iOS behaviour; it is outside the Xcode generator. Keep parity:
+when a parser, quota rule or string changes in `Core/` or the catalog, change the
+Kotlin counterpart and its tests too. Regenerate strings with
+`python3 android/scripts/generate_strings.py` (never edit `strings_catalog.xml`).
+Verify with `cd android && ./gradlew :app:testDebugUnitTest :app:lintDebug`.
+The same invariants apply: demo/reset extras are Debug-only, credentials only in
+`KeystoreSecretStore`, never log tokens, missing data is unknown, not zero.
+
 ## Scope and distribution
 
 Make surgical changes, preserve unrelated local edits, and avoid new dependencies

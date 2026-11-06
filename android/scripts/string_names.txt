@@ -1,0 +1,307 @@
+s_sesion	Sesión
+s_sesion_5_h	Sesión · 5 h
+s_sesion_2	Sesión · %@
+s_semana	Semana
+s_semana_2	Semana · %@
+s_semana_opus	Semana · Opus
+s_semana_sonnet	Semana · Sonnet
+s_mes	Mes
+s_creditos_del_mes	Créditos del mes
+s_creditos_usados_cuenta	Créditos usados · cuenta
+s_premium_cuenta	Premium · cuenta
+s_chat_cuenta	Chat · cuenta
+s_mes_solicitudes_premium	Mes · solicitudes premium
+s_mes_creditos_ia	Mes · créditos IA
+s_peticiones_premium	Peticiones premium
+s_cuota	Cuota
+s_cuotas	Cuotas
+s_proveedor	Proveedor
+s_todos_los_proveedores	Todos los proveedores
+s_usado	USADO
+s_disponible	DISPONIBLE
+s_usado_2	usado
+s_disponible_2	disponible
+s_usado_3	Usado
+s_restante	Restante
+s_consumidos	consumidos
+s_actualizar_cuotas	Actualizar cuotas
+s_actualizar	Actualizar
+s_actualizar_2	Actualizar %@
+s_actualizar_target	Actualizar ${target}
+s_consulta_las_cuotas_desde_el_widget_sin_abri	Consulta las cuotas desde el widget sin abrir Pulso.
+s_actualizar_cuota_de	Actualizar cuota de %@
+s_consulta_la_ultima_cuota_sin_abrir_pulso	Consulta la última cuota sin abrir Pulso
+s_el_proveedor_devolvio_datos_de_uso_no_compat	El proveedor devolvió datos de uso no compatibles.
+s_introduce_un_usuario_y_un_token_validos	Introduce un usuario y un token válidos.
+s_el_limite_manual_debe_ser_un_numero_mayor_qu	El límite manual debe ser un número mayor que cero.
+s_github_no_ha_devuelto_datos_de_consumo_para	GitHub no ha devuelto datos de consumo para esta cuenta. No equivale a consumo cero. Comprueba el tipo de cuenta en Conexiones.
+s_no_se_pudo_verificar_la_respuesta_del_provee	No se pudo verificar la respuesta del proveedor.
+s_la_sesion_ha_caducado_o_el_token_no_es_valid	La sesión ha caducado o el token no es válido.
+s_acceso_denegado_comprueba_el_permiso_plan_de	Acceso denegado. Comprueba el permiso Plan de lectura y los límites de GitHub.
+s_informe_no_disponible_comprueba_el_usuario_y	Informe no disponible. Comprueba el usuario y si tu plan se factura a tu cuenta personal.
+s_el_proveedor_no_pudo_completar_la_consulta_h	El proveedor no pudo completar la consulta (HTTP %lld).
+s_no_se_pudo_preparar_un_inicio_de_sesion_segu	No se pudo preparar un inicio de sesión seguro.
+s_no_se_pudo_verificar_la_respuesta_del_inicio	No se pudo verificar la respuesta del inicio de sesión.
+s_no_se_ha_autorizado_la_conexion_con_chatgpt	No se ha autorizado la conexión con ChatGPT.
+s_no_se_pudo_abrir_el_receptor_local_del_inici	No se pudo abrir el receptor local del inicio de sesión. Vuelve a intentarlo.
+s_el_inicio_de_sesion_ha_tardado_demasiado_vue	El inicio de sesión ha tardado demasiado. Vuelve a intentarlo.
+s_no_se_pudo_abrir_la_ventana_segura_de_chatgp	No se pudo abrir la ventana segura de ChatGPT.
+s_chatgpt_devolvio_una_respuesta_de_autenticac	ChatGPT devolvió una respuesta de autenticación no compatible.
+s_la_sesion_de_codex_ha_caducado_o_no_es_valid	La sesión de Codex ha caducado o no es válida. Vuelve a entrar con ChatGPT.
+s_chatgpt_no_permite_consultar_la_cuota_de_cod	ChatGPT no permite consultar la cuota de Codex con esta cuenta.
+s_no_se_pudo_consultar_chatgpt_http	No se pudo consultar ChatGPT (HTTP %lld).
+s_no_se_pudo_acceder_al_llavero_del_iphone	No se pudo acceder al llavero del iPhone (%d).
+s_no_se_pudo_acceder_al_llavero_del_dispositiv	No se pudo acceder al llavero del dispositivo (%d).
+s_no_se_ha_encontrado_un_token_de_chatgpt_en_e	No se ha encontrado un token de ChatGPT en el texto copiado.
+s_el_token_de_chatgpt_ha_caducado_abre_la_sesi	El token de ChatGPT ha caducado. Abre la sesión en Safari y pega uno nuevo.
+s_no_se_ha_podido_consultar_codex_comprueba_la	No se ha podido consultar Codex. Comprueba la conexión.
+s_abre_la_sesion_de_claude_en_pulso_para_renov	Abre la sesión de Claude en Pulso para renovar el acceso del widget.
+s_claude_pide_una_comprobacion_web_abre_su_ses	Claude pide una comprobación web. Abre su sesión en Pulso; el widget conserva la última lectura.
+s_claude_ha_devuelto_una_respuesta_de_cuota_no	Claude ha devuelto una respuesta de cuota no compatible.
+s_no_se_pudo_consultar_la_cuota_de_claude_http	No se pudo consultar la cuota de Claude (HTTP %lld).
+s_copilot_no_publica_una_cuota_medible_para_es	Copilot no publica una cuota medible para esta cuenta. No se puede calcular el uso restante.
+s_copilot_devolvio_un_formato_de_cuota_no_comp	Copilot devolvió un formato de cuota no compatible.
+s_copilot_no_permite_consultar_la_cuota_http_e	Copilot no permite consultar la cuota (HTTP %lld). El token puede servir para facturación y necesitar Copilot Requests de lectura en un token personal detallado, o estar limitado por la política de tu organización.
+s_la_cuota_de_cuenta_de_copilot_no_esta_dispon	La cuota de cuenta de Copilot no está disponible (HTTP 404).
+s_no_se_pudo_consultar_la_cuota_de_copilot_htt	No se pudo consultar la cuota de Copilot (HTTP %lld).
+s_correo_completado_introduce_en_claude_ai_el	Correo completado. Introduce en claude.ai el código que te envíe Claude.
+s_si_el_correo_no_aparece_completalo_directame	Si el correo no aparece, complétalo directamente en claude.ai. Pulso no acepta permisos ni introduce códigos.
+s_abre_la_sesion_de_claude_y_vuelve_a_consulta	Abre la sesión de Claude y vuelve a consultar. El inicio de sesión puede no admitir navegadores integrados.
+s_claude_ha_devuelto_un_formato_de_cuota_no_co	Claude ha devuelto un formato de cuota no compatible. Abre su panel web para consultar el uso.
+s_no_se_ha_podido_consultar_claude_comprueba_l	No se ha podido consultar Claude. Comprueba la conexión o abre su panel web.
+s_selecciona_una_organizacion_de_claude_y_vuel	Selecciona una organización de Claude y vuelve a consultar.
+s_listo_puedes_volver_a_pulso	Listo. Puedes volver a Pulso.
+s_solicitud_no_valida	Solicitud no valida.
+s_renovada	%@ renovada
+s_vuelve_a_estar_al_100	%@ vuelve a estar al 100 %%.
+s_ios_no_permite_actividades_en_directo_revisa	iOS no permite actividades en directo. Revisa Ajustes → PULSO.
+s_desactiva_los_datos_de_ejemplo_para_iniciar	Desactiva los datos de ejemplo para iniciar una actividad real.
+s_conecta_este_proveedor_y_consulta_una_cuota	Conecta este proveedor y consulta una cuota real antes de iniciar.
+s_ios_no_pudo_iniciar_la_actividad_en_directo	iOS no pudo iniciar la actividad en directo. Vuelve a intentarlo con PULSO abierta.
+s_ios_tiene_desactivadas_las_actividades_en_di	iOS tiene desactivadas las actividades en directo.
+s_la_demostracion_no_se_comparte_con_actividad	La demostración no se comparte con actividades en directo.
+s_actividad_finalizada_no_hay_una_cuota_real_d	Actividad finalizada: no hay una cuota real disponible.
+s_la_actividad_ha_finalizado_pulsa_iniciar_par	La actividad ha finalizado. Pulsa Iniciar para crear otra.
+s_la_sesion_ha_alcanzado_su_duracion_maxima_pu	La sesión ha alcanzado su duración máxima. Puedes iniciar otra.
+s_en_curso	En curso
+s_actualizado	Actualizado
+s_tiempo_de_ejecucion_agotado	Tiempo de ejecución agotado
+s_sin_proveedores_conectados	Sin proveedores conectados
+s_abre_pulso_para_consultar	Abre Pulso para consultar
+s_renovacion_pendiente	Renovación pendiente
+s_consumidos_2	consumidos · %@
+s_s	%@ · %lld%% %@
+s_renueva_en	Renueva en
+s_renovacion	Renovación: %@
+s_renovacion_prevista	Renovación prevista
+s_renovacion_2	Renovación
+s_s_2	%@: %@
+s_sin_actualizar	Sin actualizar
+s_sin_datos	Sin datos
+s_creditos_del_mes_2	CRÉDITOS DEL MES
+s_consumidos_3	%@ consumidos
+s_de_limite	%@ de límite
+s_restantes	%@ restantes
+s_disponible_3	%@%% disponible
+s_s_3	%lld%% %@
+s_cuota_desconocida	Cuota desconocida
+s_conecta_tu_cuenta_y_consulta_la_cuota_en_pul	Conecta tu cuenta y consulta la cuota en Pulso.
+s_ultima_lectura	Última lectura
+s_consulta_la_cuota_cuando_ios_permite_actuali	Consulta la cuota cuando iOS permite actualizar el widget. Conserva la última lectura sin conexión.
+s_resumen_de_pulso	Resumen de Pulso
+s_codex_copilot_y_claude_se_consultan_cuando_i	Codex, Copilot y Claude se consultan cuando iOS permite actualizar. Conserva la última lectura sin conexión.
+s_sin_lectura	Sin lectura
+s_sin_lectura_abre_pulso_para_consultar	Sin lectura · Abre Pulso para consultar
+s_usados_de_limite	%@ usados · %@ de límite
+s_sin_fecha_de_renovacion	Sin fecha de renovación
+s_lectura	Lectura
+s_ultima_lectura_2	Última lectura: %@%@
+s_sin_actualizar_2	, sin actualizar
+s_s_4	%@ %@
+s_sin_lectura_2	%@, %@, sin lectura
+s_ultima_lectura_3	%@, %@, última lectura %@%@
+s_cuotas_2	+%lld cuotas
+s_ultima_lectura_sin_actualizar	Última lectura sin actualizar
+s_sin_actualizar_abre_pulso	Sin actualizar · abre PULSO
+s_ultima_cuota	Última cuota
+s_usados_restantes	%@ usados · %@ restantes
+s_renovacion_sin_fecha	Renovación
+sin fecha
+s_demostracion	DEMOSTRACIÓN
+s_demostracion_datos_de_ejemplo	DEMOSTRACIÓN · datos de ejemplo
+s_sin_paneles_visibles	Sin paneles visibles
+s_tus_cuentas_siguen_conectadas_elige_que_pane	Tus cuentas siguen conectadas. Elige qué paneles quieres mostrar.
+s_elegir_paneles	Elegir paneles
+s_desactivar_modo_escritorio	Desactivar modo escritorio
+s_activar_modo_escritorio	Activar modo escritorio
+s_conexiones_y_ajustes	Conexiones y ajustes
+s_consumidos_de_la_cuota	%@ consumidos · %lld%% de la cuota
+s_por_ciento_por_ciento	%lld por ciento %@; %lld por ciento %@
+s_consumidos_cuota_restante_desconocida	%@ consumidos; cuota restante desconocida
+s_consumido_cuota_desconocida	CONSUMIDO · CUOTA DESCONOCIDA
+s_consumo_desconocido	Consumo desconocido
+s_renueva	Renueva %@
+s_de_limite_mensual	%@ de límite mensual
+s_s_5	%lld%% %@ · %lld%% %@
+s_sin_cuota	Sin cuota
+s_renovacion_pendiente_ultima_lectura	Renovación pendiente · última lectura
+s_sin_actualizar_ultima_lectura	Sin actualizar · última lectura %@
+s_lectura_2	Lectura %@
+s_informe_de_facturacion_puede_llevar_retraso	Informe de facturación; puede llevar retraso.
+s_cuenta_guardada_sin_lectura_de_cuota	Cuenta guardada · sin lectura de cuota
+s_tu_cuota_a_un_vistazo	Tu cuota, a un vistazo.
+s_revisar_copilot	Revisar Copilot
+s_conectar	Conectar %@
+s_consulta_cada_minuto_con_la_app_abierta	Consulta cada minuto con la app abierta
+s_salir_de_la_demostracion	Salir de la demostración
+s_ver_una_demostracion	Ver una demostración
+s_introduce_tu_usuario_de_github	Introduce tu usuario de GitHub.
+s_anade_un_token_de_github_con_permiso_plan_de	Añade un token de GitHub con permiso Plan de lectura.
+s_la_cuota_debe_ser_un_numero_mayor_que_cero_o	La cuota debe ser un número mayor que cero, o quedar vacía.
+s_el_llavero_no_esta_disponible_desbloquea_el	El llavero no está disponible. Desbloquea el iPhone para actualizar GitHub Copilot.
+s_datos_de_ejemplo	Datos de ejemplo
+s_tus_cuentas_solo_en_tu_iphone	Tus cuentas. Solo en tu iPhone.
+s_las_credenciales_permanecen_en_el_dispositiv	Las credenciales permanecen en el dispositivo. PULSO no necesita un servidor ni un Mac.
+s_paneles_visibles	Paneles visibles
+s_la_seleccion_se_recuerda_en_este_iphone_ocul	La selección se recuerda en este iPhone. Ocultar un panel conserva su cuenta y su última lectura; sus widgets siguen disponibles.
+s_conexion	Conexión
+s_sesion_guardada	Sesión guardada
+s_sin_conectar	Sin conectar
+s_cuenta_de_chatgpt	Cuenta de ChatGPT
+s_la_cifra_grande_es_lo_disponible_el_porcenta	La cifra grande es lo disponible; el porcentaje usado se muestra debajo, como en los IDEs. Compara la misma cuenta y hora de lectura.
+s_esperando_a_chatgpt	Esperando a ChatGPT…
+s_entrar_con_chatgpt	Entrar con ChatGPT
+s_cancelar_inicio_de_sesion	Cancelar inicio de sesión
+s_borrar_sesion_de_codex	Borrar sesión de Codex
+s_inicia_sesion_con_chatgpt_en_la_ventana_segu	Inicia sesión con ChatGPT en la ventana segura del sistema. La sesión se guarda en el llavero y se renueva cuando ChatGPT lo permite.
+s_sesion_web	Sesión web
+s_abrir_sesion_de_claude	Abrir sesión de Claude
+s_espacio_de_trabajo	Espacio de trabajo
+s_seleccionar	Seleccionar…
+s_claude_http_nativo	Claude HTTP nativo: %@ · %@
+s_borrar_sesion_web_de_claude	Borrar sesión web de Claude
+s_consulta_los_limites_de_tu_plan_de_claude_y	Consulta los límites de tu plan de Claude y Claude Code. La sesión se guarda por separado de Codex.
+s_cuenta_guardada	Cuenta guardada
+s_credencial_guardada_en_el_llavero_del_iphone	Credencial guardada en el llavero del iPhone
+s_usuario_de_github	Usuario de GitHub
+s_nuevo_token_opcional	Nuevo token (opcional)
+s_token_personal_de_github	Token personal de GitHub
+s_tipo_de_cuenta	Tipo de cuenta
+s_empresa_u_organizacion	Empresa u organización
+s_personal_pagada_por_mi	Personal, pagada por mí
+s_la_cuota_se_consulta_en_tu_cuenta_de_copilot	La cuota se consulta en tu cuenta de Copilot, no en tu facturación personal. Tu token puede necesitar Copilot Requests → lectura y autorización de tu organización.
+s_limite_mensual_de_respaldo_opcional	Límite mensual de respaldo (opcional)
+s_plan_con_peticiones_premium_antiguas	Plan con peticiones premium antiguas
+s_cuota_mensual_de_peticiones_opcional	Cuota mensual de peticiones (opcional)
+s_creditos_incluidos_al_mes_opcional	Créditos incluidos al mes (opcional)
+s_consultando	Consultando…
+s_guardar_y_consultar_copilot	Guardar y consultar Copilot
+s_ver_mi_uso_en_github	Ver mi uso en GitHub
+s_crear_token_en_github	Crear token en GitHub
+s_borrar_conexion_de_copilot	Borrar conexión de Copilot
+s_empresa_el_limite_mensual_se_obtiene_de_gith	Empresa: el límite mensual se obtiene de GitHub. Si no está disponible, se utiliza el límite de respaldo. Personal: token con permiso Plan → lectura y cuota incluida manual. El token se guarda en el llavero; déjalo vacío para conservarlo.
+s_mostrar_cuotas_como	Mostrar cuotas como
+s_se_aplica_al_panel_y_a_los_widgets_la_otra_c	Se aplica al panel y a los widgets. La otra cifra sigue visible al lado, así que «72 % disponible» y «28 % usado» son la misma lectura.
+s_pantalla	Pantalla
+s_activar_actividad_en_directo	Activar actividad en directo
+s_proveedor_en_la_isla	Proveedor en la isla
+s_estado	Estado
+s_detenida	Detenida
+s_finalizar_actividad	Finalizar actividad
+s_iniciar_actividad_en_directo	Iniciar actividad en directo
+s_actividad_en_directo_dynamic_island	Actividad en directo · Dynamic Island
+s_opcional_muestra_un_proveedor_en_la_pantalla	Opcional: muestra un proveedor en la pantalla bloqueada y, si tu iPhone tiene Dynamic Island, un icono y su porcentaje. Mantén pulsada la isla para ver todas sus cuotas. Los datos se actualizan solo cuando PULSO recibe una lectura; el contador de renovación funciona sin conexión, pero no consulta cuotas cada minuto en segundo plano. Dura como máximo 8 horas; iOS decide el tamaño y puede finalizarla antes. Después debes iniciarla de nuevo. El proveedor y sus cifras quedan visibles sin desbloquear; no se muestran cuentas ni credenciales.
+s_avisarme_cuando_se_restablezca_una_cuota	Avisarme cuando se restablezca una cuota
+s_ios_tiene_las_notificaciones_desactivadas_pa	iOS tiene las notificaciones desactivadas para PULSO. Actívalas en Ajustes para recibir el aviso.
+s_el_aviso_se_programa_para_la_hora_exacta_de	El aviso se programa para la hora exacta de renovación que informa el proveedor, así que llega puntual aunque no abras PULSO. Si esa hora cambia, se recoloca en la siguiente lectura.
+s_notificaciones	Notificaciones
+s_en_tu_escritorio	En tu escritorio
+s_mantener_pantalla_encendida	Mantener pantalla encendida
+s_tono_nocturno	Tono nocturno
+s_mantiene_la_pantalla_encendida_mientras_puls	Mantiene la pantalla encendida mientras PULSO esté abierta. Para StandBy: carga el iPhone, colócalo en horizontal y añade los widgets de PULSO. iOS controla Always-On y la frecuencia de actualización de los widgets.
+s_actualizacion_de_ios	Actualización de iOS
+s_modo_de_bajo_consumo	Modo de bajo consumo
+s_activado	Activado
+s_desactivado	Desactivado
+s_activada	Activada
+s_desactivada	Desactivada
+s_restringida	Restringida
+s_desconocida	Desconocida
+s_ultima_solicitud	Última solicitud: %@
+s_solicitud_rechazada	Solicitud rechazada: %@
+s_aceptada_no_antes_de	Aceptada; no antes de: %@
+s_ultimo_intento	Último intento: %@
+s_despertares_desde_la_instalacion	%lld despertares desde la instalación
+s_ios_todavia_no_ha_despertado_a_pulso	iOS todavía no ha despertado a PULSO
+s_widget	Widget %@: %@ · %@
+s_actualizacion_en_segundo_plano	Actualización en segundo plano
+s_ios_decide_cuando_ejecuta_la_solicitud_los_w	iOS decide cuándo ejecuta la solicitud. Los widgets pueden consultar Codex, Copilot y Claude con el iPhone bloqueado, después del primer desbloqueo tras reiniciar. Usan el llavero cifrado compartido con PULSO y conservan la última lectura si falla la consulta. Claude utiliza su sesión web experimental: si caduca o pide una comprobación, abre su sesión en PULSO. Ningún intervalo está garantizado.
+s_mostrar_datos_de_ejemplo	Mostrar datos de ejemplo
+s_la_demostracion_no_reemplaza_las_lecturas_re	La demostración no reemplaza las lecturas reales ni se comparte con los widgets.
+s_actualizar_ahora	Actualizar ahora
+s_conexiones	Conexiones
+s_listo	Listo
+s_borrar_la_conexion_y_sus_datos_locales	Borrar la conexión y sus datos locales
+s_desconectar	Desconectar %@
+s_google_no_permite_iniciar_sesion_aqui	Google no permite iniciar sesión aquí
+s_es_una_proteccion_antiphishing_de_google_fre	Es una protección antiphishing de Google frente a navegadores dentro de apps, no un fallo de Pulso. Por eso la página sale en blanco.
+s_vuelve_a_y_entra_con_tu_correo_te_envia_un_c	Vuelve a %@ y entra con tu correo: te envía un código de acceso a la misma cuenta.
+s_volver_a	Volver a %@
+s_entra_con_tu_correo	Entra con tu correo
+s_pulso_rellena_y_envia_tu_correo_en_la_web_of	Pulso rellena y envía tu correo en la web oficial. Después introduces allí el código que te envíe Claude. No guardamos tu correo en los ajustes.
+s_correo_de_tu_cuenta_de_claude	Correo de tu cuenta de Claude
+s_continuar_con_correo	Continuar con correo
+s_abrir_web_sin_rellenar_el_correo	Abrir web sin rellenar el correo
+s_google_no_admite_este_navegador_integrado_us	Google no admite este navegador integrado. Usa el acceso por correo. Este paso no es OAuth nativo: conserva la sesión web actual. Al consultar la cuota, su sesión se guarda en el llavero cifrado compartido para actualizar los widgets. Desconectar Claude elimina esa copia. Los códigos, CAPTCHA y cualquier autorización los confirmas tú en claude.ai.
+s_cerrar	Cerrar
+s_consultar_cuota	Consultar cuota
+s_inicia_sesion_en_claude_ai_y_pulsa_consultar	Inicia sesión en claude.ai y pulsa Consultar cuota. Si tienes varios espacios, podrás elegir uno en Conexiones.
+s_tu_cuota_en_la_muneca	Tu cuota, en la muñeca
+s_elige_los_proveedores_en_pulso_para_iphone	Elige los proveedores en Pulso para iPhone.
+s_conecta_tus_cuentas_en_pulso_para_iphone_las	Conecta tus cuentas en Pulso para iPhone. Las cuotas se sincronizarán aquí.
+s_sincronizando	Sincronizando…
+s_sincronizar_con_iphone	Sincronizar con iPhone
+s_sincronizar_recibe_la_lectura_guardada_y_sol	Sincronizar recibe la lectura guardada y solicita otra al iPhone.
+s_sin_actualizar_ultima_lectura_2	Sin actualizar · última lectura
+s_no_se_pudo_consultar_la_cuota_abre_pulso_en	No se pudo consultar la cuota. Abre Pulso en el iPhone.
+s_sin_lectura_abre_pulso_en_el_iphone	Sin lectura. Abre Pulso en el iPhone.
+s_creditos_restantes	créditos restantes
+s_no_hay_ventanas_de_cuota_en_la_ultima_lectur	No hay ventanas de cuota en la última lectura.
+s_el_contador_indica_la_renovacion_prevista_no	El contador indica la renovación prevista; no actualiza la cuota.
+s_abre_pulso_en_el_iphone_para_conectar_esta_c	Abre Pulso en el iPhone para conectar esta cuenta o consultar la cuota.
+s_consumido_cuota_desconocida_2	Consumido · cuota desconocida
+s_renovacion_pendiente_de_confirmar	Renovación pendiente de confirmar
+s_abre_pulso_en_el_iphone_para_sincronizar	Abre Pulso en el iPhone para sincronizar.
+s_lectura_guardada_conecta_el_iphone_para_sinc	Lectura guardada. Conecta el iPhone para sincronizar.
+s_sin_conexion_abre_pulso_en_el_iphone	Sin conexión. Abre Pulso en el iPhone.
+s_sincronizando_con_el_iphone	Sincronizando con el iPhone…
+s_se_conserva_la_lectura_mas_reciente	Se conserva la lectura más reciente.
+s_lectura_recibida_del_iphone	Lectura recibida del iPhone
+s_no_se_pudo_sincronizar_abre_pulso_en_el_ipho	No se pudo sincronizar. Abre Pulso en el iPhone.
+s_no_se_pudo_conectar_con_el_iphone	No se pudo conectar con el iPhone.
+s_sin_conexion_se_conserva_la_ultima_lectura	Sin conexión. Se conserva la última lectura.
+s_sin_lectura_abre_pulso_en_el_iphone_2	%@. Sin lectura. Abre Pulso en el iPhone.
+s_renovacion_pendiente_de_confirmar_2	Renovación pendiente de confirmar.
+s_sin_actualizar_3	Sin actualizar.
+s_demostracion_2	Demostración. 
+s_ultima_lectura_4	%@%@. %@ %@. %@ Última lectura: %@.
+s_abre_pulso_en_el_iphone	Abre Pulso en el iPhone
+s_anterior	Anterior · %@
+s_lectura_3	Lectura · %@
+s_pendiente	Pendiente
+s_anterior_2	Anterior
+s_disp	disp.
+s_demo	Demo · 
+s_renovacion_pendiente_2	 · renovación pendiente
+s_anterior_3	 · anterior
+s_s_6	%@%@ %@ %@%@
+s_sin_lectura_3	%@ · sin lectura
+s_ultima_cuota_del_iphone_sigue_la_seleccion_d	Última cuota del iPhone. Sigue la selección de usado o disponible de Pulso.
+s_autor	Autor
+s_sitio_web	Sitio web
+s_apoyar_en_ko_fi	Apoyar en Ko-fi
+s_acerca_de_pulso	Acerca de Pulso
+s_web_del_desarrollador	Web del desarrollador
+s_invitame_a_un_cafe	Invítame a un café
+s_uso_personal_no_comercial_los_derechos_de_ve	Uso personal no comercial. Los derechos de venta y explotación comercial están reservados al autor.
+s_s_7	%@ · %@

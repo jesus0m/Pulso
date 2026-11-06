@@ -112,6 +112,28 @@ Keep normal simulator signing enabled: App Group and shared Keychain tests
 depend on simulated entitlements. UI tests that launch demo data are intended
 for simulators, not a personal device with real accounts.
 
+## Android
+
+An Android port with the same dashboard, providers, widgets, reset alerts and
+display options lives in [`android/`](android/) (Kotlin, Jetpack Compose, Glance
+widgets, WorkManager; Android 8.0+). Credentials are kept encrypted with the
+Android Keystore. Differences from iOS: the Live Activity is an ongoing
+notification, and background refresh is limited by Android to every 15 minutes at
+best. There is no Wear OS companion yet.
+
+```bash
+brew install --cask android-commandlinetools temurin   # JDK 17+ and the SDK tools
+cd android
+./gradlew :app:testDebugUnitTest      # unit tests
+./gradlew :app:installDebug           # install on an emulator or device
+```
+
+Shared copy is generated from `App/Localizable.xcstrings` with
+`python3 android/scripts/generate_strings.py`; re-run it after changing strings.
+Debug builds accept `--ez demo true --ez reset-preferences true` launch extras
+(`adb shell am start -n com.jesusom.pulso/.MainActivity --ez demo true`); Release
+ignores them.
+
 ## Support the project
 
 If Pulso makes your workday a little calmer, you can support its development:
