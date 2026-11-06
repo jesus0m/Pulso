@@ -163,7 +163,6 @@ s_datos_de_ejemplo	Datos de ejemplo
 s_tus_cuentas_solo_en_tu_iphone	Tus cuentas. Solo en tu iPhone.
 s_las_credenciales_permanecen_en_el_dispositiv	Las credenciales permanecen en el dispositivo. PULSO no necesita un servidor ni un Mac.
 s_paneles_visibles	Paneles visibles
-s_la_seleccion_se_recuerda_en_este_iphone_ocul	La selección se recuerda en este iPhone. Ocultar un panel conserva su cuenta y su última lectura; sus widgets siguen disponibles.
 s_conexion	Conexión
 s_sesion_guardada	Sesión guardada
 s_sin_conectar	Sin conectar
@@ -305,3 +304,6 @@ s_web_del_desarrollador	Web del desarrollador
 s_invitame_a_un_cafe	Invítame a un café
 s_uso_personal_no_comercial_los_derechos_de_ve	Uso personal no comercial. Los derechos de venta y explotación comercial están reservados al autor.
 s_s_7	%@ · %@
+s_el_orden_y_la_seleccion_se_recuerdan_en_este	El orden y la selección se recuerdan en este iPhone. Ocultar un panel conserva su cuenta y su última lectura. El widget resumen y el Apple Watch siguen esa selección; los widgets individuales siguen disponibles.
+s_subir	Subir %@
+s_bajar	Bajar %@

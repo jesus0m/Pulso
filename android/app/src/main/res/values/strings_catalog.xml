@@ -165,7 +165,6 @@
     <string name="s_tus_cuentas_solo_en_tu_iphone" formatted="false">Your accounts. Only on your iPhone.</string>
     <string name="s_las_credenciales_permanecen_en_el_dispositiv" formatted="false">Credentials stay on your device. PULSO does not need a server or a Mac.</string>
     <string name="s_paneles_visibles" formatted="false">Visible panels</string>
-    <string name="s_la_seleccion_se_recuerda_en_este_iphone_ocul" formatted="false">Your selection is saved on this iPhone. Hiding a panel keeps its account and last reading; its widgets remain available.</string>
     <string name="s_conexion" formatted="false">Connection</string>
     <string name="s_sesion_guardada" formatted="false">Session saved</string>
     <string name="s_sin_conectar" formatted="false">Not connected</string>
@@ -307,4 +306,7 @@
     <string name="s_invitame_a_un_cafe" formatted="false">Buy me a coffee</string>
     <string name="s_uso_personal_no_comercial_los_derechos_de_ve" formatted="false">Personal, noncommercial use. Sale and commercial exploitation rights are reserved by the author.</string>
     <string name="s_s_7" formatted="true">%1$s · %2$s</string>
+    <string name="s_el_orden_y_la_seleccion_se_recuerdan_en_este" formatted="false">Order and selection are remembered on this iPhone. Hiding a panel keeps its account and last reading. The summary widget and Apple Watch follow the selection; individual widgets stay available.</string>
+    <string name="s_subir" formatted="true">Move %1$s up</string>
+    <string name="s_bajar" formatted="true">Move %1$s down</string>
 </resources>

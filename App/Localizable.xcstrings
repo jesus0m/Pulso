@@ -2649,22 +2649,6 @@
         }
       }
     },
-    "La selección se recuerda en este iPhone. Ocultar un panel conserva su cuenta y su última lectura; sus widgets siguen disponibles.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La selección se recuerda en este iPhone. Ocultar un panel conserva su cuenta y su última lectura; sus widgets siguen disponibles."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your selection is saved on this iPhone. Hiding a panel keeps its account and last reading; its widgets remain available."
-          }
-        }
-      }
-    },
     "Conexión": {
       "localizations": {
         "es": {
@@ -4941,6 +4925,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "%@ · %@"
+          }
+        }
+      }
+    },
+    "El orden y la selección se recuerdan en este iPhone. Ocultar un panel conserva su cuenta y su última lectura. El widget resumen y el Apple Watch siguen esa selección; los widgets individuales siguen disponibles.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El orden y la selección se recuerdan en este iPhone. Ocultar un panel conserva su cuenta y su última lectura. El widget resumen y el Apple Watch siguen esa selección; los widgets individuales siguen disponibles."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Order and selection are remembered on this iPhone. Hiding a panel keeps its account and last reading. The summary widget and Apple Watch follow the selection; individual widgets stay available."
+          }
+        }
+      }
+    },
+    "Subir %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subir %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move %@ up"
+          }
+        }
+      }
+    },
+    "Bajar %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bajar %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move %@ down"
           }
         }
       }

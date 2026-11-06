@@ -51,6 +51,7 @@ final class UsageStore {
         var mergeCachedSnapshot: ((UsageSnapshot) -> Void)? = nil
         var removeCachedSnapshot: ((Provider) -> Void)? = nil
         var deleteClaudeCredentials: () throws -> Void = {}
+        var publishSummaryProviders: ([Provider]) -> Void = { _ in }
 
         static var live: Self {
             Self(loadSnapshots: SnapshotCache.load, saveSnapshots: SnapshotCache.save,
@@ -69,7 +70,8 @@ final class UsageStore {
                  },
                  invalidateWidgetConfiguration: WidgetQuotaConfiguration.invalidate,
                  mergeCachedSnapshot: SnapshotCache.merge, removeCachedSnapshot: SnapshotCache.remove,
-                 deleteClaudeCredentials: ClaudeCredentialVault.shared.delete)
+                 deleteClaudeCredentials: ClaudeCredentialVault.shared.delete,
+                 publishSummaryProviders: { SnapshotCache.summaryProviders = $0 })
         }
     }
 
@@ -77,6 +79,8 @@ final class UsageStore {
     private(set) var errors: [Provider: String] = [:]
     private(set) var refreshing = false
     private(set) var hiddenProviders: Set<Provider>
+    /// One display order shared by the dashboard, summary widget, watch and live-activity picker.
+    private(set) var providerOrder: [Provider]
     #if DEBUG
     var demo: Bool {
         didSet {
@@ -130,6 +134,7 @@ final class UsageStore {
         organizationPlan = defaults.object(forKey: "githubOrganizationPlan") as? Bool ?? true
         resetAlerts = defaults.bool(forKey: "resetAlerts")
         hiddenProviders = Set((defaults.stringArray(forKey: "hiddenProviders") ?? []).compactMap(Provider.init(rawValue:)))
+        providerOrder = Provider.ordered(from: defaults.stringArray(forKey: "providerOrder") ?? [])
         #if DEBUG
         self.demo = demo ?? ProcessInfo.processInfo.arguments.contains("--demo")
         // UI tests share one simulator: without this, a failed run leaves hidden
@@ -137,6 +142,8 @@ final class UsageStore {
         if ProcessInfo.processInfo.arguments.contains("--reset-preferences") {
             hiddenProviders = []
             defaults.removeObject(forKey: "hiddenProviders")
+            providerOrder = Provider.allCases
+            defaults.removeObject(forKey: "providerOrder")
             quotaDisplay = .remaining
             SnapshotCache.quotaDisplay = .remaining
             self.liveActivity.setEnabled(false)
@@ -153,6 +160,7 @@ final class UsageStore {
         publishWatchState()
         reconcileLiveActivity()
         publishWidgetConfiguration()
+        dependencies.publishSummaryProviders(visibleProviders)
     }
 
     private func publishWidgetConfiguration() {
@@ -230,7 +238,7 @@ final class UsageStore {
     }
     var githubDraft: GitHubDraft { GitHubDraft(username: username, allowanceText: allowanceText, legacy: legacy, organizationPlan: organizationPlan) }
     var allowance: Double? { Self.parseAllowance(allowanceText) }
-    var visibleProviders: [Provider] { Provider.allCases.filter { isProviderVisible($0) } }
+    var visibleProviders: [Provider] { providerOrder.filter { isProviderVisible($0) } }
 
     func isProviderVisible(_ provider: Provider) -> Bool { !hiddenProviders.contains(provider) }
 
@@ -238,7 +246,26 @@ final class UsageStore {
         if visible { hiddenProviders.remove(provider) }
         else { hiddenProviders.insert(provider) }
         defaults.set(Provider.allCases.filter { hiddenProviders.contains($0) }.map(\.rawValue), forKey: "hiddenProviders")
+        layoutChanged()
+    }
+
+    func canMoveProvider(_ provider: Provider, by offset: Int) -> Bool {
+        guard let index = providerOrder.firstIndex(of: provider) else { return false }
+        return providerOrder.indices.contains(index + offset)
+    }
+
+    /// Moves a panel one step up (-1) or down (+1); a move past either end is ignored.
+    func moveProvider(_ provider: Provider, by offset: Int) {
+        guard canMoveProvider(provider, by: offset), let index = providerOrder.firstIndex(of: provider) else { return }
+        providerOrder.swapAt(index, index + offset)
+        defaults.set(providerOrder.map(\.rawValue), forKey: "providerOrder")
+        layoutChanged()
+    }
+
+    private func layoutChanged() {
         publishWatchState()
+        dependencies.publishSummaryProviders(visibleProviders)
+        dependencies.reloadWidgets()
     }
 
     private static func parseAllowance(_ text: String) -> Double? {

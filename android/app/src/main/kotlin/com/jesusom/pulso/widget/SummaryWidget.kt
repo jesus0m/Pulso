@@ -47,7 +47,7 @@ class SummaryWidget : GlanceAppWidget() {
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val services = (context.applicationContext as PulsoApplication).services
-        val state = SummaryWidgetState(services.cache.load(), services.cache.quotaDisplay)
+        val state = SummaryWidgetState(services.cache.load(), services.cache.quotaDisplay, services.cache.summaryProviders)
         provideContent { Content(state, Instant.now()) }
     }
 
@@ -64,11 +64,22 @@ class SummaryWidget : GlanceAppWidget() {
                 }
                 Spacer(GlanceModifier.height(6.dp))
                 when {
+                    state.readings.isEmpty() -> EmptyPanels()
                     size.height < 150.dp -> if (size.width >= 200.dp) Columns(state, now) else CompactRows(state, now)
                     size.height < 280.dp -> Columns(state, now)
                     else -> DetailedRows(state, now)
                 }
             }
+        }
+    }
+
+    /** Every panel is hidden in the app; the accounts and readings are untouched. */
+    @Composable
+    private fun EmptyPanels() {
+        val context = LocalContext.current
+        Column(modifier = GlanceModifier.fillMaxSize()) {
+            Text(context.getString(R.string.s_sin_paneles_visibles), style = style(12f, Color.White, bold = true))
+            Text(context.getString(R.string.s_tus_cuentas_siguen_conectadas_elige_que_pane), style = style(10f, Secondary))
         }
     }
 

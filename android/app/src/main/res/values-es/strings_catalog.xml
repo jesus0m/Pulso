@@ -165,7 +165,6 @@
     <string name="s_tus_cuentas_solo_en_tu_iphone" formatted="false">Tus cuentas. Solo en tu iPhone.</string>
     <string name="s_las_credenciales_permanecen_en_el_dispositiv" formatted="false">Las credenciales permanecen en el dispositivo. PULSO no necesita un servidor ni un Mac.</string>
     <string name="s_paneles_visibles" formatted="false">Paneles visibles</string>
-    <string name="s_la_seleccion_se_recuerda_en_este_iphone_ocul" formatted="false">La selección se recuerda en este iPhone. Ocultar un panel conserva su cuenta y su última lectura; sus widgets siguen disponibles.</string>
     <string name="s_conexion" formatted="false">Conexión</string>
     <string name="s_sesion_guardada" formatted="false">Sesión guardada</string>
     <string name="s_sin_conectar" formatted="false">Sin conectar</string>
@@ -307,4 +306,7 @@
     <string name="s_invitame_a_un_cafe" formatted="false">Invítame a un café</string>
     <string name="s_uso_personal_no_comercial_los_derechos_de_ve" formatted="false">Uso personal no comercial. Los derechos de venta y explotación comercial están reservados al autor.</string>
     <string name="s_s_7" formatted="true">%1$s · %2$s</string>
+    <string name="s_el_orden_y_la_seleccion_se_recuerdan_en_este" formatted="false">El orden y la selección se recuerdan en este iPhone. Ocultar un panel conserva su cuenta y su última lectura. El widget resumen y el Apple Watch siguen esa selección; los widgets individuales siguen disponibles.</string>
+    <string name="s_subir" formatted="true">Subir %1$s</string>
+    <string name="s_bajar" formatted="true">Bajar %1$s</string>
 </resources>

@@ -24,8 +24,10 @@ class SummaryProviderReading(val provider: Provider, val windows: List<UsageWind
     }
 }
 
-class SummaryWidgetState(snapshots: List<UsageSnapshot>, val display: QuotaDisplay) {
-    val readings: List<SummaryProviderReading> = Provider.entries.map { provider ->
+class SummaryWidgetState(
+    snapshots: List<UsageSnapshot>, val display: QuotaDisplay, providers: List<Provider> = Provider.entries,
+) {
+    val readings: List<SummaryProviderReading> = providers.map { provider ->
         val snapshot = snapshots.filter { it.provider == provider }.maxByOrNull { it.updatedAt }
         SummaryProviderReading(provider, snapshot?.windows.orEmpty(), snapshot?.updatedAt)
     }

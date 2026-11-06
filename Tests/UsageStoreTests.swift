@@ -223,6 +223,43 @@ final class UsageStoreTests: XCTestCase {
         XCTAssertEqual(fixture.deleteTokenCalls, 0)
     }
 
+    func testPanelOrderPersistsNormalizesAndDrivesEveryConsumer() {
+        let fixture = StoreFixture()
+        fixture.defaults.set(["claude", "bogus", "claude", "codex"], forKey: "providerOrder")
+        let store = fixture.makeStore()
+        XCTAssertEqual(store.providerOrder, [.claude, .codex, .copilot], "Unknown and repeated entries drop; new providers append")
+        XCTAssertEqual(store.visibleProviders, [.claude, .codex, .copilot])
+        XCTAssertEqual(fixture.summaryPublications.last, [.claude, .codex, .copilot])
+
+        store.moveProvider(.copilot, by: -1)
+        XCTAssertEqual(store.providerOrder, [.claude, .copilot, .codex])
+        XCTAssertEqual(fixture.makeStore().providerOrder, [.claude, .copilot, .codex])
+        XCTAssertEqual(fixture.watchStates.last?.visibleProviders, [.claude, .copilot, .codex])
+        XCTAssertEqual(fixture.summaryPublications.last, [.claude, .copilot, .codex])
+
+        store.moveProvider(.claude, by: -1)
+        store.moveProvider(.codex, by: 1)
+        XCTAssertEqual(store.providerOrder, [.claude, .copilot, .codex], "Moves past either end are ignored")
+        XCTAssertFalse(store.canMoveProvider(.claude, by: -1))
+        XCTAssertTrue(store.canMoveProvider(.codex, by: -1))
+    }
+
+    func testHiddenPanelsLeaveTheSummaryButKeepOrderAndAccounts() {
+        let fixture = StoreFixture()
+        fixture.defaults.set(true, forKey: "codexEnabled")
+        let store = fixture.makeStore()
+        store.moveProvider(.claude, by: -1)
+        store.moveProvider(.claude, by: -1)
+        store.setProviderVisible(.copilot, false)
+        XCTAssertEqual(fixture.summaryPublications.last, [.claude, .codex])
+        XCTAssertEqual(store.providerOrder, [.claude, .codex, .copilot], "Hiding never reorders")
+        XCTAssertTrue(store.codexConfigured)
+        store.setProviderVisible(.copilot, true)
+        XCTAssertEqual(fixture.summaryPublications.last, [.claude, .codex, .copilot])
+        for provider in Provider.allCases { store.setProviderVisible(provider, false) }
+        XCTAssertEqual(fixture.summaryPublications.last, [])
+    }
+
     func testHiddenProviderContinuesRefreshing() async {
         let fixture = StoreFixture()
         let store = fixture.makeStore()
@@ -503,6 +540,7 @@ private final class StoreFixture {
     var watchStates: [WatchQuotaState] = []
     var widgetConfigurations: [WidgetQuotaConfiguration] = []
     var widgetEvents: [String] = []
+    var summaryPublications: [[Provider]] = []
 
     init() {
         defaults = UserDefaults(suiteName: suite)!
@@ -540,7 +578,8 @@ private final class StoreFixture {
             tokenAvailability: { [self] in availability ?? token.map(TokenVault.Availability.available) ?? .missing },
             publishWidgetConfiguration: { [self] in widgetConfigurations.append($0); widgetEvents.append("publish") },
             invalidateWidgetConfiguration: { [self] _ in widgetEvents.append("invalidate") },
-            deleteClaudeCredentials: { [self] in deleteClaudeCredentialsCalls += 1; widgetEvents.append("delete-claude") }
+            deleteClaudeCredentials: { [self] in deleteClaudeCredentialsCalls += 1; widgetEvents.append("delete-claude") },
+            publishSummaryProviders: { [self] in summaryPublications.append($0) }
         )
         return UsageStore(dependencies: dependencies, defaults: defaults, demo: demo, liveActivity: liveActivity)
     }

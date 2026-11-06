@@ -13,6 +13,15 @@ enum class Provider(val raw: String, val title: String) {
 
     companion object {
         fun from(raw: String?): Provider? = entries.firstOrNull { it.raw == raw }
+
+        /**
+         * Saved raw values in saved order; unknown or repeated values are dropped and providers
+         * added later are appended in their canonical position.
+         */
+        fun ordered(raw: List<String>): List<Provider> {
+            val result = raw.mapNotNull(::from).distinct()
+            return result + entries.filter { it !in result }
+        }
     }
 }
 

@@ -21,14 +21,29 @@ struct ConnectionsView: View {
                         .font(.subheadline).foregroundStyle(.secondary)
                 }
                 Section("Paneles visibles") {
-                    ForEach(Provider.allCases) { provider in
-                        Toggle(provider.title, isOn: Binding(
-                            get: { store.isProviderVisible(provider) },
-                            set: { store.setProviderVisible(provider, $0) }
-                        ))
-                        .accessibilityIdentifier("visible_\(provider.rawValue)")
+                    ForEach(store.providerOrder) { provider in
+                        HStack(spacing: 4) {
+                            Toggle(provider.title, isOn: Binding(
+                                get: { store.isProviderVisible(provider) },
+                                set: { store.setProviderVisible(provider, $0) }
+                            ))
+                            .accessibilityIdentifier("visible_\(provider.rawValue)")
+                            Button { store.moveProvider(provider, by: -1) } label: {
+                                Image(systemName: "chevron.up").frame(width: 32, height: 32)
+                            }
+                            .disabled(!store.canMoveProvider(provider, by: -1))
+                            .accessibilityLabel("Subir \(provider.title)")
+                            .accessibilityIdentifier("moveUp_\(provider.rawValue)")
+                            Button { store.moveProvider(provider, by: 1) } label: {
+                                Image(systemName: "chevron.down").frame(width: 32, height: 32)
+                            }
+                            .disabled(!store.canMoveProvider(provider, by: 1))
+                            .accessibilityLabel("Bajar \(provider.title)")
+                            .accessibilityIdentifier("moveDown_\(provider.rawValue)")
+                        }
+                        .buttonStyle(.borderless)
                     }
-                    Text("La selección se recuerda en este iPhone. Ocultar un panel conserva su cuenta y su última lectura; sus widgets siguen disponibles.")
+                    Text("El orden y la selección se recuerdan en este iPhone. Ocultar un panel conserva su cuenta y su última lectura. El widget resumen y el Apple Watch siguen esa selección; los widgets individuales siguen disponibles.")
                         .font(.caption).foregroundStyle(.secondary)
                 }
                 Section {
@@ -143,7 +158,7 @@ struct ConnectionsView: View {
                             get: { store.liveActivity.provider },
                             set: { store.selectLiveActivityProvider($0) }
                         )) {
-                            ForEach(Provider.allCases) { provider in
+                            ForEach(store.providerOrder) { provider in
                                 Text(provider.title).tag(provider)
                             }
                         }
