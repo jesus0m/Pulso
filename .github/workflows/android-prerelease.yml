@@ -35,11 +35,22 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Stop if this version is already released
+        id: released
+        run: |
+          version="$(sed -n 's/.*versionName = "\(.*\)".*/\1/p' android/app/build.gradle.kts)"
+          if gh release view "v$version" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "v$version is already a stable release; no prerelease needed."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Test and build the Release APK
+        if: steps.released.outputs.skip != 'true'
         working-directory: android
         run: ./gradlew --no-daemon :app:testDebugUnitTest :app:assembleRelease
 
       - name: Sign
+        if: steps.released.outputs.skip != 'true'
         id: sign
         working-directory: android
         run: |
@@ -50,6 +61,7 @@ jobs:
           echo "tag=android-v${version}-pre.${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
 
       - name: Publish prerelease
+        if: steps.released.outputs.skip != 'true'
         env:
           APK: ${{ steps.sign.outputs.apk }}
           TAG: ${{ steps.sign.outputs.tag }}
