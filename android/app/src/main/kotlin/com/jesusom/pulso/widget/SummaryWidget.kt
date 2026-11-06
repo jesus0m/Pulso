@@ -19,6 +19,7 @@ import androidx.glance.layout.Box
 import androidx.glance.layout.Column
 import androidx.glance.layout.Row
 import androidx.glance.layout.Spacer
+import androidx.glance.layout.fillMaxHeight
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.height
@@ -142,7 +143,7 @@ class SummaryWidget : GlanceAppWidget() {
             for (reading in state.readings) {
                 val accent = ProviderStyle.widgetAccent(reading.provider)
                 val window = reading.windows.firstOrNull()
-                Column(modifier = GlanceModifier.defaultWeight().fillMaxSize().padding(end = 6.dp)) {
+                Column(modifier = GlanceModifier.defaultWeight().fillMaxHeight().padding(end = 6.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         ProviderLogoImage(reading.provider, accent)
                         Spacer(GlanceModifier.width(4.dp))

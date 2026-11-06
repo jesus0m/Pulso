@@ -1,0 +1,58 @@
+name: Android prerelease
+
+# Builds the Release APK, signs it and publishes it as a GitHub prerelease.
+# It never runs for pull requests, so no pull request can publish a binary.
+on:
+  push:
+    branches: [main]
+    paths: ['android/**', 'App/Localizable.xcstrings', '.github/workflows/android-prerelease.yml']
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  prerelease:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write # create the tag and the prerelease; nothing else is granted
+    env:
+      ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+      ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Test and build the Release APK
+        working-directory: android
+        run: ./gradlew --no-daemon :app:testDebugUnitTest :app:assembleRelease
+
+      - name: Sign
+        id: sign
+        working-directory: android
+        run: |
+          version="$(sed -n 's/.*versionName = "\(.*\)".*/\1/p' app/build.gradle.kts)"
+          name="Pulso-android-${version}-pre.${GITHUB_RUN_NUMBER}.apk"
+          ./scripts/sign_prerelease.sh app/build/outputs/apk/release/app-release-unsigned.apk "$RUNNER_TEMP/$name"
+          echo "apk=$RUNNER_TEMP/$name" >> "$GITHUB_OUTPUT"
+          echo "tag=android-v${version}-pre.${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
+
+      - name: Publish prerelease
+        env:
+          APK: ${{ steps.sign.outputs.apk }}
+          TAG: ${{ steps.sign.outputs.tag }}
+        run: |
+          signing="a throwaway key (it cannot update an install signed by another key)"
+          if [ -n "$ANDROID_KEYSTORE_BASE64" ]; then signing="the repository release key"; fi
+          gh release create "$TAG" "$APK" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --prerelease --title "Pulso Android $TAG" \
+            --notes "Automatic Android prerelease built from $GITHUB_SHA and signed with $signing. Not a Play Store build; Wear OS is not included. Personal, noncommercial use under the repository LICENSE."

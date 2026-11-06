@@ -92,7 +92,7 @@ open class ProviderWidget(private val provider: Provider) : GlanceAppWidget() {
             } else Column(modifier = GlanceModifier.fillMaxSize()) {
                 Box(GlanceModifier.fillMaxWidth().height(150.dp)) { Primary(snapshot, window, amount, detail, accent, stale, renewalPending, now) }
                 Spacer(GlanceModifier.height(10.dp))
-                Details(snapshot, window, display, accent, now, limit = 5)
+                Details(snapshot, window, display, accent, now, limit = ((size.height.value - 190) / 56).toInt().coerceIn(1, 5))
             }
         }
     }
