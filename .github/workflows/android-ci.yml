@@ -1,0 +1,37 @@
+name: Android CI
+
+on:
+  push:
+    branches: [main]
+    paths: ['android/**', 'App/Localizable.xcstrings', '.github/workflows/android-ci.yml']
+  pull_request:
+    branches: [main]
+    paths: ['android/**', 'App/Localizable.xcstrings', '.github/workflows/android-ci.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    # The GitHub-hosted Ubuntu image ships JDK 17 and the Android SDK; no third-party actions are needed.
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Android strings are in sync with the iOS catalog
+        run: |
+          python3 android/scripts/generate_strings.py
+          git diff --exit-code -- android/app/src/main/res
+
+      - name: Unit tests, lint and Release build
+        working-directory: android
+        run: ./gradlew --no-daemon :app:testDebugUnitTest :app:lintDebug :app:assembleRelease

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="a_app_name">Pulso</string>
+    <string name="a_widget_summary_label">Resumen de Pulso</string>
+    <string name="a_widget_desc">Consulta la cuota cuando Android permite actualizar el widget. Conserva la última lectura sin conexión.</string>
+    <string name="a_widget_summary_desc">Codex, Copilot y Claude se consultan cuando Android permite actualizar el widget. Conserva la última lectura sin conexión y el botón de actualizar solicita una nueva sin abrir Pulso.</string>
+    <string name="a_channel_reset">Renovaciones de cuota</string>
+    <string name="a_channel_live">Actividad en directo</string>
+    <string name="a_keystore_unavailable">El almacén seguro no está disponible. Desbloquea el teléfono para actualizar GitHub Copilot.</string>
+    <string name="a_live_not_authorized">Android bloquea las notificaciones de PULSO. Revisa Ajustes → Notificaciones → PULSO.</string>
+    <string name="a_live_failed">Android no pudo iniciar la actividad en directo. Vuelve a intentarlo con PULSO abierta.</string>
+    <string name="a_live_disabled_by_system">Las notificaciones de PULSO están desactivadas.</string>
+    <string name="a_title_accounts">Tus cuentas. Solo en tu teléfono.</string>
+    <string name="a_visible_note">La selección se recuerda en este teléfono. Ocultar un panel conserva su cuenta y su última lectura; sus widgets siguen disponibles.</string>
+    <string name="a_codex_footer">Inicia sesión con ChatGPT en el navegador del sistema. La sesión se guarda cifrada con Android Keystore y se renueva cuando ChatGPT lo permite.</string>
+    <string name="a_secure_saved">Credencial guardada cifrada en este teléfono</string>
+    <string name="a_github_footer">Empresa: el límite mensual se obtiene de GitHub. Si no está disponible, se utiliza el límite de respaldo. Personal: token con permiso Plan → lectura y cuota incluida manual. El token se guarda cifrado; déjalo vacío para conservarlo.</string>
+    <string name="a_live_section">Actividad en directo · Notificación fija</string>
+    <string name="a_live_provider">Proveedor en la notificación</string>
+    <string name="a_live_footer">Opcional: muestra un proveedor como notificación fija, visible en la pantalla bloqueada, con su porcentaje y su renovación. Cambia solo cuando PULSO recibe una lectura; no consulta cuotas cada minuto en segundo plano. Dura como máximo 8 horas y Android o tú podéis descartarla antes. Después debes iniciarla de nuevo. El proveedor y sus cifras quedan visibles sin desbloquear; no se muestran cuentas ni credenciales.</string>
+    <string name="a_notifications_denied">Las notificaciones de PULSO están desactivadas. Actívalas en Ajustes para recibir el aviso.</string>
+    <string name="a_open_settings">Abrir ajustes de notificaciones</string>
+    <string name="a_desk_footer">Mantiene la pantalla encendida mientras PULSO esté abierta. Para un panel de escritorio: conecta el teléfono a un cargador, ponlo en horizontal y añade los widgets de PULSO. Android controla la frecuencia de actualización de los widgets.</string>
+    <string name="a_battery_saver">Ahorro de batería</string>
+    <string name="a_battery_optimization">Optimización de batería</string>
+    <string name="a_bg_never">Android todavía no ha despertado a PULSO</string>
+    <string name="a_bg_footer">Android decide cuándo ejecuta la solicitud, nunca con una frecuencia mayor que cada 15 minutos; Doze y el ahorro de batería pueden retrasarla más. Los widgets pueden consultar Codex, Copilot y Claude con el teléfono bloqueado, usando el almacén cifrado compartido con PULSO, y conservan la última lectura si falla la consulta. Claude utiliza su sesión web experimental: si caduca o pide una comprobación, abre su sesión en PULSO. Ningún intervalo está garantizado.</string>
+    <string name="a_claude_email_footer">Google no admite este navegador integrado. Usa el acceso por correo. Este paso no es OAuth nativo: conserva la sesión web actual. Al consultar la cuota, su sesión se guarda cifrada para actualizar los widgets. Desconectar Claude elimina esa copia. Los códigos, CAPTCHA y cualquier autorización los confirmas tú en claude.ai.</string>
+</resources>

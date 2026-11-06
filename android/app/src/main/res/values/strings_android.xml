@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copy that only exists on Android (the shared copy lives in strings_catalog.xml, generated from the iOS catalog). -->
+<resources>
+    <string name="a_app_name">Pulso</string>
+    <string name="a_widget_summary_label">Pulso summary</string>
+    <string name="a_widget_desc">Checks the quota whenever Android allows the widget to update. Keeps the last reading offline.</string>
+    <string name="a_widget_summary_desc">Codex, Copilot and Claude are checked whenever Android allows the widget to update. The last reading is kept offline and the refresh button requests a new one without opening Pulso.</string>
+    <string name="a_channel_reset">Quota renewals</string>
+    <string name="a_channel_live">Live activity</string>
+    <string name="a_keystore_unavailable">Secure storage is unavailable. Unlock the phone to refresh GitHub Copilot.</string>
+    <string name="a_live_not_authorized">Android is blocking notifications for PULSO. Check Settings → Notifications → PULSO.</string>
+    <string name="a_live_failed">Android could not start the live activity. Try again with PULSO open.</string>
+    <string name="a_live_disabled_by_system">Notifications are turned off for PULSO.</string>
+    <string name="a_title_accounts">Your accounts. Only on your phone.</string>
+    <string name="a_visible_note">The selection is remembered on this phone. Hiding a panel keeps its account and last reading; its widgets stay available.</string>
+    <string name="a_codex_footer">Sign in with ChatGPT in your system browser. The session is stored encrypted with the Android Keystore and renewed when ChatGPT allows it.</string>
+    <string name="a_secure_saved">Credential stored encrypted on this phone</string>
+    <string name="a_github_footer">Enterprise: the monthly limit comes from GitHub. If unavailable, the fallback limit is used. Personal: a token with Plan → read permission and a manual included quota. The token is stored encrypted; leave it empty to keep it.</string>
+    <string name="a_live_section">Live activity · Ongoing notification</string>
+    <string name="a_live_provider">Provider in the notification</string>
+    <string name="a_live_footer">Optional: shows one provider as an ongoing notification, visible on the lock screen, with its percentage and renewal. It changes only when PULSO receives a reading; it does not query quotas every minute in the background. It lasts at most 8 hours and Android or you may dismiss it earlier. Then you must start it again. The provider and its figures are visible without unlocking; no accounts or credentials are shown.</string>
+    <string name="a_notifications_denied">Notifications are turned off for PULSO. Turn them on in Settings to receive the alert.</string>
+    <string name="a_open_settings">Open notification settings</string>
+    <string name="a_desk_footer">Keeps the screen on while PULSO is open. For a desk display: connect the phone to a charger, rotate it to landscape and add the PULSO widgets. Android controls how often widgets update.</string>
+    <string name="a_battery_saver">Battery saver</string>
+    <string name="a_battery_optimization">Battery optimization</string>
+    <string name="a_bg_never">Android has not woken PULSO yet</string>
+    <string name="a_bg_footer">Android decides when it runs the request, and never more often than every 15 minutes; Doze and battery saver can delay it further. Widgets can query Codex, Copilot and Claude with the phone locked, using the encrypted storage shared with PULSO, and keep the last reading if a query fails. Claude uses its experimental web session: if it expires or asks for a check, open its session in PULSO. No interval is guaranteed.</string>
+    <string name="a_claude_email_footer">Google does not support this embedded browser. Use email access. This step is not native OAuth: it keeps the current web session. When the quota is queried, its session is stored encrypted so widgets can refresh. Disconnecting Claude removes that copy. You confirm codes, CAPTCHAs and any authorization on claude.ai.</string>
+</resources>
