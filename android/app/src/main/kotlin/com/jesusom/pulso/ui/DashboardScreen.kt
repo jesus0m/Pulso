@@ -21,13 +21,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Block
-import androidx.compose.material.icons.filled.Download
+import androidx.compose.material.icons.filled.Fullscreen
+import androidx.compose.material.icons.filled.FullscreenExit
 import androidx.compose.material.icons.filled.ErrorOutline
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.MonitorHeart
-import androidx.compose.material.icons.filled.Monitor
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -192,7 +192,7 @@ private fun Header(store: UsageStore, onOpenConnections: () -> Unit, onRefresh: 
             modifier = Modifier.size(48.dp).testTag("deskModeButton").semantics { contentDescription = deskLabel },
         ) {
             Icon(
-                if (store.deskMode) Icons.Default.Monitor else Icons.Default.Download, null,
+                if (store.deskMode) Icons.Default.FullscreenExit else Icons.Default.Fullscreen, null,
                 tint = if (store.deskMode) Color(0xFF7FFFD4) else SecondaryText,
             )
         }
